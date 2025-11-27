@@ -2,5 +2,9 @@
 {
     public class AuthenticationEndpoints
     {
+        public void MapAuthEndpoints()
+        {
+
+        }
     }
 }
