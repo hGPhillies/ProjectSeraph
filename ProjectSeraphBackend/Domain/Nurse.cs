@@ -1,11 +1,12 @@
 ﻿namespace ProjectSeraphBackend.Domain
 {
-    public class Nurse
+    public class Nurse : User
     {
-        private String fullName;
-        private String nurseID;
+        private string fullName;
+        private string nurseID;
 
-        public Nurse(String fullName, String nurseID)
+        public Nurse(string fullName, string nurseID, string userName, string password)
+            : base(userName, password)
         {
             this.fullName = fullName;
             this.nurseID = nurseID;
