@@ -1,17 +1,20 @@
 ﻿namespace ProjectSeraphBackend.Domain
 {
     /// <summary>
-    /// 
+    /// This class represents a blood sugar measurement in millimoles per liter.
     /// </summary>
-    public class Bloodsugar
-    {
-        private double millimolePerLiter;
-        private Bloodsugar(double bloodsugarLevel)
+    public class Bloodsugar : Measurement
+    {  
+        public double millimolePerLiter { get; set; }
+
+       
+        public override bool CompareMeasurements() //Is this needed?
         {
-            this.millimolePerLiter = bloodsugarLevel;
+            throw new NotSupportedException("Use CheckMeasurement to compare");
         }
 
-        List<Bloodsugar> normalValues = new List<Bloodsugar>();
-
+        //I stedet for List giver det mening at bruge NormalLow og NormalHigh
+        
+        //List<Bloodsugar> normalValues = new List<Bloodsugar>();
     }
 }
