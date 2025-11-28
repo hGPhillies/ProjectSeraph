@@ -23,6 +23,10 @@ namespace ProjectSeraphBackend
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI(Options =>
+                {
+                    Options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                });
             }
 
             app.UseHttpsRedirection();
