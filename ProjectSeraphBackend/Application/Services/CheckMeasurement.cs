@@ -13,6 +13,7 @@ namespace ProjectSeraphBackend.Application.Services
         // These ranges are general reference values (not personalized for a specific citizen).
 
         // Normal ranges (Green zone) — measurement is considered healthy within these limits.
+        //When outside these ranges, the measurement is considered abnormal (Yellow zone).
         private const double NormalSysLow = 90;
         private const double NormalSysHigh = 140;
         private const double NormalDiaLow = 60;
