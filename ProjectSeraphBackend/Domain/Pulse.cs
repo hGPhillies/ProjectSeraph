@@ -6,8 +6,7 @@
     public class Pulse : Measurement
     {
         public double BeatsPerMinute { get; set; }
-
-        
+      
         public override bool CompareMeasurements() //Is this needed?
         {
            throw new NotSupportedException("Use CheckMeasurement to compare");

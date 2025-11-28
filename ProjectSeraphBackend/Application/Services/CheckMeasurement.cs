@@ -37,14 +37,21 @@ namespace ProjectSeraphBackend.Application.Services
         private const double BloodsugarRedHigh = 13.0;
         #endregion
 
-        //This method compares a measurement to normal values
-        // Returns true if normal(green), false if abnormal (yellow or red)
+        /// <summary>
+        /// This method compares a measurement to normal values
+        /// </summary>
+        /// <param name="measurement"></param>
+        /// <returns> True if normal(green), false if abnormal (yellow or red) </returns>
         public bool CompareToNormal(Measurement measurement)
         {
             return CheckCriticality(measurement) == AlarmType.Green;
         }
 
-        //Classify criticality of measurement (green, yellow, red)
+        /// <summary>
+        /// Classifies the criticality of a given measurement.
+        /// </summary>
+        /// <param name="measurement"></param>
+        /// <returns>An AlarmType indication whether the measurement is Green, Yellow or Red</returns>
         public AlarmType CheckCriticality(Measurement measurement)
         {
             return measurement switch
