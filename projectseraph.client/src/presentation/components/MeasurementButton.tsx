@@ -1,14 +1,16 @@
 ﻿interface MeasurementButtonProps {
     text: string;
-    route: string;
+    link: string;
 }
 
-function MeasurementButton({ text, route }) {
+function MeasurementButton({ text, link }) {
     return (
         <div>
-            <button>
-                { text }
-            </button>
+            <Link to={link }>
+                <button>
+                    {text}
+                </button>
+            </Link>
         </div>
     )
 }

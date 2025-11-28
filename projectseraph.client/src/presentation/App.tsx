@@ -7,7 +7,7 @@ function App() {
     return (
         <div>
             <Header />
-            <MeasurementButton text="Mål Blodsukker" route="#TODO" />
+            <MeasurementButton text="Mål Blodsukker" link="#TODO" />
         </div>
     )
 }
