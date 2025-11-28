@@ -12,9 +12,9 @@ namespace ProjectSeraph_AdminClient.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void propertyIsChanged([CallerMemberName] string memberName = "")
+        protected void propertyIsChanged([CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
