@@ -7,9 +7,9 @@ import {
 } from 'react-router-dom';
 
 createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-        <Router>
+    <Router>
+        <StrictMode>
             <App />
-        </Router>
-    </StrictMode>,
+        </StrictMode>
+    </Router>,
 )

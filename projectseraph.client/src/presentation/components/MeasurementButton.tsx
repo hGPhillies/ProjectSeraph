@@ -1,4 +1,7 @@
-﻿interface MeasurementButtonProps {
+﻿import { Link } from 'react-router-dom';
+
+//saettes saadan her, ikke i parametrene
+interface MeasurementButtonProps {
     text: string;
     link: string;
 }
