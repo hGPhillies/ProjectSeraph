@@ -1,18 +1,30 @@
-﻿namespace ProjectSeraphBackend.Domain
+﻿
+
+namespace ProjectSeraphBackend.Domain
 {
     /// <summary>
-    ///     
+    ///This class represents a blood pressure measurement with systolic and diastolic values.
     /// </summary>
-    public class Bloodpressure
+    public class Bloodpressure : Measurement
     {
-        private int systolic;
-        private int diastolic;
-        public Bloodpressure(int systolic, int diastolic)
+        public double Systolic { get; set; }
+        public double Diastolic { get; set; }
+       
+        public override bool CompareMeasurements() //Is this needed?
         {
-            this.systolic = systolic;
-            this.diastolic = diastolic;
+            throw new NotSupportedException("Use CheckMeasurement to compare");
         }
 
-        List<Bloodpressure> normalValues = new List<Bloodpressure>();
+
+        //public Bloodpressure(double systolic, double diastolic)
+        //{
+        //    this.systolic = systolic;
+        //    this.diastolic = diastolic;
+        //}
+
+        //List<Bloodpressure> normalValues = new List<Bloodpressure>();
+
     }
+
+
 }
