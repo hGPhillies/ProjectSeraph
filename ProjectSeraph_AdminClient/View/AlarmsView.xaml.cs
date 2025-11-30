@@ -1,6 +1,8 @@
-﻿using ProjectSeraph_AdminClient.Model;
-using ProjectSeraph_AdminClient.Viewmodel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProjectSeraph_AdminClient
+namespace ProjectSeraph_AdminClient.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AlarmsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AlarmsView : UserControl
     {
-        public MainWindow()
+        public AlarmsView()
         {
             InitializeComponent();
-
-            var navigationService = new MyNavigationService();
-            DataContext = new MainViewModel(navigationService);
         }
     }
 }
