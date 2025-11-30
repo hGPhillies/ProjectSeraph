@@ -1,10 +1,16 @@
-﻿import MeasurementButton from './MeasurementButton.tsx';
+﻿import type User from '../../domain/User.ts';
+import MeasurementButton from './MeasurementButton.tsx';
 
-function Home() {
+function Home({ user }: User) {
     return (
         <div>
-            <MeasurementButton text="Mål Blodtryk" link="/measurebloodpressure" />
-            <MeasurementButton text="Mål Blodsukker" link="/measurebloodsugar" />
+            {user.isNurse ?
+                <p>nurse stuff</p>
+                :
+                <div>
+                    <MeasurementButton text="Mål Blodtryk" link="/measurebloodpressure" />
+                    <MeasurementButton text="Mål Blodsukker" link="/measurebloodsugar" />
+                </div>}
         </div>
     );
 }
