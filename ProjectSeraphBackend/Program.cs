@@ -1,4 +1,4 @@
-
+﻿
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
@@ -33,7 +33,7 @@ namespace ProjectSeraphBackend
 
             app.UseAuthorization();
 
-           
+
             var mongoClient = new MongoClient(builder.Configuration["Mongo:ConnectionString"]);
             var mongoDb = mongoClient.GetDatabase(builder.Configuration["Mongo:Database"]);
             builder.Services.AddSingleton<IMongoDatabase>(mongoDb);

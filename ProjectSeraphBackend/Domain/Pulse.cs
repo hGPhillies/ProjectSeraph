@@ -6,6 +6,15 @@
     public class Pulse : Measurement
     {
         public double BeatsPerMinute { get; set; }
+
+        public Pulse()
+        {
+
+        }
+        public Pulse(double BeatsPerMinute)
+        {
+            this.BeatsPerMinute = BeatsPerMinute;
+        }
       
         public override bool CompareMeasurements() //Is this needed?
         {
