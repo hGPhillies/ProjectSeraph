@@ -1,7 +1,7 @@
 ﻿import { Link } from 'react-router-dom';
 //der er endnu ikke opsat form paa denne - button linker bare til home
 //lige nu kan spinneren ikke gaa over 100 eller under 0, men man kan skrive mere ind - det skal paa sigt fikses!
-function BloodSugarForm() {
+function BloodsugarForm() {
     return (
         <div>
             <label>
@@ -24,4 +24,4 @@ function BloodSugarForm() {
     )
 }
 
-export default BloodSugarForm;
+export default BloodsugarForm;
