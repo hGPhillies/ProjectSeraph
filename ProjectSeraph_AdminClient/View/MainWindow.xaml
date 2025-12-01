@@ -24,7 +24,14 @@
         <DataTemplate DataType="{x:Type viewmodel:EditorViewModel}">
             <views:EditorView />
         </DataTemplate>
-    </Window.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="Template"
+            <Style.Trigger>
+                
+            </Style.Trigger>
+        </Style>
+    </Window.Resources>    
 
     <Grid>
         <Grid.RowDefinitions>

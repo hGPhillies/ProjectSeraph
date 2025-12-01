@@ -1,9 +1,11 @@
 ﻿using ProjectSeraph_AdminClient.Model;
+using ProjectSeraph_AdminClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ProjectSeraph_AdminClient.Viewmodel
@@ -28,6 +30,16 @@ namespace ProjectSeraph_AdminClient.Viewmodel
                 CurrentViewModel = viewModel;
             };
 
+            // Simulate an incoming critical alert after 3 seconds (Will be removed)
+            Task.Delay(3000).ContinueWith(_ =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var alertService = new AlertService();
+                    alertService.ShowCriticalAlert("citizen_456", "Anna Jensen");
+                });
+            });
+
             _navigationService.NavigateTo<CitizenViewModel>();
         }
 
@@ -42,7 +54,7 @@ namespace ProjectSeraph_AdminClient.Viewmodel
         }
 
         public ICommand NavigationCommand => new DelegateCommand<string>(NavigateTo);
-            
+        
         private void NavigateTo(string viewType)
         {
             switch(viewType)

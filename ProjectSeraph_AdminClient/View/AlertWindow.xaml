@@ -1,0 +1,56 @@
+﻿<Window x:Class="ProjectSeraph_AdminClient.View.AlertWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="⚠️ Critical Measurement Alert"
+        Height="250" Width="450"
+    WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="⚠️" FontSize="28" VerticalAlignment="Center" Foreground="Red"/>
+            <TextBlock Text="KRITISK MÅLING" FontSize="18" FontWeight="Bold" 
+                       Margin="10,0,0,0" VerticalAlignment="Center" Foreground="Red"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="AntiqueWhite" CornerRadius="8" Padding="15" 
+                BorderBrush="Red" BorderThickness="2" Margin="0,0,0,15">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Borger:" FontWeight="Bold" Width="80"/>
+                    <TextBlock Text="{Binding CitizenName}" FontSize="14"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Tid:" FontWeight="Bold" Width="80"/>
+                    <TextBlock Text="{Binding FormattedTime}"/>
+                </StackPanel>
+
+                <Rectangle Height="1" Fill="LightGray" Margin="0,10,0,10"/>             
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">            
+            <Button Content="SIGNER" 
+                    Background="#FF2196F3" 
+                    Foreground="White" 
+                    Click="Acknowledge_Click"
+                    Width="120"/>
+        </StackPanel>
+    </Grid>
+</Window>
