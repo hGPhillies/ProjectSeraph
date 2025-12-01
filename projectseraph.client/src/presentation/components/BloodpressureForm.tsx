@@ -5,45 +5,44 @@ import BloodpressureService from "../../services/BloodpressureService";
 import type { BloodpressureMeasurement } from "../../domain/BloodpressureMeasurement";
 
 function BloodpressureForm() {
-    const [systolic, setSystolic] = useState<string>(""); 
-    const [diastolic, setDiastolic] = useState<string>(""); 
-    const [pulse, setPulse] = useState<string>(""); 
-    const [loading, setLoading] = useState<boolean>(false); 
-    const [error, setError] = useState<string | null>(null); 
-    const [success, setSuccess] = useState<boolean>(false); 
+    const [systolic, setSystolic] = useState<string>("");
+    const [diastolic, setDiastolic] = useState<string>("");
+    const [pulse, setPulse] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<boolean>(false);
 
+    // På sigt skal laves en feedback/pop-up med "MÅLING SENDT + Værdierne" i stedet for navigate
+    const navigate = useNavigate();
 
-    //REFACTOR - her navigerer vi til forsiden efter måling er sendt
-    //På sigt skal laves en feedback/pop-up med "MÅLING SENDT + Værdierne"
-    const navigate = useNavigate(); 
-
-    //Validation - check if all inputfields has value
-    //Used to disable/enable submit-button
+    // Validation - check if all inputfields have value
+    // Used to disable/enable submit-button
     const isFormValid =
         systolic.trim() !== "" &&
         diastolic.trim() !== "" &&
-        pulse.trim() !== ""; 
+        pulse.trim() !== "";
 
     const handleSubmit = async (
         event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!isFormValid) return; 
+        if (!isFormValid) return;
 
         setLoading(true);
         setError(null);
         setSuccess(false);
 
-        const measurement: BloodpressureMeasurement =
-        {
+        const measurement: BloodpressureMeasurement = {
             systolic: Number(systolic),
             diastolic: Number(diastolic),
             pulse: Number(pulse),
+            timestamp: new Date().toISOString(),
+            citizenId: "citizen-123" // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
         };
 
         try {
             await BloodpressureService.sendMeasurement(measurement);
             setSuccess(true);
-            //Navigate to homepage after success
+            // Navigate to homepage after success
             navigate("/");
         } catch {
             setError("Noget gik galt ved afsendelse af blodtryksmåling.");
@@ -57,13 +56,13 @@ function BloodpressureForm() {
             <h2>Blodtryksmåling</h2>
 
             <form onSubmit={handleSubmit}>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <label htmlFor="systolic">Systolisk:</label>
-                        </td>
-                        <td>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label htmlFor="systolic">Systolisk:</label>
+                            </td>
+                            <td>
                                 <input
                                     name="systolic"
                                     id="systolic"
@@ -73,14 +72,15 @@ function BloodpressureForm() {
                                     value={systolic}
                                     onChange={(e) => setSystolic(e.target.value)}
                                     required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label htmlFor="diastolic">Diastolisk:</label>
-                        </td>
-                        <td>
+                                />
+                                <span style={{ marginLeft: "8px" }}>mmHg</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label htmlFor="diastolic">Diastolisk:</label>
+                            </td>
+                            <td>
                                 <input
                                     name="diastolic"
                                     id="diastolic"
@@ -90,14 +90,15 @@ function BloodpressureForm() {
                                     value={diastolic}
                                     onChange={(e) => setDiastolic(e.target.value)}
                                     required
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label htmlFor="pulse">Puls:</label>
-                        </td>
-                        <td>
+                                />
+                                <span style={{ marginLeft: "8px" }}>mmHg</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label htmlFor="pulse">Puls:</label>
+                            </td>
+                            <td>
                                 <input
                                     name="pulse"
                                     id="pulse"
@@ -107,25 +108,29 @@ function BloodpressureForm() {
                                     value={pulse}
                                     onChange={(e) => setPulse(e.target.value)}
                                     required
-                            />
-                        </td>
-                    </tr>
-                </tbody>
+                                />
+                                <span style={{ marginLeft: "8px" }}>bpm</span>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <br />
-                    <button type="submit" disabled={!isFormValid || loading}>
-                        {loading ? "Sender..." : "Tryk her for at sende din blodtryksmåling til sygeplejersken"}   
-                    </button>
+                {/* Mini-spinner */}
+                <button type="submit" disabled={!isFormValid || loading}>
+                    {loading
+                        ? "Sender..."
+                        : "Tryk her for at sende din blodtryksmåling til sygeplejersken"}
+                </button>
             </form>
 
-            {/*Feedback under form*/}
+            {/* Feedback under form */}
             {error && <div style={{ color: "red" }}>{error}</div>}
             {success && <div style={{ color: "green" }}>Blodtryksmåling sendt!</div>}
 
             <br />
 
-            {/*Go back to homepage*/}
+            {/* Go back to homepage */}
             <Link to="/"><button>Tilbage til forsiden</button></Link>
         </div>
     );
