@@ -28,7 +28,7 @@
                        Margin="10,0,0,0" VerticalAlignment="Center" Foreground="Red"/>
         </StackPanel>
 
-        <Border Grid.Row="1" Background="AntiqueWhite" CornerRadius="8" Padding="15" 
+        <Border Grid.Row="1" Background="FloralWhite" CornerRadius="8" Padding="15" 
                 BorderBrush="Red" BorderThickness="2" Margin="0,0,0,15">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
