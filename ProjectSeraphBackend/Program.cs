@@ -1,7 +1,8 @@
-
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
+
+
 
 namespace ProjectSeraphBackend
 {
@@ -10,6 +11,21 @@ namespace ProjectSeraphBackend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var connectionString = builder.Configuration.GetConnectionString("MongoDb")
+                                    ?? "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("mongodb");
+
+
+            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+            builder.Services.AddSingleton<IMongoDatabase>(database);
+
+            //Add Controllers
+            builder.Services.AddControllers().AddApplicationPart(typeof(FrameworksAndDrivers.Endpoints.CitizenEndpoints).Assembly);
+
+            builder.Services.AddEndpointsApiExplorer();
+
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -33,11 +49,11 @@ namespace ProjectSeraphBackend
 
             app.UseAuthorization();
 
-           
-            var mongoClient = new MongoClient(builder.Configuration["Mongo:ConnectionString"]);
-            var mongoDb = mongoClient.GetDatabase(builder.Configuration["Mongo:Database"]);
-            builder.Services.AddSingleton<IMongoDatabase>(mongoDb);
-            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+            app.MapControllers();
+
+            app.Run();
+
+
         }
     }
 }

@@ -18,16 +18,20 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
         }
 
 
-
+        
         public async Task<Citizen?> GetByIdAsync(string citizenID)
         {
             return await _citizens.Find(c => c.citizenID == citizenID).FirstOrDefaultAsync();
         }
 
+
+
         public async Task<IEnumerable<Citizen>> GetAllAsync()
         {
             return await _citizens.Find(_ => true).ToListAsync();
         }
+
+
 
         public async Task<Citizen> CreateAsync(Citizen citizen)
         {
@@ -40,6 +44,8 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
             return citizen;
         }
 
+
+
         public async Task<Citizen> UpdateAsync(string citizenID, Citizen citizen)
         {
             var filter = Builders<Citizen>.Filter.Eq(c => c.citizenID, citizenID);
@@ -50,6 +56,8 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
 
             return await _citizens.FindOneAndReplaceAsync(filter, citizen, options);
         }
+
+
 
         public async Task<bool> DeleteAsync(string citizenID)
         {
