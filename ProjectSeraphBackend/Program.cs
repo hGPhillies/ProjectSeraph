@@ -1,7 +1,5 @@
-﻿
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
-using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 namespace ProjectSeraphBackend
@@ -12,35 +10,52 @@ namespace ProjectSeraphBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddAuthorization();
+            //Register services without controllers first
+            var connectionString = builder.Configuration.GetConnectionString("MongoDb")
+                                    ?? "mongodb://localhost:27017";
+            var databaseName = "mongodb";
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            // Register MongoClient
+            builder.Services.AddSingleton<IMongoClient>(sp =>
+                new MongoClient(connectionString));
+
+            // Register IMongoDatabase
+            builder.Services.AddScoped<IMongoDatabase>(sp =>
+            {
+                var client = sp.GetRequiredService<IMongoClient>();
+                return client.GetDatabase(databaseName);
+            });
+
+            // Register repository with factory
+            builder.Services.AddScoped<ICitizenRepository>(sp =>
+            {
+                var database = sp.GetRequiredService<IMongoDatabase>();
+                return new CitizenRepository(database);
+            });
+
+            //Add controllers without specifying assembly
+            builder.Services.AddControllers();
+
+            builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddOpenApi();
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-                app.UseSwaggerUI(Options =>
+                app.UseSwaggerUI(options =>
                 {
-                    Options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                    options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
                 });
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
+            app.MapControllers();
 
-            //Maybe we can do the database mapping here?
-            MeasurementDAOMongo.MapMeasurementMembers();
-
-            var mongoClient = new MongoClient(builder.Configuration["Mongo:ConnectionString"]);
-            var mongoDb = mongoClient.GetDatabase(builder.Configuration["Mongo:Database"]);
-            builder.Services.AddSingleton<IMongoDatabase>(mongoDb);
-            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+            app.Run();
         }
     }
 }

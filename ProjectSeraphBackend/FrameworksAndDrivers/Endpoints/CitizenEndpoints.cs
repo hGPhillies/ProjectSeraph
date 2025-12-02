@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
 
@@ -9,7 +11,8 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     [Route("api/[controller]")]
     public class CitizenEndpoints : ControllerBase
     {
-        //Leftover class for future citizen related endpoints
+        // Leftover class for future citizen related endpoints
+        [NonAction]
         public void MapCitizenEndpoints()
         {
         }
@@ -19,10 +22,10 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         public CitizenEndpoints(ICitizenRepository citizenRepository)
         {
             _citizenRepository = citizenRepository;
-
         }
 
         // Endpoint to get all citizens
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Citizen>>> GetAll()
         {
             var citizens = await _citizenRepository.GetAllAsync();
@@ -30,6 +33,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         }
 
         // Endpoint to get a citizen by ID
+        [HttpGet("{citizenID}")]
         public async Task<ActionResult<Citizen>> GetById(string citizenID)
         {
             var citizen = await _citizenRepository.GetByIdAsync(citizenID);
