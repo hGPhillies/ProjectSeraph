@@ -9,6 +9,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
     {
         private readonly IMongoCollection<Measurement> _measurements;
 
+        public MeasurementDAOMongo(IMongoDatabase db)
+        {
+            _measurements = db.GetCollection<Measurement>("measurements");
+        }
+
         public static void MapMeasurementMembers()
         {
             BsonClassMap.RegisterClassMap<Measurement>(cm =>
@@ -33,22 +38,27 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             });
         }
 
-        public void CreateMeasurement(Measurement measurement)
+        public async Task CreateMeasurementAsync(Measurement measurement)
+        {
+            await _measurements.InsertOneAsync(measurement);
+        }
+
+        public async Task<Measurement> ReadMeasurementAsync(int measurementId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteMeasurement(int measurementId)
+        public async Task<IEnumerable<Measurement>> ReadAllMeasurementsAsync(int citizenId)
+        {  
+            throw new NotImplementedException(); 
+        }
+
+        public async Task UpdateMeasurementAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }
 
-        public Measurement ReadMeasurement(int measurementId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateMeasurement(Measurement measurement)
+        public async Task DeleteMeasurementAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }

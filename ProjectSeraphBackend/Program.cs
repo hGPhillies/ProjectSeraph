@@ -1,5 +1,7 @@
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
+using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 namespace ProjectSeraphBackend
@@ -25,6 +27,11 @@ namespace ProjectSeraphBackend
                 var client = sp.GetRequiredService<IMongoClient>();
                 return client.GetDatabase(databaseName);
             });
+
+            //Maybe we can do the database mapping here?
+            MeasurementDAOMongo.MapMeasurementMembers();
+            builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
+            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOInMemory>();
 
             // Register repository with factory
             builder.Services.AddScoped<ICitizenRepository>(sp =>

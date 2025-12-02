@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson.Serialization;
+using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
+using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
 
 namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
 {
@@ -7,37 +9,37 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
     /// 
     /// 
     /// </summary>
-    public class MeasurementRepository
+    public class MeasurementRepository : IMeasurementRepository
     {
+        private IMeasurementDAO _dao;
 
-        //public MeasurementRepository() 
-        //{
-        //    BsonClassMap.RegisterClassMap<Measurement>( cm =>
-        //    {
-        //        cm.MapIdMember(m => m.MeasurementID);
-        //        cm.MapMember(m => m.CitizenID);
-        //        cm.MapMember(m => m.Time);
-        //        cm.SetIsRootClass(true);
-        //    });
-        //    BsonClassMap.RegisterClassMap<Bloodpressure>(cm =>
-        //    {
-        //        cm.MapMember(m => m.Systolic);
-        //        cm.MapMember(m => m.Diastolic);
-        //    });
-        //    BsonClassMap.RegisterClassMap<Bloodsugar>(cm =>
-        //    {
-        //        cm.MapMember(m => m.millimolePerLiter);
-        //    });
-        //    BsonClassMap.RegisterClassMap<Pulse>(cm =>
-        //    {
-        //        cm.MapMember(m => m.BeatsPerMinute);
-        //    });
-        //}
-        public void getMeasurements()
+        public MeasurementRepository(IMeasurementDAO dao)
         {
+            _dao = dao;
         }
-        public void postMeasurement()
+        public async Task AddAsync(Measurement m)
         {
+            await _dao.CreateMeasurementAsync(m);
+        }
+
+        public async Task<Measurement> GetAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Measurement>> GetAllAsync(Citizen citizen)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
         }
     }
 }

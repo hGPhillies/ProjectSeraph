@@ -25,5 +25,6 @@ namespace ProjectSeraphBackend.Domain
 
         //Returns true if measurement is within normal values, false otherwise
         public abstract bool CompareMeasurements();
+
     }
 }

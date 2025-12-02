@@ -7,6 +7,8 @@ namespace ProjectSeraphBackend.Domain
     /// </summary>
     public class Bloodpressure : Measurement
     {
+        private Bloodpressure bp;
+
         public double Systolic { get; set; }
         public double Diastolic { get; set; }
 
@@ -21,7 +23,12 @@ namespace ProjectSeraphBackend.Domain
             this.Systolic = systolic;
             this.Diastolic = diastolic;
         }
-       
+
+        public Bloodpressure(Bloodpressure bp)
+        {
+            this.bp = bp;
+        }
+
         public override bool CompareMeasurements() //Is this needed?
         {
             throw new NotSupportedException("Use CheckMeasurement to compare");
@@ -31,6 +38,11 @@ namespace ProjectSeraphBackend.Domain
 
         //List<Bloodpressure> normalValues = new List<Bloodpressure>();
 
+        //DELETE THIS LATER
+        public override string ToString()
+        {
+            return "" + this.MeasurementID.ToString() + this.CitizenID.ToString() + this.Time.ToString() + this.Diastolic + this.Systolic;
+        }
     }
 
 

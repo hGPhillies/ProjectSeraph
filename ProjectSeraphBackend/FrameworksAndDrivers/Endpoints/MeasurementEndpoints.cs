@@ -1,5 +1,6 @@
 ﻿using ProjectSeraphBackend.Application.DTO;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.Domain;
 using System.Runtime.CompilerServices;
 
 namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
@@ -13,29 +14,30 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapMeasurementEndpoints(this IEndpointRouteBuilder measurements)
         {
-            measurements.MapPost("/measurement/send/bloodpressure", async (BloodpressureDTO bpDTO, IMeasurementRepository measRep) =>
+            measurements.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
-                await measRep.Add(new Measurement(measDTO));
+
+                await measRep.AddAsync(new Bloodpressure(bp));
 
                 return Results.Created();
             })
             .WithName("SendBloodpressure");
 
-            measurements.MapPost("/measurement/send/bloodsugar", async (BloodsugarDTO bsDTO, IMeasurementRepository measRep) =>
-            {
-                await measRep.Add(new Measurement(measDTO));
+            //measurements.MapPost("/measurement/send/bloodsugar", async (BloodsugarDTO bsDTO, IMeasurementRepository measRep) =>
+            //{
+            //    await measRep.Add(new Bloodsugar(bsDTO));
 
-                return Results.Created();
-            })
-            .WithName("SendBloodsugar");
+            //    return Results.Created();
+            //})
+            //.WithName("SendBloodsugar");
 
-            measurements.MapPost("/measurement/send/pulse", async (PulseDTO pDTO, IMeasurementRepository measRep) =>
-            {
-                await measRep.Add(new Measurement(measDTO));
+            //measurements.MapPost("/measurement/send/pulse", async (Pulse p, IMeasurementRepository measRep) =>
+            //{
+            //    await measRep.Add(new Pulse(p));
 
-                return Results.Created();
-            })
-            .WithName("SendPulse");
+            //    return Results.Created();
+            //})
+            //.WithName("SendPulse");
 
             return measurements;
         }
