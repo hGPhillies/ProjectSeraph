@@ -10,7 +10,7 @@ namespace ProjectSeraphBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // SIMPLIFIED: Register services without controllers first
+            //Register services without controllers first
             var connectionString = builder.Configuration.GetConnectionString("MongoDb")
                                     ?? "mongodb://localhost:27017";
             var databaseName = "mongodb";
@@ -33,7 +33,7 @@ namespace ProjectSeraphBackend
                 return new CitizenRepository(database);
             });
 
-            // MINIMAL: Just add controllers without specifying assembly
+            //Add controllers without specifying assembly
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
