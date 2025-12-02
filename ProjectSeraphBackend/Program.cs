@@ -1,6 +1,7 @@
 ﻿
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 namespace ProjectSeraphBackend
@@ -33,6 +34,8 @@ namespace ProjectSeraphBackend
 
             app.UseAuthorization();
 
+            //Maybe we can do the database mapping here?
+            MeasurementDAOMongo.MapMeasurementMembers();
 
             var mongoClient = new MongoClient(builder.Configuration["Mongo:ConnectionString"]);
             var mongoDb = mongoClient.GetDatabase(builder.Configuration["Mongo:Database"]);
