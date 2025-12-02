@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
+using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
 using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
@@ -33,6 +34,7 @@ namespace ProjectSeraphBackend
             builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
             builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOInMemory>();
 
+
             // Register repository with factory
             builder.Services.AddScoped<ICitizenRepository>(sp =>
             {
@@ -61,6 +63,7 @@ namespace ProjectSeraphBackend
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+            app.MapMeasurementEndpoints();
 
             app.Run();
         }

@@ -14,7 +14,6 @@ namespace ProjectSeraphBackend.Application.DTO
         public BloodpressureDTO(Measurement m) : base(m) 
         {
 
-            this.Systolic = m.
         }
     }
 }

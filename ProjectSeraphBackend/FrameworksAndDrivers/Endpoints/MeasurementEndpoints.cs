@@ -10,7 +10,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     /// </summary>
     /// <remarks>This class serves as a central point for accessing measurement-related operations. It can be
     /// used to interact with various measurement endpoints in a system.</remarks>
-    public class MeasurementEndpoints
+    public static class MeasurementEndpoints
     {
         public static IEndpointRouteBuilder MapMeasurementEndpoints(this IEndpointRouteBuilder measurements)
         {
