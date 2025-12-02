@@ -2,8 +2,6 @@ using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
-
-
 namespace ProjectSeraphBackend
 {
     public class Program
@@ -12,48 +10,52 @@ namespace ProjectSeraphBackend
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // SIMPLIFIED: Register services without controllers first
             var connectionString = builder.Configuration.GetConnectionString("MongoDb")
                                     ?? "mongodb://localhost:27017";
-            var mongoClient = new MongoClient(connectionString);
-            var database = mongoClient.GetDatabase("mongodb");
+            var databaseName = "mongodb";
 
+            // Register MongoClient
+            builder.Services.AddSingleton<IMongoClient>(sp =>
+                new MongoClient(connectionString));
 
-            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
-            builder.Services.AddSingleton<IMongoDatabase>(database);
+            // Register IMongoDatabase
+            builder.Services.AddScoped<IMongoDatabase>(sp =>
+            {
+                var client = sp.GetRequiredService<IMongoClient>();
+                return client.GetDatabase(databaseName);
+            });
 
-            //Add Controllers
-            builder.Services.AddControllers().AddApplicationPart(typeof(FrameworksAndDrivers.Endpoints.CitizenEndpoints).Assembly);
+            // Register repository with factory
+            builder.Services.AddScoped<ICitizenRepository>(sp =>
+            {
+                var database = sp.GetRequiredService<IMongoDatabase>();
+                return new CitizenRepository(database);
+            });
+
+            // MINIMAL: Just add controllers without specifying assembly
+            builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
-
-
-            // Add services to the container.
-            builder.Services.AddAuthorization();
-
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
-                app.UseSwaggerUI(Options =>
+                app.UseSwaggerUI(options =>
                 {
-                    Options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                    options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
                 });
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
 
             app.Run();
-
-
         }
     }
 }
