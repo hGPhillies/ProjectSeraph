@@ -1,3 +1,8 @@
+using MongoDB.Driver;
+using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
+
+
 
 namespace ProjectSeraphBackend
 {
@@ -6,6 +11,21 @@ namespace ProjectSeraphBackend
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var connectionString = builder.Configuration.GetConnectionString("MongoDb")
+                                    ?? "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionString);
+            var database = mongoClient.GetDatabase("mongodb");
+
+
+            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+            builder.Services.AddSingleton<IMongoDatabase>(database);
+
+            //Add Controllers
+            builder.Services.AddControllers().AddApplicationPart(typeof(FrameworksAndDrivers.Endpoints.CitizenEndpoints).Assembly);
+
+            builder.Services.AddEndpointsApiExplorer();
+
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -19,32 +39,21 @@ namespace ProjectSeraphBackend
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwaggerUI(Options =>
+                {
+                    Options.SwaggerEndpoint("/openapi/v1.json", app.Environment.ApplicationName);
+                });
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            var summaries = new[]
-            {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
-
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-            {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
-            })
-            .WithName("GetWeatherForecast");
+            app.MapControllers();
 
             app.Run();
+
+
         }
     }
 }
