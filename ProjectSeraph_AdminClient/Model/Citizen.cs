@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectSeraph_AdminClient.Model
 {
-    internal class Citizen
+    public class Citizen
     {
     }
 }

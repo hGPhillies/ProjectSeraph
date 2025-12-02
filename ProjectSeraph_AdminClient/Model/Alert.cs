@@ -10,34 +10,18 @@ namespace ProjectSeraph_AdminClient.Model
 {
     public class Alert : Bindable
     {
-        [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonProperty("citizenId")]
         public string CitizenId { get; set; }
 
-        [JsonProperty("citizenName")]
         public string CitizenName { get; set; }
 
-        [JsonProperty("measurementType")]
-        public string MeasurementType { get; set; }
+        public string MeasurementType { get; set; }        
 
-        [JsonProperty("value")]
-        public double Value { get; set; }
-
-        [JsonProperty("unit")]
-        public string Unit { get; set; }
-
-        [JsonProperty("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [JsonProperty("AlarmType")]
-        public string AlarmType { get; set; }
-
-        [JsonProperty("Signed")]
-        public bool Signed { get; set; }
 
         public string FormattedTime => Timestamp.ToString("HH:mm:ss");        
-        public string displayInfo => $"{CitizenName} - {MeasurementType}: {Value} {Unit}";
+        public string displayInfo => $"{CitizenName} - {MeasurementType}";
     }
 }

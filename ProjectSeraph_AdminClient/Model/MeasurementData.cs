@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectSeraph_AdminClient.Model
 {
+    //Subject to change depending on the values we send
     public class MeasurementData
     {
         [JsonProperty("citizenId")]
