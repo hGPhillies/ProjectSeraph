@@ -42,6 +42,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
         public async Task CreateAsync(Measurement measurement)
         {
             await _measurements.InsertOneAsync(measurement);
+
         }
 
         public async Task<Measurement> ReadAsync(int measurementId)

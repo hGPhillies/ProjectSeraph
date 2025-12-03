@@ -36,7 +36,7 @@ function BloodpressureForm() {
             diastolic: Number(diastolic),
             pulse: Number(pulse),
             timestamp: new Date().toISOString(),
-            citizenId: "citizen-123" // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
+            citizenId: "123" // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
         };
 
         try {
