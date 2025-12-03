@@ -7,7 +7,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
     {
         public async Task CreateMeasurementAsync(Measurement m)
         {
-            Console.WriteLine("" + m.ToString());
+            Console.WriteLine("mID " + m.MeasurementID + "\ncID " + m.CitizenID + "\nDateTime " + m.Time);
         }
 
         public async Task<Measurement> ReadMeasurementAsync(int measurementId)

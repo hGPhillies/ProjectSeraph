@@ -32,7 +32,7 @@ namespace ProjectSeraphBackend
             //Maybe we can do the database mapping here?
             MeasurementDAOMongo.MapMeasurementMembers();
             builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
-            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOInMemory>();
+            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();
 
 
             // Register repository with factory

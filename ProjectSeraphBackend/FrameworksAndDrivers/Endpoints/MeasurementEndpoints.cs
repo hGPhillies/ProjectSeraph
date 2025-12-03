@@ -1,4 +1,5 @@
-﻿using ProjectSeraphBackend.Application.DTO;
+﻿using Microsoft.AspNetCore.Components.Sections;
+using ProjectSeraphBackend.Application.DTO;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
 using System.Runtime.CompilerServices;
@@ -16,8 +17,8 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         {
             measurements.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
-
-                await measRep.AddAsync(new Bloodpressure(bp));
+                Console.WriteLine("mID " + bp.MeasurementID + "\ncID " + bp.CitizenID + "\nDateTime " + bp.Time + "\nSystolic " + bp.Systolic + "\nDiastolic " + bp.Diastolic);
+                await measRep.AddAsync(bp);
 
                 return Results.Created();
             })
