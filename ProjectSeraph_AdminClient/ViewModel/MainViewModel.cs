@@ -79,8 +79,8 @@ namespace ProjectSeraph_AdminClient.Viewmodel
                     _navigationService.NavigateTo<StatisticsViewModel>();
                     break;
 
-                case "Editor":
-                    _navigationService.NavigateTo<EditorViewModel>();
+                case "Manage Nurses":
+                    _navigationService.NavigateTo<ManageNursesViewModel>();
                     break;
 
             }
