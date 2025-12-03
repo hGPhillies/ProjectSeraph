@@ -14,7 +14,7 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
         // Constructor to initialize MongoDB collection
         public CitizenRepository(IMongoDatabase db)
         {
-            _citizens = db.GetCollection<Citizen>("Citizens");
+            _citizens = db.GetCollection<Citizen>("citizens");
         }
 
 
@@ -35,11 +35,7 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
 
         public async Task<Citizen> CreateAsync(Citizen citizen)
         {
-            if (string.IsNullOrEmpty(citizen.citizenID))
-            {
-                citizen.citizenID = Guid.NewGuid().ToString();
-            }
-
+            citizen.citizenID = null;
             await _citizens.InsertOneAsync(citizen);
             return citizen;
         }
