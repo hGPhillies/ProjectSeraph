@@ -11,7 +11,7 @@ namespace ProjectSeraphBackend.Domain
         //and to avoid handling sensitive information
        
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonRepresentation(BsonType.String)] //Changed from (BsonType.ObjectId) Because citizenID is a string
         public String citizenID { get; set; } = string.Empty;
         public Home home { get; set; } = new Home();
         public int age { get; set; }
