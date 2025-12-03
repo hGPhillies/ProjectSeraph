@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 namespace ProjectSeraphBackend
@@ -26,19 +27,12 @@ namespace ProjectSeraphBackend
                 return client.GetDatabase(databaseName);
             });
 
-            // Register repository with factory
-            builder.Services.AddScoped<ICitizenRepository>(sp =>
-            {
-                var database = sp.GetRequiredService<IMongoDatabase>();
-                return new CitizenRepository(database);
-            });
+            //Repositories
+            builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+            builder.Services.AddScoped<INurseRepository, NurseRepository>();
 
-            //Add controllers without specifying assembly
-            builder.Services.AddControllers();
-
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddOpenApi();
             builder.Services.AddAuthorization();
+            builder.Services.AddOpenApi();
 
             var app = builder.Build();
 
@@ -53,7 +47,34 @@ namespace ProjectSeraphBackend
 
             app.UseHttpsRedirection();
             app.UseAuthorization();
-            app.MapControllers();
+
+            app.MapNurseEndpoints();
+            app.MapCitizenEndpoints();
+
+
+
+            //USED WHEN ADDING CONTROLLERS INSTEAD OF ENDPOINTS
+
+            //// Register Citizen repository with factory
+            //builder.Services.AddScoped<ICitizenRepository>(sp =>
+            //{
+            //    var database = sp.GetRequiredService<IMongoDatabase>();
+            //    return new CitizenRepository(database);
+            //});
+
+            //// Register Nurse repository with factory
+            //builder.Services.AddScoped<INurseRepository>(sp =>
+            //{
+            //    var database = sp.GetRequiredService<IMongoDatabase>();
+            //    return new NurseRepository(database);
+            //});
+
+            ////Add controllers without specifying assembly
+            //builder.Services.AddControllers();
+
+            //builder.Services.AddEndpointsApiExplorer();  
+
+            //app.MapControllers();
 
             app.Run();
         }
