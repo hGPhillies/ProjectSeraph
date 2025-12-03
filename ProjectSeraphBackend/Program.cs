@@ -35,12 +35,7 @@ namespace ProjectSeraphBackend
             builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();
 
 
-            // Register repository with factory
-            builder.Services.AddScoped<ICitizenRepository>(sp =>
-            {
-                var database = sp.GetRequiredService<IMongoDatabase>();
-                return new CitizenRepository(database);
-            });
+            
             //Repositories
             builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
             builder.Services.AddScoped<INurseRepository, NurseRepository>();
@@ -65,6 +60,9 @@ namespace ProjectSeraphBackend
             app.MapNurseEndpoints();
             app.MapCitizenEndpoints();
 
+            app.MapMeasurementEndpoints();
+
+            app.Run();
 
 
             //USED WHEN ADDING CONTROLLERS INSTEAD OF ENDPOINTS
@@ -89,10 +87,6 @@ namespace ProjectSeraphBackend
             //builder.Services.AddEndpointsApiExplorer();  
 
             //app.MapControllers();
-            app.MapControllers();
-            app.MapMeasurementEndpoints();
-
-            app.Run();
         }
     }
 }
