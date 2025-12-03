@@ -52,7 +52,7 @@ namespace ProjectSeraph_AdminClient.View
                 // Validate required fields
                 if (string.IsNullOrWhiteSpace(LastNameTextBox.Text) ||
                     string.IsNullOrWhiteSpace(FirstNameTextBox.Text) ||
-                    string.IsNullOrWhiteSpace(CitizenIDTextBox.Text) ||
+                    //string.IsNullOrWhiteSpace(CitizenIDTextBox.Text) ||
                     string.IsNullOrWhiteSpace(StreetNameTextBox.Text) ||
                     string.IsNullOrWhiteSpace(HouseNumberTextBox.Text) ||
                     string.IsNullOrWhiteSpace(PostalCodeTextBox.Text) ||
@@ -80,7 +80,7 @@ namespace ProjectSeraph_AdminClient.View
                 {
                     lastName = LastNameTextBox.Text.Trim(),
                     firstName = FirstNameTextBox.Text.Trim(),
-                    citizenID = CitizenIDTextBox.Text.Trim(),
+                    citizenID = String.Empty,
                     home = new
                     {
                         streetName = StreetNameTextBox.Text.Trim(),
@@ -95,7 +95,7 @@ namespace ProjectSeraph_AdminClient.View
                 // Convert to JSON (for API call or saving)
                 string json = JsonConvert.SerializeObject(citizenData, Formatting.Indented);
 
-                // TODO: Add your save logic here (API call, database, etc.)
+                // TODO: Add the save logic here API call to backend
                 MessageBox.Show($"Citizen created successfully!\n\nJSON:\n{json}",
                               "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -116,7 +116,7 @@ namespace ProjectSeraph_AdminClient.View
         {
             LastNameTextBox.Text = "";
             FirstNameTextBox.Text = "";
-            CitizenIDTextBox.Text = "";
+            //CitizenIDTextBox.Text = "";
             StreetNameTextBox.Text = "";
             HouseNumberTextBox.Text = "";
             PostalCodeTextBox.Text = "";
@@ -125,7 +125,7 @@ namespace ProjectSeraph_AdminClient.View
             DoorTextBox.Text = "";
         }
 
-        // Optional: Handle Enter key to move between fields
+        //Handle Enter key to move between fields
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
