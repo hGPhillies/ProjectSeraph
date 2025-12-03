@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type viewmodel:EditorViewModel}">
             <views:EditorView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:ManageCitizenViewModel}">
+            <views:ManageCitizenView />
+        </DataTemplate>
 
         <Style TargetType="Button">
             <Style.Triggers>
@@ -74,6 +77,7 @@
                 <Button Height="20" Width="100" Background="LightSlateGray" Content="Kontakt" Command="{Binding NavigationCommand}" CommandParameter="Contact" Margin="0,5"/>
                 <Button Height="20" Width="100" Background="LightSlateGray" Content="Statistik" Command="{Binding NavigationCommand}" CommandParameter="Statistics" Margin="0,5"/>
                 <Button Height="20" Width="100" Background="LightSlateGray" Content="Redigér profiler" Command="{Binding NavigationCommand}" CommandParameter="Editor" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Redigér Borger" Command="{Binding NavigationCommand}" CommandParameter="Manage Citizen" Margin="0,5"/>
             </StackPanel>
 
             <Border Grid.Column="1" Margin="10,10,10,10" BorderBrush="Gray" BorderThickness="1">

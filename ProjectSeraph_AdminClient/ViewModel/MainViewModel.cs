@@ -83,6 +83,10 @@ namespace ProjectSeraph_AdminClient.Viewmodel
                     _navigationService.NavigateTo<EditorViewModel>();
                     break;
 
+                case "Manage Citizen":
+                    _navigationService.NavigateTo<ManageCitizenViewModel>();
+                    break;
+
             }
         }
     }
