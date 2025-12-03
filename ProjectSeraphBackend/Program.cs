@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 
@@ -17,12 +18,16 @@ namespace ProjectSeraphBackend
             var mongoClient = new MongoClient(connectionString);
             var database = mongoClient.GetDatabase("mongodb");
 
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
 
             builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
             builder.Services.AddSingleton<IMongoDatabase>(database);
+            builder.Services.AddSingleton<IWebSocketService>();
 
             //Add Controllers
-            builder.Services.AddControllers().AddApplicationPart(typeof(FrameworksAndDrivers.Endpoints.CitizenEndpoints).Assembly);
+            //builder.Services.AddControllers().AddApplicationPart(typeof(FrameworksAndDrivers.Endpoints.CitizenEndpoints).Assembly);
 
             builder.Services.AddEndpointsApiExplorer();
 
@@ -49,7 +54,9 @@ namespace ProjectSeraphBackend
 
             app.UseAuthorization();
 
-            app.MapControllers();
+            //app.MapControllers();
+
+            app.MapAlarmWebSocket();
 
             app.Run();
 

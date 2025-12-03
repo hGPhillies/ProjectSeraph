@@ -18,14 +18,14 @@ namespace ProjectSeraph_AdminClient.View
     /// <summary>
     /// Interaction logic for Alertwindow.xaml
     /// </summary>
-    public partial class AlertWindow : Window
+    public partial class AlarmPopUpWindow : Window
     {
-        public Alert Alert { get; }
-        public AlertWindow(Alert alert)
+        public Alarm Alarm { get; }
+        public AlarmPopUpWindow(Alarm alarm)
         {
             InitializeComponent();
-            Alert = alert;
-            DataContext = alert;
+            Alarm = alarm;
+            DataContext = alarm;
         }
 
         private void Acknowledge_Click(object sender, RoutedEventArgs e)
