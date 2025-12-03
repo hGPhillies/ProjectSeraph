@@ -6,49 +6,61 @@ using ProjectSeraphBackend.Domain;
 
 namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
 {
-
-    [ApiController]
-    [Route("api/[controller]")]
-    public class CitizenEndpoints : ControllerBase
+    /// <summary>
+    /// Provides API endpoints for managing citizens.
+    /// This controller includes endpoints for retrieving, creating, updating, and deleting citizen records. 
+    /// It interacts with the ICitizenRepository to perform data operations.
+    /// </summary>
+    
+    public static class CitizenEndpoints
     {
-        // Leftover class for future citizen related endpoints
-        [NonAction]
-        public void MapCitizenEndpoints()
+        public static IEndpointRouteBuilder MapCitizenEndpoints(this IEndpointRouteBuilder app)
         {
-        }
+            var group = app.MapGroup("/citizen")
+             .WithTags("CitizenEndpoints"); // Tag for grouping in Swagger/OpenAPI
 
-        private readonly ICitizenRepository _citizenRepository;
-        // Constructor to inject the repository
-        public CitizenEndpoints(ICitizenRepository citizenRepository)
-        {
-            _citizenRepository = citizenRepository;
-        }
+            //GET /citizen - endpoint to get all citizens
+            group.MapGet("/getAll", async (ICitizenRepository repo) =>
+            {
+                var citizens = await repo.GetAllAsync();
+                return Results.Ok(citizens);
+            })
+                .WithName("GetAllCitizens");
 
-        // Endpoint to get all citizens
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Citizen>>> GetAll()
-        {
-            var citizens = await _citizenRepository.GetAllAsync();
-            return Ok(citizens);
-        }
+            //GET /citizen/{citizenID} - endpoint to get a citizen by ID
+            group.MapGet("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
+            {
+                var citizen = await repo.GetByIdAsync(citizenID);
+                return citizen is null ? Results.NotFound() : Results.Ok(citizen);
+            })
+                .WithName("GetCitizenById");
 
-        // Endpoint to get a citizen by ID
-        [HttpGet("{citizenID}")]
-        public async Task<ActionResult<Citizen>> GetById(string citizenID)
-        {
-            var citizen = await _citizenRepository.GetByIdAsync(citizenID);
-            if (citizen == null)
-                return NotFound();
-            return Ok(citizen);
-        }
+            //POST /citizen - endpoint to create a new citizen
+            group.MapPost("/", async (Citizen citizen, ICitizenRepository repo) =>
+            {
+                citizen.citizenID = string.Empty; // Let repository generate ID
+                var created = await repo.CreateAsync(citizen);
+                return Results.Created($"/api/citizen/{created.citizenID}", created);
+            })
+                .WithName("CreateCitizen");
 
-        // Endpoint to create a new citizen
-        [HttpPost]
-        public async Task<ActionResult<Citizen>> Create(Citizen citizen)
-        {
-            citizen.citizenID = string.Empty; // Let repository generate ID
-            var created = await _citizenRepository.CreateAsync(citizen);
-            return CreatedAtAction(nameof(GetById), new { citizenID = created.citizenID }, created);
+            //PUT /citizen/{citizenID} - endpoint to update a citizen
+            group.MapPut("/{citizenID}", async (string citizenID, Citizen citizen, ICitizenRepository repo) =>
+            {
+                var updated = await repo.UpdateAsync(citizenID, citizen);
+                return updated is null ? Results.NotFound() : Results.Ok(updated);
+            })
+                .WithName("UpdateCitizen");
+
+            //DELETE /citizen/{citizenID} - endpoint to delete a citizen by ID
+            group.MapDelete("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
+            {
+                var deleted = await repo.DeleteAsync(citizenID);
+                return deleted ? Results.NoContent() : Results.NotFound();
+            })
+                .WithName("DeleteCitizen");
+
+            return app;
         }
     }
 }

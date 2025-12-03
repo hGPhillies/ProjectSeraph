@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:ProjectSeraph_AdminClient.View"
         xmlns:viewmodel="clr-namespace:ProjectSeraph_AdminClient.Viewmodel"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="650" Width="900">
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodel:CitizenViewModel}">

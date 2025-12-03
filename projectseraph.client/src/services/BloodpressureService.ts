@@ -1,4 +1,4 @@
-import axios, { type AxiosResponse } from "axios";
+ï»¿import axios, { type AxiosResponse } from "axios";
 import type { BloodpressureMeasurement } from "../domain/BloodpressureMeasurement"; 
 
 // Bemærk: for at hente axios skal I taste disse to kommandoer i terminalvinduet
@@ -7,8 +7,8 @@ import type { BloodpressureMeasurement } from "../domain/BloodpressureMeasuremen
 // (2) npm install --save-dev @types/react @types/react-dom
 
 // REFACTOR
-//Ret URL, så vi er sikre på at den matcher backend-endpoint
-const BASE_URL = "http://localhost:5001/api/bloodpressure";
+//Ret URL, sÃ¥ vi er sikre pÃ¥ at den matcher backend-endpoint
+const BASE_URL = "http://localhost:5001/measurement/send/bloodpressure";
 
 class BloodpressureService
 {
