@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson.Serialization;
-using ProjectSeraphBackend.Application.Interfaces;
+﻿using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
 using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
 
@@ -19,7 +18,7 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
         }
         public async Task AddAsync(Measurement m)
         {
-            await _dao.CreateMeasurementAsync(m);
+            await _dao.CreateAsync(m);
         }
 
         public async Task<Measurement> GetAsync(Measurement measurement)

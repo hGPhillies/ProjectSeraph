@@ -17,28 +17,19 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         {
             measurements.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
-                Console.WriteLine("mID " + bp.MeasurementID + "\ncID " + bp.CitizenID + "\nDateTime " + bp.Time + "\nSystolic " + bp.Systolic + "\nDiastolic " + bp.Diastolic);
                 await measRep.AddAsync(bp);
 
                 return Results.Created();
             })
             .WithName("SendBloodpressure");
 
-            //measurements.MapPost("/measurement/send/bloodsugar", async (BloodsugarDTO bsDTO, IMeasurementRepository measRep) =>
-            //{
-            //    await measRep.Add(new Bloodsugar(bsDTO));
+            measurements.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
+            {
+                await measRep.AddAsync(bs);
 
-            //    return Results.Created();
-            //})
-            //.WithName("SendBloodsugar");
-
-            //measurements.MapPost("/measurement/send/pulse", async (Pulse p, IMeasurementRepository measRep) =>
-            //{
-            //    await measRep.Add(new Pulse(p));
-
-            //    return Results.Created();
-            //})
-            //.WithName("SendPulse");
+                return Results.Created();
+            })
+            .WithName("SendBloodsugar");
 
             return measurements;
         }

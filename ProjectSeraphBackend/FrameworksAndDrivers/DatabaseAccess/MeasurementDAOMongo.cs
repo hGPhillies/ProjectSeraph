@@ -27,6 +27,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             {
                 cm.MapMember(m => m.Systolic);
                 cm.MapMember(m => m.Diastolic);
+                cm.MapMember(m => m.Pulse);
             });
             BsonClassMap.RegisterClassMap<Bloodsugar>(cm =>
             {
@@ -38,27 +39,27 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             });
         }
 
-        public async Task CreateMeasurementAsync(Measurement measurement)
+        public async Task CreateAsync(Measurement measurement)
         {
             await _measurements.InsertOneAsync(measurement);
         }
 
-        public async Task<Measurement> ReadMeasurementAsync(int measurementId)
+        public async Task<Measurement> ReadAsync(int measurementId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Measurement>> ReadAllMeasurementsAsync(int citizenId)
+        public async Task<IEnumerable<Measurement>> ReadAllAsync(int citizenId)
         {  
             throw new NotImplementedException(); 
         }
 
-        public async Task UpdateMeasurementAsync(Measurement measurement)
+        public async Task UpdateAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }
 
-        public async Task DeleteMeasurementAsync(Measurement measurement)
+        public async Task DeleteAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }

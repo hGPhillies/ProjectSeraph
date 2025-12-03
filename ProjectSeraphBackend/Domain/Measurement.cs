@@ -8,8 +8,8 @@ namespace ProjectSeraphBackend.Domain
 
     public abstract class Measurement
     {
-        //flg. 2 til at binde measurement til citizen.
         public int MeasurementID { get; set; }
+        //flg. til at binde measurement til citizen.
         public int CitizenID { get; set; }
         // Timestamp of the measurement
         public DateTime Time { get; set; }

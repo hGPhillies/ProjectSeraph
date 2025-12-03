@@ -5,27 +5,27 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
 {
     public class MeasurementDAOInMemory : IMeasurementDAO
     {
-        public async Task CreateMeasurementAsync(Measurement m)
+        public async Task CreateAsync(Measurement m)
         {
             Console.WriteLine("mID " + m.MeasurementID + "\ncID " + m.CitizenID + "\nDateTime " + m.Time);
         }
 
-        public async Task<Measurement> ReadMeasurementAsync(int measurementId)
+        public async Task<Measurement> ReadAsync(int measurementId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Measurement>> ReadAllMeasurementsAsync(int citizenId)
+        public async Task<IEnumerable<Measurement>> ReadAllAsync(int citizenId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task UpdateMeasurementAsync(Measurement measurement)
+        public async Task UpdateAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }
 
-        public async Task DeleteMeasurementAsync(Measurement measurement)
+        public async Task DeleteAsync(Measurement measurement)
         {
             throw new NotImplementedException();
         }
