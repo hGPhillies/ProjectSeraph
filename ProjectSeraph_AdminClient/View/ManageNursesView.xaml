@@ -20,11 +20,11 @@
                 <GridView>
                     
                     <!--Full Name-->
-                    <GridViewColumn Header="Fulde Navn" Width="200" 
-                                    DisplayMemberBinding="{Binding FullName}"/>
+                    <GridViewColumn Header="Fulde Navn" Width="400" 
+                                    DisplayMemberBinding="{Binding fullName}"/>
                     <!--Nurse ID-->
-                    <GridViewColumn Header="Sygeplejerske ID" Width="100" 
-                                    DisplayMemberBinding="{Binding NurseID}"/>
+                    <GridViewColumn Header="Sygeplejerske ID" Width="200" 
+                                    DisplayMemberBinding="{Binding nurseID}"/>
 
                     <!--Edit nurse menu-->
                     <GridViewColumn Header="">
@@ -39,7 +39,6 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
                 </GridView>
             </ListView.View>
         </ListView>
@@ -51,10 +50,6 @@
                 HorizontalAlignment="Center"
                 Width="130"
                 Command="{Binding CreateNurseCommand}" />
-        
-        
-
-        
     </Grid>
     
 </UserControl>
