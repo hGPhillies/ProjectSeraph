@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
     /// <summary>
     /// Represents a command that can be executed with a specified parameter type.

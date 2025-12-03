@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
     /// <summary>
     /// Provides navigation capabilities within the application, allowing transitions between different view models.

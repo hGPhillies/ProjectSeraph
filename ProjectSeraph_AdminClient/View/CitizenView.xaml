@@ -6,8 +6,45 @@
              xmlns:local="clr-namespace:ProjectSeraph_AdminClient.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Citizen View" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--List of all nurses-->
+        <ListView ItemsSource="{Binding Nurses}"
+                  SelectedItem="{Binding SelectedNurse}">
+            <ListView.View>
+                <GridView>
+
+                    <!--Full Name-->
+                    <GridViewColumn Header="Fulde Navn" Width="200" 
+                                    DisplayMemberBinding="{Binding FullName}"/>
+                    <!--Nurse ID-->
+                    <GridViewColumn Header="Borger ID" Width="100" 
+                                    DisplayMemberBinding="{Binding citizenID}"/>
+
+                    <!--Edit nurse menu-->
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                               
+
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+
+
 
     </Grid>
+
 </UserControl>

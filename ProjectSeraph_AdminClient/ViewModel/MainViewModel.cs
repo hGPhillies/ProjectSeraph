@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
     /// <summary>
     /// Represents the main view model responsible for managing navigation and the current view model in the
