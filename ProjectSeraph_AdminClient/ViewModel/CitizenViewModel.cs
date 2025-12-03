@@ -1,9 +1,11 @@
 ﻿using ProjectSeraph_AdminClient.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ProjectSeraph_AdminClient.Viewmodel
 {
@@ -15,5 +17,7 @@ namespace ProjectSeraph_AdminClient.Viewmodel
     {
         public string Title => "Citizen View Model";
         public string TestContent => "This is the Citizen View Model content.";
+
+       
     }
 }
