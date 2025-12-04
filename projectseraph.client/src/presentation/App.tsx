@@ -15,8 +15,7 @@ const user = new User(false);
 function App() {
     return (
         <div>
-            <Header />
-            
+            <Header />            
             
             <Routes>
                 <Route path="/" element={<Home user={user} /> } />

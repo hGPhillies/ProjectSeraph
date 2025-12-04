@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectSeraph_AdminClient.Model
 {
-    public class Alert : Bindable
+    public class Alarm : Bindable
     {
         public string Id { get; set; }
 
