@@ -14,7 +14,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// <remarks>The <see cref="NavigationService"/> class allows navigation to different view models by
     /// creating instances of them and raising the <see cref="CurrentViewModelChanged"/> event. It supports navigation
     /// with or without parameters.</remarks>
-    class MyNavigationService : INavigationService
+    class MyNavigationService : IMyNavigationService
     {
         public event Action<Bindable> CurrentViewModelChanged;
 

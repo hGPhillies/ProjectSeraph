@@ -26,6 +26,18 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
 
                 return sent ? Results.Ok(new {Success = true}) : Results.BadRequest(new {Success = false});
             });
+
+            app.MapGet("/ws/status", (IWebSocketService webSocketService) =>
+            {
+                return Results.Ok(new
+                {
+                    Connected = webSocketService.IsConnected,
+                    Timestamp = DateTime.UtcNow,
+                    Message = webSocketService.IsConnected
+                        ? "WebSocket client is connected"
+                        : "No WebSocket client connected"
+                });
+            });
         }
     }
 }

@@ -5,7 +5,6 @@ namespace ProjectSeraphBackend.Application.Interfaces
 {
     public interface IWebSocketService
     {
-        Task KeepConnectionAlive();
         Task HandleConnection(HttpContext context);
         Task<bool> SendToClient(object message);
         bool IsConnected { get; }

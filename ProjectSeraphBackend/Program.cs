@@ -64,39 +64,17 @@ namespace ProjectSeraphBackend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseWebSockets();
+
             app.UseAuthorization();
 
             app.MapNurseEndpoints();
-
             app.MapAlarmWebSocket();
-
             app.MapMeasurementEndpoints();
 
             app.Run();
 
-
-            //USED WHEN ADDING CONTROLLERS INSTEAD OF ENDPOINTS
-
-            //// Register Citizen repository with factory
-            //builder.Services.AddScoped<ICitizenRepository>(sp =>
-            //{
-            //    var database = sp.GetRequiredService<IMongoDatabase>();
-            //    return new CitizenRepository(database);
-            //});
-
-            //// Register Nurse repository with factory
-            //builder.Services.AddScoped<INurseRepository>(sp =>
-            //{
-            //    var database = sp.GetRequiredService<IMongoDatabase>();
-            //    return new NurseRepository(database);
-            //});
-
-            ////Add controllers without specifying assembly
-            //builder.Services.AddControllers();
-
-            //builder.Services.AddEndpointsApiExplorer();  
-
-            //app.MapControllers();
         }
     }
 }
