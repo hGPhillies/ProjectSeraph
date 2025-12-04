@@ -1,4 +1,4 @@
-﻿using ProjectSeraph_AdminClient.Viewmodel;
+﻿using ProjectSeraph_AdminClient.ViewModel;
 using System.Configuration;
 using System.Data;
 using System.Windows;

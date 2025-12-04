@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
     /// <summary>
     /// Represents the main view model responsible for managing navigation and the current view model in the
@@ -17,7 +17,7 @@ namespace ProjectSeraph_AdminClient.Viewmodel
     /// <remarks>This view model utilizes an <see cref="INavigationService"/> to handle navigation between
     /// different view models. It subscribes to changes in the current view model and updates the <see
     /// cref="CurrentViewModel"/> property accordingly.</remarks>
-    class MainViewModel : Bindable
+    public class MainViewModel : Bindable
     {
         private Bindable _currentViewModel;
         private readonly INavigationService _navigationService;
@@ -79,8 +79,8 @@ namespace ProjectSeraph_AdminClient.Viewmodel
                     _navigationService.NavigateTo<StatisticsViewModel>();
                     break;
 
-                case "Editor":
-                    _navigationService.NavigateTo<EditorViewModel>();
+                case "Manage Nurses":
+                    _navigationService.NavigateTo<ManageNursesViewModel>();
                     break;
 
             }
