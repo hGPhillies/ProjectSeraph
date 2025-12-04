@@ -1,6 +1,8 @@
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
 using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
+using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
 using ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations;
 
 namespace ProjectSeraphBackend
@@ -27,6 +29,13 @@ namespace ProjectSeraphBackend
                 return client.GetDatabase(databaseName);
             });
 
+            //Maybe we can do the database mapping here?
+            MeasurementDAOMongo.MapMeasurementMembers();
+            builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
+            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();
+
+
+            
             //Repositories
             builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
             builder.Services.AddScoped<INurseRepository, NurseRepository>();
@@ -51,6 +60,9 @@ namespace ProjectSeraphBackend
             app.MapNurseEndpoints();
             app.MapCitizenEndpoints();
 
+            app.MapMeasurementEndpoints();
+
+            app.Run();
 
 
             //USED WHEN ADDING CONTROLLERS INSTEAD OF ENDPOINTS
@@ -75,8 +87,6 @@ namespace ProjectSeraphBackend
             //builder.Services.AddEndpointsApiExplorer();  
 
             //app.MapControllers();
-
-            app.Run();
         }
     }
 }
