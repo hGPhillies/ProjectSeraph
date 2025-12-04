@@ -8,6 +8,6 @@ namespace ProjectSeraphBackend.Application.Interfaces
         Task KeepConnectionAlive();
         Task HandleConnection(HttpContext context);
         Task<bool> SendToClient(object message);
-        
+        bool IsConnected { get; }
     }
 }

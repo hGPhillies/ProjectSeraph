@@ -90,7 +90,7 @@ namespace ProjectSeraphBackend.Application.Services
             }
             _logger.LogWarning("No active WebSocket connection to send message.");
             return false;
-        }
+        }       
         
         public bool IsConnected => _webSocket?.State == WebSocketState.Open;
     }

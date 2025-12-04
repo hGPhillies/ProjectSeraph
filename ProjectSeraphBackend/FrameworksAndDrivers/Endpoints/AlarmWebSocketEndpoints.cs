@@ -19,7 +19,12 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 {
                     AlarmType = "Red",
                     DateTime = DateTime.UtcNow,
+                    
                 };
+
+                var sent = await webSocketService.SendToClient(testAlarm);
+
+                return sent ? Results.Ok(new {Success = true}) : Results.BadRequest(new {Success = false});
             });
         }
     }

@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.Application.Services;
 using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
 using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
 using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
@@ -21,9 +22,13 @@ namespace ProjectSeraphBackend
             // Register MongoClient
             builder.Services.AddSingleton<IMongoClient>(sp =>
                 new MongoClient(connectionString));
+
+            // Register Logging
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
+
+            
 
             // Register IMongoDatabase
             builder.Services.AddScoped<IMongoDatabase>(sp =>
@@ -32,11 +37,12 @@ namespace ProjectSeraphBackend
                 return client.GetDatabase(databaseName);
             });
 
+            builder.Services.AddSingleton<IWebSocketService, WebSocketService>();
             //Maybe we can do the database mapping here?
             MeasurementDAOMongo.MapMeasurementMembers();
             builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
             builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();
-
+            
 
             
             //Repositories
@@ -61,7 +67,8 @@ namespace ProjectSeraphBackend
             app.UseAuthorization();
 
             app.MapNurseEndpoints();
-            app.MapCitizenEndpoints();
+
+            app.MapAlarmWebSocket();
 
             app.MapMeasurementEndpoints();
 
