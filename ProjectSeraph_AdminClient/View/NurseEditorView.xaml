@@ -34,21 +34,21 @@
                    Text="Fulde navn:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1"
                  Margin="5"
-                 Text="{Binding fullName, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Brugernavn -->
             <TextBlock Grid.Row="2" Grid.Column="0"
                    Text="Brugernavn:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="2" Grid.Column="1"
                  Margin="5"
-                 Text="{Binding userName, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Password (kan ændres til andet end textbox senere) -->
             <TextBlock Grid.Row="3" Grid.Column="0"
                    Text="Password:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="3" Grid.Column="1"
                  Margin="5"
-                 Text="{Binding password, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Rettigheder (placeholders) -->
             <TextBlock Grid.Row="4" Grid.Column="0"
