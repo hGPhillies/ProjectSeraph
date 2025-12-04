@@ -20,9 +20,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
     public class MainViewModel : Bindable
     {
         private Bindable _currentViewModel;
-        private readonly INavigationService _navigationService;
+        private readonly IMyNavigationService _navigationService;
 
-        public MainViewModel(INavigationService navigationService)
+        public MainViewModel(IMyNavigationService navigationService)
         {
             _navigationService = navigationService;
             _navigationService.CurrentViewModelChanged += (viewModel) =>
@@ -31,14 +31,14 @@ namespace ProjectSeraph_AdminClient.ViewModel
             };
 
             // Simulate an incoming critical alarm after 3 seconds (Will be removed)
-            Task.Delay(3000).ContinueWith(_ =>
-            {
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    var alarmService = new AlarmService();
-                    alarmService.ShowCriticalAlarm("citizen_456", "Anna Jensen");
-                });
-            });
+            //Task.Delay(3000).ContinueWith(_ =>
+            //{
+            //    Application.Current.Dispatcher.Invoke(() =>
+            //    {
+            //        var alarmService = new AlarmService();
+            //        alarmService.ShowCriticalAlarm("citizen_456", "Anna Jensen");
+            //    });
+            //});
 
             _navigationService.NavigateTo<CitizenViewModel>();
         }
