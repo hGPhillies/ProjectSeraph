@@ -38,7 +38,8 @@ namespace ProjectSeraphBackend
             builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
             builder.Services.AddScoped<INurseRepository, NurseRepository>();
 
-
+            //det foelgende bruger vi til at tillade cross-origin resource sharing under vores udviklingsproces. 
+            //Dette er noedvendigt for at tillade vores frontend at kalde metoderne paa vores API fra en anden port
             const string MyAllowAnyOriginPolicy = "_myAllowAnyOriginPolicy";
             builder.Services.AddCors(options =>
             {
