@@ -69,12 +69,12 @@
             <StackPanel Grid.Column="0" Margin="11,10,11,10">
                 <Image Source="pack://application:,,,/ProjectSeraph_AdminClient;component/Resources/seraph_logo.png"
                        Height="50" Margin="0,0,0,20"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Borger" Command="{Binding NavigationCommand}" CommandParameter="Citizen" Margin="0,5"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Målinger" Command="{Binding NavigationCommand}" CommandParameter="Measurements" Margin="0,5"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Alarmer" Command="{Binding NavigationCommand}" CommandParameter="Alarms" Margin="0,5"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Kontakt" Command="{Binding NavigationCommand}" CommandParameter="Contact" Margin="0,5"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Statistik" Command="{Binding NavigationCommand}" CommandParameter="Statistics" Margin="0,5"/>
-                <Button Height="20" Width="100" Background="LightSlateGray" Content="Administrer sygeplejersker" Command="{Binding NavigationCommand}" CommandParameter="Manage Nurses" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Borger" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Citizen" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Målinger" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Measurements" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Alarmer" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Alarms" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Kontakt" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Contact" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Statistik" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Statistics" Margin="0,5"/>
+                <Button Height="20" Width="100" Background="LightSlateGray" Content="Administrer sygeplejersker" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Manage Nurses" Margin="0,5"/>
             </StackPanel>
 
             <Border Grid.Column="1" Margin="10,10,10,10" BorderBrush="Gray" BorderThickness="1">
