@@ -1,16 +1,44 @@
-﻿namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
+﻿using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.Domain;
+using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
+
+namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
 {
     /// <summary>
     /// 
     /// 
     /// </summary>
-    public class MeasurementRepository
+    public class MeasurementRepository : IMeasurementRepository
     {
-        public void getMeasurements()
+        private IMeasurementDAO _dao;
+
+        public MeasurementRepository(IMeasurementDAO dao)
         {
+            _dao = dao;
         }
-        public void postMeasurement()
+        public async Task AddAsync(Measurement m)
         {
+            await _dao.CreateAsync(m);
+        }
+
+        public async Task<Measurement> GetAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Measurement>> GetAllAsync(Citizen citizen)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task UpdateAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
         }
     }
 }

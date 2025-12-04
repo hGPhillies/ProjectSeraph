@@ -1,4 +1,4 @@
-@ProjectSeraphBackend_HostAddress = http://localhost:5270
+﻿@ProjectSeraphBackend_HostAddress = https://localhost:5270
 
 GET {{ProjectSeraphBackend_HostAddress}}/weatherforecast/
 Accept: application/json

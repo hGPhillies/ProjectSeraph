@@ -10,7 +10,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// <summary>
     /// Represents a view model for contact information, providing data binding capabilities.
     /// </summary>
-    class ContactViewModel : Bindable
+    public class ContactViewModel : Bindable
     {
     }
 }
