@@ -13,7 +13,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// Represents a view model for a citizen, providing data binding capabilities.
     /// </summary>
     
-    class CitizenViewModel : Bindable
+    public class CitizenViewModel : Bindable
     {
         public string Title => "Citizen View Model";
         public string TestContent => "This is the Citizen View Model content.";

@@ -10,7 +10,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// <summary>
     /// Represents the view model for handling measurement data in a bindable context.
     /// </summary>
-    class MeasurementsViewModel : Bindable
+    public class MeasurementsViewModel : Bindable
     {
     }
 }

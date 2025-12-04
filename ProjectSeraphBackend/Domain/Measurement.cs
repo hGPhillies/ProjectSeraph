@@ -1,4 +1,7 @@
-﻿namespace ProjectSeraphBackend.Domain
+﻿
+using MongoDB.Driver;
+
+namespace ProjectSeraphBackend.Domain
 {
     /// <summary>
     /// This abstract class represents a generic measurement with a timestamp.
@@ -7,10 +10,23 @@
 
     public abstract class Measurement
     {
+        public string? MeasurementID { get; set; }
+        //flg. til at binde measurement til citizen.
+        public int CitizenID { get; set; }
         // Timestamp of the measurement
         public DateTime Time { get; set; }
 
+        public Measurement() { }
+        public Measurement(string? measurementID, int citizenID, DateTime time)
+        {
+            MeasurementID = measurementID;
+            CitizenID = citizenID;
+            Time = time;
+        }
+
+
         //Returns true if measurement is within normal values, false otherwise
         public abstract bool CompareMeasurements();
+
     }
 }

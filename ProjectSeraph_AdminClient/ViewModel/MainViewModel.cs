@@ -17,7 +17,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// <remarks>This view model utilizes an <see cref="INavigationService"/> to handle navigation between
     /// different view models. It subscribes to changes in the current view model and updates the <see
     /// cref="CurrentViewModel"/> property accordingly.</remarks>
-    class MainViewModel : Bindable
+    public class MainViewModel : Bindable
     {
         private Bindable _currentViewModel;
         private readonly INavigationService _navigationService;
@@ -79,8 +79,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     _navigationService.NavigateTo<StatisticsViewModel>();
                     break;
 
-                case "Editor":
-                    _navigationService.NavigateTo<EditorViewModel>();
+                case "Manage Nurses":
+                    _navigationService.NavigateTo<ManageNursesViewModel>();
                     break;
 
                 case "Manage Citizen":
