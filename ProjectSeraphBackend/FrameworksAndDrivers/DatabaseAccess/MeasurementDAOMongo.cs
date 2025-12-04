@@ -1,4 +1,6 @@
 ﻿using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using ProjectSeraphBackend.Domain;
 using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
@@ -18,7 +20,9 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
         {
             BsonClassMap.RegisterClassMap<Measurement>(cm =>
             {
-                cm.MapIdMember(m => m.MeasurementID);
+                cm.MapIdMember(m => m.MeasurementID).SetSerializer(new StringSerializer(MongoDB.Bson.BsonType.ObjectId));
+                cm.IdMemberMap.SetIdGenerator(StringObjectIdGenerator.Instance);
+
                 cm.MapMember(m => m.CitizenID);
                 cm.MapMember(m => m.Time);
                 cm.SetIsRootClass(true);
@@ -39,10 +43,9 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             });
         }
 
-        public async Task CreateAsync(Measurement measurement)
+        public async Task CreateAsync(Measurement m)
         {
-            await _measurements.InsertOneAsync(measurement);
-
+            await _measurements.InsertOneAsync(m);
         }
 
         public async Task<Measurement> ReadAsync(int measurementId)

@@ -1,4 +1,6 @@
 ﻿
+using MongoDB.Driver;
+
 namespace ProjectSeraphBackend.Domain
 {
     /// <summary>
@@ -8,14 +10,14 @@ namespace ProjectSeraphBackend.Domain
 
     public abstract class Measurement
     {
-        public int MeasurementID { get; set; }
+        public string? MeasurementID { get; set; }
         //flg. til at binde measurement til citizen.
         public int CitizenID { get; set; }
         // Timestamp of the measurement
         public DateTime Time { get; set; }
 
         public Measurement() { }
-        public Measurement(int measurementID, int citizenID, DateTime time)
+        public Measurement(string? measurementID, int citizenID, DateTime time)
         {
             MeasurementID = measurementID;
             CitizenID = citizenID;

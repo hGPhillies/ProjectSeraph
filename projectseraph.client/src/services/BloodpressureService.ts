@@ -1,9 +1,9 @@
 ﻿import axios, { type AxiosResponse } from "axios";
 import type { BloodpressureMeasurement } from "../domain/BloodpressureMeasurement"; 
 
-// REFACTOR
+// REFACTORq
 //Ret URL, så vi er sikre på at den matcher backend-endpoint
-const BASE_URL = "http://localhost:5001/measurement/send/bloodpressure";
+const BASE_URL = "https://localhost:5001/measurement/send/bloodpressure";
 
 class BloodpressureService
 {

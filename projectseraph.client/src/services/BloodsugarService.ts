@@ -1,9 +1,9 @@
-import axios, { type AxiosResponse } from "axios";
+ï»¿import axios, { type AxiosResponse } from "axios";
 import type { BloodsugarMeasurement } from "../domain/BloodsugarMeasurement";
 
 // REFACTOR
-//Ret URL, så vi er sikre på at den matcher backend-endpoint
-const BASE_URL = "http://localhost:5001/api/bloodsugar";
+//Ret URL, sÃ¥ vi er sikre pÃ¥ at den matcher backend-endpoint
+const BASE_URL = "https://localhost:5001/measurement/send/bloodsugar";
 
 class BloodsugarService {
     static async sendMeasurement(measurement: BloodsugarMeasurement): Promise<void> {

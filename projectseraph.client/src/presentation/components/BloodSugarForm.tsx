@@ -29,7 +29,7 @@ function BloodsugarForm() {
         const measurement: BloodsugarMeasurement = {
             bloodSugar: Number(bloodSugar),
             timestamp: new Date().toISOString(),
-            citizenId: "citizen-123", // REFACTOR: skal hentes fra logged-in user/session
+            citizenId: "123", // REFACTOR: skal hentes fra logged-in user/session
         };
 
         try {
