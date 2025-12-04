@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
 
     /// <summary>
@@ -13,7 +13,7 @@ namespace ProjectSeraph_AdminClient.Viewmodel
     /// </summary>
     /// <remarks>This class provides properties and methods to interact with and manipulate alarm data,
     /// supporting data binding scenarios in the user interface.</remarks>
-    class AlarmsViewModel : Bindable
+    public class AlarmsViewModel : Bindable
     {
         public string Title => "Alarm View Model";
         public string TestContent => "This is the Alarm View Model content.";

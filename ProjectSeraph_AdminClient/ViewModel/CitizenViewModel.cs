@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace ProjectSeraph_AdminClient.Viewmodel
+namespace ProjectSeraph_AdminClient.ViewModel
 {
     /// <summary>
     /// Represents a view model for a citizen, providing data binding capabilities.
     /// </summary>
     
-    class CitizenViewModel : Bindable
+    public class CitizenViewModel : Bindable
     {
         public string Title => "Citizen View Model";
         public string TestContent => "This is the Citizen View Model content.";
