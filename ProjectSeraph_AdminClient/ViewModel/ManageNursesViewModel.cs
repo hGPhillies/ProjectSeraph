@@ -25,6 +25,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
     {
         // HTTP client for communicating with the backend API
         private readonly HttpClient _http;
+        // Navigation service for navigating between views
+        private readonly INavigationService _navigation;
 
         // Collection of nurses to be displayed in the UI
         public ObservableCollection<Nurse> Nurses { get; } = new();
@@ -101,8 +103,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         private void OnCreateNurse()
         {
-            // TODO: navigate to "create nurse" view
-            // fx via navigation service
+            _navigation.NavigateTo<NurseEditorViewModel>();
         }
 
         private void OnEditNurse(Nurse? nurse)

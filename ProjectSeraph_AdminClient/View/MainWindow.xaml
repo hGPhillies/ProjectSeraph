@@ -25,6 +25,9 @@
         <DataTemplate DataType="{x:Type viewmodel:ManageNursesViewModel}">
             <views:ManageNursesView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:NurseEditorViewModel}">
+            <views:NurseEditorView />
+        </DataTemplate>
 
         <Style TargetType="{x:Type Button}">
             <Style.Triggers>
