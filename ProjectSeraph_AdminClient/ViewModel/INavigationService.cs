@@ -12,7 +12,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// </summary>
     /// <remarks>This service facilitates navigation by transitioning to specified view models, optionally
     /// passing parameters. It also provides an event to notify when the current view model changes.</remarks>
-    interface INavigationService
+    public interface INavigationService
     {
         void NavigateTo<T>() where T : Bindable;
         void NavigateTo<T>(object parameter) where T : Bindable;

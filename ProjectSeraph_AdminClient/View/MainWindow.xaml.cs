@@ -1,5 +1,4 @@
 ﻿using ProjectSeraph_AdminClient.Model;
-
 using ProjectSeraph_AdminClient.ViewModel;
 using System.Text;
 using System.Windows;

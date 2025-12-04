@@ -13,7 +13,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// <remarks>This class is designed to be used in data binding scenarios where statistical data needs to
     /// be presented and updated dynamically. It inherits from the <see cref="Bindable"/> class, allowing it to
     /// participate in property change notifications.</remarks>
-    class StatisticsViewModel : Bindable
+    public class StatisticsViewModel : Bindable
     {
     }
 }
