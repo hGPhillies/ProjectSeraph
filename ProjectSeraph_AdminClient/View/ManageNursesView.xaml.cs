@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ProjectSeraph_AdminClient.View
 {
     /// <summary>
-    /// Interaction logic for EditorView.xaml
+    /// Interaction logic for ManageNursesView.xaml
     /// </summary>
-    public partial class EditorView : UserControl
+    public partial class ManageNursesView : UserControl
     {
-        public EditorView()
+        public ManageNursesView()
         {
             InitializeComponent();
         }
