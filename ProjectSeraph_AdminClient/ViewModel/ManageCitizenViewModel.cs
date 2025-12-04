@@ -7,7 +7,7 @@ using ProjectSeraph_AdminClient.Model;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
-    class ManageCitizenViewModel : Bindable
+    public class ManageCitizenViewModel : Bindable
     {
         public string Title => "Manage Citizen Model";
         public string TestContent => "This is the Manage Citizen Model content.";

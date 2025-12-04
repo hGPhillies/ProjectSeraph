@@ -18,7 +18,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private readonly HttpClient _http;
 
         // Navigation service for switching between views
-        private readonly INavigationService _navigation;
+        private readonly IMyNavigationService _navigation;
 
         // Collection of nurses displayed in the UI
         public ObservableCollection<Nurse> Nurses { get; } = new();

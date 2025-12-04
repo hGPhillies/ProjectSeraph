@@ -29,7 +29,7 @@ namespace ProjectSeraph_AdminClient
             //Makes the navigation service globally accessible
             App.NavigationService = navigationService;
 
-            _alertService = new AlertService();
+            
             _alertService = new AlarmService();
             DataContext = new MainViewModel(navigationService);
         }

@@ -12,7 +12,7 @@ namespace ProjectSeraph_AdminClient
     public partial class App : Application
     {
         //Global navigation service for the entire client
-        public static INavigationService? NavigationService { get; set; }
+        public static IMyNavigationService? NavigationService { get; set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {

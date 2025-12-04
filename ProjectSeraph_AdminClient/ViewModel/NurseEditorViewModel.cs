@@ -17,7 +17,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     public class NurseEditorViewModel : Bindable
     {
         private readonly NurseService _nurseService;
-        private readonly INavigationService _navigation;
+        private readonly IMyNavigationService _navigation;
 
         private string _fullName = string.Empty;
         public string FullName
