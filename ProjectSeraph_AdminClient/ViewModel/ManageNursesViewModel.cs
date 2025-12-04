@@ -52,6 +52,11 @@ namespace ProjectSeraph_AdminClient.ViewModel
         // Constructor initializes commands and loads initial data
         public ManageNursesViewModel()
         {
+
+            //Use global navigation service from App class
+            _navigation = App.NavigationService 
+                ?? throw new InvalidOperationException("Navigation service is not initialized.");
+            
             _http = new HttpClient
             {
                 // Make sure backend uses this URL and port
@@ -61,45 +66,45 @@ namespace ProjectSeraph_AdminClient.ViewModel
             //COMMAND INITIALIZATION
 
             //FOR TESTING PURPOSES ONLY - load data synchronously - remove when backend is ready
-            RefreshCommand = new DelegateCommand<object> (_ => LoadNurses()); 
-                                                                  
+            //RefreshCommand = new DelegateCommand<object> (_ => LoadNurses());
+
             // ASYNC version – uncomment when backend is ready                                                                             
-            //RefreshCommand = new DelegateCommand<object>(async _ => await LoadNursesAsync()
+            RefreshCommand = new DelegateCommand<object>(async _ => await LoadNursesAsync());
 
             CreateNurseCommand = new DelegateCommand<object>(_ => OnCreateNurse());
             EditNurseCommand = new DelegateCommand<Nurse?>(n => OnEditNurse(n));
 
             //FOR TESTING PURPOSES ONLY - load data synchronously - remove when backend is ready
-            LoadNurses();
+            //LoadNurses();
 
             // ASYNC version – uncomment when backend is ready
             // load initial data
-            //_ = LoadNursesAsync();
+            _ = LoadNursesAsync();
 
         }
 
         //FOR TESTING PURPOSES ONLY - load data synchronously - remove when backend is ready
-        private void LoadNurses()
-        {
-            Nurses.Clear();
-
-            // midlertidig testdata – bare for at se at UI virker
-            Nurses.Add(new Nurse { nurseID = "1", fullName = "Anna Test", userName = "anna" });
-            Nurses.Add(new Nurse { nurseID = "2", fullName = "Bo Test", userName = "bo" });
-        }
-        // ASYNC version – uncomment when backend is ready
-        //private async Task LoadNurses()
+        //private void LoadNurses()
         //{
         //    Nurses.Clear();
 
-        //    var result = await _http.GetFromJsonAsync<Nurse[]>("/nurse/getAll")
-        //                 ?? Array.Empty<Nurse>();
-
-        //    foreach (var nurse in result)
-        //    {
-        //        Nurses.Add(nurse);
-        //    }
+        //    // midlertidig testdata – bare for at se at UI virker
+        //    Nurses.Add(new Nurse { nurseID = "1", fullName = "Anna Test", userName = "anna" });
+        //    Nurses.Add(new Nurse { nurseID = "2", fullName = "Bo Test", userName = "bo" });
         //}
+        // ASYNC version – uncomment when backend is ready
+        private async Task LoadNursesAsync()
+        {
+            Nurses.Clear();
+
+            var result = await _http.GetFromJsonAsync<Nurse[]>("/nurse/getAll")
+                         ?? Array.Empty<Nurse>();
+
+            foreach (var nurse in result)
+            {
+                Nurses.Add(nurse);
+            }
+        }
 
         private void OnCreateNurse()
         {
@@ -108,10 +113,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         private void OnEditNurse(Nurse? nurse)
         {
-            if (nurse is null)
-                return;
-
-            // TODO: navigate to "edit nurse" view med den valgte nurse
+            if (nurse is null) return;
+            // TODO: Navigate to the NurseEditorViewModel with the selected nurse 
+            //OBS. felterne skal være udfyldt med den valgte nurses data
         }
     }
 }

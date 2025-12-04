@@ -60,15 +60,19 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public bool CanManageAlarms {get; set; }
 
 
+        //public ICommand SaveCommand;
+        //public ICommand CancelCommand;
+
         //COMMANDS FOR SAVE AND CANCEL IN NURSE EDITOR
-        public ICommand SaveCommand;
-        public ICommand CancelCommand;
+        public ICommand SaveCommand { get; }
+        public ICommand CancelCommand { get; }
 
         //Methods for save and cancel commands in nurse editor
-        public NurseEditorViewModel(NurseService nurseService, INavigationService navigation)
+        public NurseEditorViewModel()
         {
-            _nurseService = nurseService;
-            _navigation = navigation;
+            _nurseService = new NurseService();
+            _navigation = App.NavigationService!; // Use global navigation service from App class
+
             SaveCommand = new DelegateCommand<object>(_ => OnSave());
             CancelCommand = new DelegateCommand<object>(_ => OnCancel());
         }
@@ -80,7 +84,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 fullName = FullName,
                 userName = Username,
                 password = Password
-                //SET NURSE RIGHTS HERE WHEN THEY ARE ADDED TO THE MODEL
+
+                //SET NURSE PERMISSIONS HERE WHEN THEY ARE ADDED TO THE MODEL
             };
             await _nurseService.CreateAsync(nurse);
 
@@ -88,7 +93,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _navigation.NavigateTo<ManageNursesViewModel>();
         }
 
-        private async void OnCancel() 
+        private void OnCancel() 
         {
             //Navigate back to the ManageNursesViewModel without saving
             _navigation.NavigateTo<ManageNursesViewModel>();

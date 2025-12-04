@@ -7,70 +7,81 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+    <Grid Margin="150,140,150,60">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <!-- Fuldt navn -->
-            <TextBlock Grid.Row="0" Grid.Column="0"
-                   Text="Fulde navn:" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1"
-                 Margin="5"
-                 Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <!-- Brugernavn -->
+        <!-- HEADER -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+               Text="Indtast sygeplejerske oplysninger"
+               FontSize="22"
+               FontWeight="Bold"
+               Margin="0,0,0,25"/>
+
+        <!-- Fuldt navn -->
             <TextBlock Grid.Row="1" Grid.Column="0"
-                   Text="Brugernavn:" VerticalAlignment="Center"/>
+                   Text="Fulde navn:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="1" Grid.Column="1"
                  Margin="5"
-                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding fullName, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <!-- Password (kan ændres til andet end textbox senere) -->
+            <!-- Brugernavn -->
             <TextBlock Grid.Row="2" Grid.Column="0"
-                   Text="Password:" VerticalAlignment="Center"/>
+                   Text="Brugernavn:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="2" Grid.Column="1"
                  Margin="5"
-                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding userName, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Password (kan ændres til andet end textbox senere) -->
+            <TextBlock Grid.Row="3" Grid.Column="0"
+                   Text="Password:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="3" Grid.Column="1"
+                 Margin="5"
+                 Text="{Binding password, UpdateSourceTrigger=PropertyChanged}"/>
 
             <!-- Rettigheder (placeholders) -->
-            <TextBlock Grid.Row="3" Grid.Column="0"
+            <TextBlock Grid.Row="4" Grid.Column="0"
                    Text="Rettigheder:" VerticalAlignment="Top"/>
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="5">
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical" Margin="5">
             <CheckBox Content="Se borgere"
-                      IsChecked="{Binding CanAccessCitizenData}"/> "
+                      IsChecked="{Binding CanAccessCitizenData}"/> 
             <CheckBox Content="Se målinger"
                       IsChecked="{Binding CanSeeMeasurements}"/>
                 <CheckBox Content="Se alarmer"
                       IsChecked="{Binding CanSeeAlarms}"/>
-            <CheckBox Content="´Håndter alarmer"
+            <CheckBox Content="Håndter alarmer"
                           IsChecked="{Binding CanManageAlarms}"/>
                 
                 
         </StackPanel>
 
             <!-- Knapper -->
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="2"
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Margin="5">
-                <Button Content="Annuller"
+            <Button Content="Gem"
                     Width="100"
-                    Margin="5"
-                    Command="{Binding CancelCommand}"/>
-                <Button Content="Gem"
-                    Width="100"
+                    Height="30"
                     Margin="5"
                     Command="{Binding SaveCommand}"/>
-            </StackPanel>
+            <Button Content="Annuller"
+                    Width="100"
+                    Height="30"
+                    Margin="5"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
         </Grid>
     </UserControl>
 
