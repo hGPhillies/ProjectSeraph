@@ -19,7 +19,7 @@ namespace ProjectSeraphBackend.Domain
         }
 
         //REFACTOR: make fluent builderpattern for all measurements? Maybe mbetter with factory, as measurement can be three different ones.
-        public Bloodpressure(int measurementID, int citizenID, DateTime time, double systolic, double diastolic, double pulse) : base(measurementID, citizenID, time)
+        public Bloodpressure(string? measurementID, int citizenID, DateTime time, double systolic, double diastolic, double pulse) : base(measurementID, citizenID, time)
         {
             this.Systolic = systolic;
             this.Diastolic = diastolic;
