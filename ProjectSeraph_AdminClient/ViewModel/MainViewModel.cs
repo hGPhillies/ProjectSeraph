@@ -30,13 +30,13 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 CurrentViewModel = viewModel;
             };
 
-            // Simulate an incoming critical alert after 3 seconds (Will be removed)
+            // Simulate an incoming critical alarm after 3 seconds (Will be removed)
             Task.Delay(3000).ContinueWith(_ =>
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var alertService = new AlertService();
-                    alertService.ShowCriticalAlert("citizen_456", "Anna Jensen");
+                    var alarmService = new AlarmService();
+                    alarmService.ShowCriticalAlarm("citizen_456", "Anna Jensen");
                 });
             });
 

@@ -1,6 +1,11 @@
 ﻿import axios, { type AxiosResponse } from "axios";
 import type { BloodsugarMeasurement } from "../domain/BloodsugarMeasurement";
 
+// Bem�rk: for at hente axios skal I taste disse to kommandoer i terminalvinduet
+
+// (1) npm install axios
+// (2) npm install --save-dev @types/react @types/react-dom
+
 // REFACTOR
 //Ret URL, så vi er sikre på at den matcher backend-endpoint
 const BASE_URL = "https://localhost:5001/measurement/send/bloodsugar";

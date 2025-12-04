@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using ProjectSeraphBackend.Application.Interfaces;
+using ProjectSeraphBackend.Application.Services;
 using ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess;
 using ProjectSeraphBackend.FrameworksAndDrivers.Endpoints;
 using ProjectSeraphBackend.InterfaceAdapters.Interfaces;
@@ -22,6 +23,13 @@ namespace ProjectSeraphBackend
             builder.Services.AddSingleton<IMongoClient>(sp =>
                 new MongoClient(connectionString));
 
+            // Register Logging
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+
+            
+
             // Register IMongoDatabase
             builder.Services.AddScoped<IMongoDatabase>(sp =>
             {
@@ -29,6 +37,7 @@ namespace ProjectSeraphBackend
                 return client.GetDatabase(databaseName);
             });
 
+            builder.Services.AddSingleton<IWebSocketService, WebSocketService>();
             //Maybe we can do the database mapping here?
             MeasurementDAOMongo.MapMeasurementMembers();
             builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
@@ -71,38 +80,17 @@ namespace ProjectSeraphBackend
             }
 
             app.UseHttpsRedirection();
+
+            app.UseWebSockets();
+
             app.UseAuthorization();
 
             app.MapNurseEndpoints();
-            app.MapCitizenEndpoints();
-
+            app.MapAlarmWebSocket();
             app.MapMeasurementEndpoints();
 
             app.Run();
 
-
-            //USED WHEN ADDING CONTROLLERS INSTEAD OF ENDPOINTS
-
-            //// Register Citizen repository with factory
-            //builder.Services.AddScoped<ICitizenRepository>(sp =>
-            //{
-            //    var database = sp.GetRequiredService<IMongoDatabase>();
-            //    return new CitizenRepository(database);
-            //});
-
-            //// Register Nurse repository with factory
-            //builder.Services.AddScoped<INurseRepository>(sp =>
-            //{
-            //    var database = sp.GetRequiredService<IMongoDatabase>();
-            //    return new NurseRepository(database);
-            //});
-
-            ////Add controllers without specifying assembly
-            //builder.Services.AddControllers();
-
-            //builder.Services.AddEndpointsApiExplorer();  
-
-            //app.MapControllers();
         }
     }
 }
