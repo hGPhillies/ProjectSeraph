@@ -19,7 +19,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             var measurementGroup = measurements.MapGroup("/measurement")
             .WithTags("MeasurementEndpoints"); 
 
-            measurementGroup.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bp);
 
@@ -27,7 +27,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodpressure");
 
-            measurementGroup.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bs);
 
@@ -35,7 +35,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodsugar");
 
-            measurements.MapGet("/measurement/getall", async (IMeasurementRepository measRep) =>
+            measurementGroup.MapGet("/getall", async (IMeasurementRepository measRep) =>
             {
                 var measList = await measRep.GetAllAsync();
 
@@ -43,7 +43,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("ReadAllMeasurements");
                
-            measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            measurementGroup.MapGet("/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
             {
                 var measList = await measRep.GetAllByCitIDAsync(citizenID);
 
