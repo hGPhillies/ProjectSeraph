@@ -10,15 +10,16 @@ namespace ProjectSeraph_AdminClient.Model
 {
     public class Alarm : Bindable
     {
+        // Websocket transfered properties
         public string Id { get; set; }
-
         public string CitizenId { get; set; }
-
+        public DateTime Timestamp { get; set; }
         public string CitizenName { get; set; }
 
+
+        // Additional properties for REST endpoint 
         public string MeasurementType { get; set; }        
 
-        public DateTime Timestamp { get; set; }
 
 
         public string FormattedTime => Timestamp.ToString("HH:mm:ss");        
