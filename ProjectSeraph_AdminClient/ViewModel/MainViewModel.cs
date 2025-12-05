@@ -1,11 +1,5 @@
 ﻿using ProjectSeraph_AdminClient.Model;
-using ProjectSeraph_AdminClient.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+
 using System.Windows.Input;
 
 namespace ProjectSeraph_AdminClient.ViewModel
@@ -19,28 +13,34 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// cref="CurrentViewModel"/> property accordingly.</remarks>
     public class MainViewModel : Bindable
     {
+        private readonly AlarmService _alarmService;
+        private readonly MyNavigationService _navigationService;
         private Bindable _currentViewModel;
-        private readonly IMyNavigationService _navigationService;
 
-        public MainViewModel(IMyNavigationService navigationService)
+        public AlarmService AlarmService => _alarmService;
+        public ICommand NavigationCommand { get; }
+        public ICommand TestAlarmCommand { get; }
+
+        public MainViewModel()
         {
-            _navigationService = navigationService;
+            var webSocketClient = new WebSocketClientService("ws://localhost:8080/ws/alarms");
+            _alarmService = new AlarmService(webSocketClient);
+            _navigationService = new MyNavigationService();
+            NavigationCommand = new DelegateCommand<string>(NavigateTo);
+            TestAlarmCommand = new DelegateCommand<object>(_ => ExecuteTestAlarm());
+
+
             _navigationService.CurrentViewModelChanged += (viewModel) =>
             {
                 CurrentViewModel = viewModel;
             };
-
-            // Simulate an incoming critical alarm after 3 seconds (Will be removed)
-            //Task.Delay(3000).ContinueWith(_ =>
-            //{
-            //    Application.Current.Dispatcher.Invoke(() =>
-            //    {
-            //        var alarmService = new AlarmService();
-            //        alarmService.ShowCriticalAlarm("citizen_456", "Anna Jensen");
-            //    });
-            //});
-
+                
             _navigationService.NavigateTo<CitizenViewModel>();
+        }
+
+        private void ExecuteTestAlarm()
+        {
+            _alarmService.TestAlarm();
         }
 
         public Bindable CurrentViewModel
@@ -52,8 +52,6 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 propertyIsChanged(nameof(CurrentViewModel));
             }
         }
-
-        public ICommand NavigationCommand => new DelegateCommand<string>(NavigateTo);
         
         private void NavigateTo(string viewType)
         {
@@ -80,7 +78,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     break;
 
                 case "Manage Nurses":
-                    _navigationService.NavigateTo<ManageNursesViewModel>();
+                    _navigationService.NavigateTo<ManageNursesViewModel>(_navigationService);
                     break;
 
                 case "Manage Citizen":
