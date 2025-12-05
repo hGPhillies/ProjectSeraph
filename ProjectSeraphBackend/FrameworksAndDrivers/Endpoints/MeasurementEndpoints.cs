@@ -31,6 +31,8 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodsugar");
 
+            measurements.MapGet("/measurement/")
+
             return measurements;
         }
     }
