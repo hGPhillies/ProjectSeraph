@@ -26,9 +26,14 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Measurement>> GetAllAsync(string citizenID)
+        public async Task<IEnumerable<Measurement>> GetAllAsync()
         {
-            return await _dao.ReadAllAsync(citizenID);
+            return await _dao.ReadAllAsync();
+        }
+
+        public async Task<IEnumerable<Measurement>> GetAllByCitIDAsync(string citizenID)
+        {
+            return await _dao.ReadAllByCitIDAsync(citizenID);
         }
 
         public async Task UpdateAsync(Measurement measurement)

@@ -1,7 +1,4 @@
-﻿
-using MongoDB.Driver;
-
-namespace ProjectSeraphBackend.Domain
+﻿namespace ProjectSeraphBackend.Domain
 {
     /// <summary>
     /// This abstract class represents a generic measurement with a timestamp.

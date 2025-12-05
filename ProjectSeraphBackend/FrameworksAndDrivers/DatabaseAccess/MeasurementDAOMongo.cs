@@ -53,7 +53,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Measurement>> ReadAllAsync(string citizenId)
+        public async Task<IEnumerable<Measurement>> ReadAllAsync()
+        {
+            return await _measurements.Find(measurement => true).ToListAsync();
+        }
+        public async Task<IEnumerable<Measurement>> ReadAllByCitIDAsync(string citizenId)
         {  
             return await _measurements.Find(m => m.CitizenID == citizenId).ToListAsync(); 
         }
