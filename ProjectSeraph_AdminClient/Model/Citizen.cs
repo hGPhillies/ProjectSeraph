@@ -8,5 +8,9 @@ namespace ProjectSeraph_AdminClient.Model
 {
     public class Citizen
     {
-    }
+        public string? citizenID { get; set; }
+        public string fullName { get; set; } = string.Empty;
+       
+
+}
 }

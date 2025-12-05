@@ -19,7 +19,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             var group = app.MapGroup("/citizen")
              .WithTags("CitizenEndpoints"); // Tag for grouping in Swagger/OpenAPI
 
-            //GET /citizen - endpoint to get all citizens
+            //GET citizen - endpoint to get all citizens
             group.MapGet("/getAll", async (ICitizenRepository repo) =>
             {
                 var citizens = await repo.GetAllAsync();
@@ -38,7 +38,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             //POST /citizen - endpoint to create a new citizen
             group.MapPost("/", async (Citizen citizen, ICitizenRepository repo) =>
             {
-                citizen.citizenID = string.Empty; // Let repository generate ID
+                //citizen.citizenID = string.Empty; // Let repository generate ID
                 var created = await repo.CreateAsync(citizen);
                 return Results.Created($"/api/citizen/{created.citizenID}", created);
             })

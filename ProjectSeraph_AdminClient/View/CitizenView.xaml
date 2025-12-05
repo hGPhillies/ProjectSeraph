@@ -13,28 +13,53 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="1" Margin="0 0 0 10">
+            <!-- Search box -->
+            <TextBox x:Name="SearchBox"
+             Height="30"
+             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!-- Watermark -->
+            <TextBlock Text="Søg efter borger..."
+               Margin="5,0,0,0"
+               VerticalAlignment="Center"
+               Foreground="Gray"
+               IsHitTestVisible="False">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <!-- Hide watermark when TextBox contains text -->
+                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+
+
         <!--List of all nurses-->
-        <ListView ItemsSource="{Binding Nurses}"
-                  SelectedItem="{Binding SelectedNurse}">
+        <ListView ItemsSource="{Binding Citizens}"
+                  SelectedItem="{Binding SelectedCitizen}">
             <ListView.View>
                 <GridView>
 
                     <!--Full Name-->
                     <GridViewColumn Header="Fulde Navn" Width="200" 
-                                    DisplayMemberBinding="{Binding FullName}"/>
-                    <!--Nurse ID-->
+                                    DisplayMemberBinding="{Binding fullName}"/>
+                    <!--Citizen ID-->
                     <GridViewColumn Header="Borger ID" Width="100" 
                                     DisplayMemberBinding="{Binding citizenID}"/>
+                    <GridViewColumn Header="Seneste Måling" Width="200" 
+                DisplayMemberBinding="{Binding citizenID}"/>
 
-                    <!--Edit nurse menu-->
-                    <GridViewColumn Header="">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                               
 
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
 
                 </GridView>
             </ListView.View>
