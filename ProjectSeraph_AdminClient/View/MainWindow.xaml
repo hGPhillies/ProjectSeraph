@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type viewmodel:ManageNursesViewModel}">
             <views:ManageNursesView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:NurseEditorViewModel}">
+            <views:NurseEditorView />
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodel:ManageCitizenViewModel}">
             <views:ManageCitizenView />
         </DataTemplate>
