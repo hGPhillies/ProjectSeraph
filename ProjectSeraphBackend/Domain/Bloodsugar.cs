@@ -8,7 +8,7 @@
         public double millimolePerLiter { get; set; }
 
         public Bloodsugar() { }
-        public Bloodsugar(string? measurementID, int citizenID, DateTime time, double mmPL) : base(measurementID, citizenID, time)
+        public Bloodsugar(string? measurementID, string citizenID, DateTime time, double mmPL) : base(measurementID, citizenID, time)
         {
             this.millimolePerLiter = mmPL;
         }

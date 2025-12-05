@@ -12,12 +12,12 @@ namespace ProjectSeraphBackend.Domain
     {
         public string? MeasurementID { get; set; }
         //flg. til at binde measurement til citizen.
-        public int CitizenID { get; set; }
+        public string CitizenID { get; set; }
         // Timestamp of the measurement
         public DateTime Time { get; set; }
 
         public Measurement() { }
-        public Measurement(string? measurementID, int citizenID, DateTime time)
+        public Measurement(string? measurementID, string citizenID, DateTime time)
         {
             MeasurementID = measurementID;
             CitizenID = citizenID;
