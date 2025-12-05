@@ -31,13 +31,13 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodsugar");
 
-            //measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
-            //{
-            //    var measList = await measRep.GetAllAsync(citizenID);
+            measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            {
+                var measList = await measRep.GetAllAsync(citizenID);
 
-            //    return measList is null ? Results.NotFound() : measList;
-            //})
-            //.WithName("ReadAllMeasurementsForCitizen");
+                return measList is null ? Results.NotFound() : Results.Ok(measList);
+            })
+            .WithName("ReadAllMeasurementsForCitizen");
 
             return measurements;
         }
