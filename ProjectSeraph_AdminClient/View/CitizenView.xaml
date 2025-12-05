@@ -44,7 +44,7 @@
         </Grid>
 
 
-        <!--List of all nurses-->
+        <!--List of all Citizens-->
         <ListView ItemsSource="{Binding Citizens}"
                   SelectedItem="{Binding SelectedCitizen}">
             <ListView.View>
