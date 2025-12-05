@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
-
 
 namespace ProjectSeraph_AdminClient.View
 {
     /// <summary>
-    /// Interaction logic for CitizenView.xaml
+    /// Interaction logic for NurseEditorView.xaml
     /// </summary>
-    public partial class CitizenView : UserControl
+    public partial class NurseEditorView : UserControl
     {
-        public CitizenView()
+        public NurseEditorView()
         {
             InitializeComponent();
         }
-
-
     }
 }

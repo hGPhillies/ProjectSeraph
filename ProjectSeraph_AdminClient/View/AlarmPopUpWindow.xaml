@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProjectSeraph_AdminClient.View.AlertWindow"
+﻿<Window x:Class="ProjectSeraph_AdminClient.View.AlarmPopUpWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="⚠️ Critical Measurement Alert"

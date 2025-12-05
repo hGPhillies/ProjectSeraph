@@ -15,7 +15,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapMeasurementEndpoints(this IEndpointRouteBuilder measurements)
         {
-            measurements.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
+            // Grouping all measurement-related endpoints under /measurement
+            var measurementGroup = measurements.MapGroup("/measurement")
+            .WithTags("MeasurementEndpoints"); 
+
+            measurementGroup.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bp);
 
@@ -23,7 +27,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodpressure");
 
-            measurements.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bs);
 
@@ -51,3 +55,5 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         }
     }
 }
+
+

@@ -10,28 +10,24 @@ using System.Windows;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
-    public class AlertService
+    public class AlarmService 
     {
-        public void ShowCriticalAlert(string citizenId, string citizenName)
+        public void ShowCriticalAlarm(string citizenId, string citizenName)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var alert = new Alert
+                var alarm = new Alarm
                 {
                     CitizenId = citizenId,
                     CitizenName = citizenName,
                     Timestamp = DateTime.Now,
                 };
 
-                var alertWindow = new AlertWindow(alert);
-                alertWindow.ShowDialog();
+                var alarmPopUpWindow = new AlarmPopUpWindow(alarm);
+                alarmPopUpWindow.ShowDialog();
             });
         }
 
-        //Test alert
-        public void TestAlert()
-        {
-            ShowCriticalAlert("citizen_123", "John Hansen");
-        }
+        
     }
 }

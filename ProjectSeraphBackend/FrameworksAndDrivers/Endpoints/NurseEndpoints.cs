@@ -18,7 +18,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         {
             // Grouping all nurse-related endpoints under /nurse
             var group = app.MapGroup("/nurse")
-            .WithTags("NurseEndpoints"); // Tag for grouping in Swagger/OpenAPI
+            .WithTags("NurseEndpoints"); 
 
             //GET /nurses - endpoint to get all nurses
             group.MapGet("/getAll", async (INurseRepository repo) =>

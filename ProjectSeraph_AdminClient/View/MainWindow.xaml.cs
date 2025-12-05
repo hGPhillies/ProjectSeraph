@@ -1,4 +1,5 @@
 ﻿using ProjectSeraph_AdminClient.Model;
+
 using ProjectSeraph_AdminClient.ViewModel;
 using System.Text;
 using System.Windows;
@@ -18,19 +19,21 @@ namespace ProjectSeraph_AdminClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly AlertService _alertService;
+        private readonly AlarmService _alertService;
         public MainWindow()
         {
             InitializeComponent();
 
             var navigationService = new MyNavigationService();
-            _alertService = new AlertService();
+
+            //Makes the navigation service globally accessible
+            App.NavigationService = navigationService;
+
+            
+            _alertService = new AlarmService();
             DataContext = new MainViewModel(navigationService);
         }
 
-        private void TestAlertButton_Click(object sender, RoutedEventArgs e)
-        {
-            _alertService.TestAlert();
-        }
+        
     }
 }

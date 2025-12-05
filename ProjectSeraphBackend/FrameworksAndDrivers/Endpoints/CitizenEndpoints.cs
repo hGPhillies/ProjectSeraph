@@ -16,8 +16,9 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapCitizenEndpoints(this IEndpointRouteBuilder app)
         {
+            // Grouping all citizen-related endpoints under /citizen
             var group = app.MapGroup("/citizen")
-             .WithTags("CitizenEndpoints"); // Tag for grouping in Swagger/OpenAPI
+             .WithTags("CitizenEndpoints"); 
 
             //GET /citizen - endpoint to get all citizens
             group.MapGet("/getAll", async (ICitizenRepository repo) =>
