@@ -7,7 +7,8 @@ namespace ProjectSeraphBackend.InterfaceAdapters.Interfaces
     {
         Task CreateAsync(Measurement measurement);
         Task<Measurement> ReadAsync(int measurementId);
-        Task<IEnumerable<Measurement>> ReadAllAsync(int citizenId);
+        Task<IEnumerable<Measurement>> ReadAllAsync();
+        Task<IEnumerable<Measurement>> ReadAllByCitIDAsync(string citizenId);
         Task UpdateAsync(Measurement measurement);
         Task DeleteAsync(Measurement measurement);
     }

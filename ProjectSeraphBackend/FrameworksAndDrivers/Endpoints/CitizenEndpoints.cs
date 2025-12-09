@@ -16,11 +16,12 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapCitizenEndpoints(this IEndpointRouteBuilder app)
         {
-            var group = app.MapGroup("/citizen")
-             .WithTags("CitizenEndpoints"); // Tag for grouping in Swagger/OpenAPI
+            // Grouping all citizen-related endpoints under /citizen
+            var citizenGroup = app.MapGroup("/citizen")
+             .WithTags("CitizenEndpoints"); 
 
-            //GET citizen - endpoint to get all citizens
-            group.MapGet("/getAll", async (ICitizenRepository repo) =>
+            //GET /citizen - endpoint to get all citizens
+            citizenGroup.MapGet("/getAll", async (ICitizenRepository repo) =>
             {
                 var citizens = await repo.GetAllAsync();
                 return Results.Ok(citizens);
@@ -28,7 +29,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("GetAllCitizens");
 
             //GET /citizen/{citizenID} - endpoint to get a citizen by ID
-            group.MapGet("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
+            citizenGroup.MapGet("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
             {
                 var citizen = await repo.GetByIdAsync(citizenID);
                 return citizen is null ? Results.NotFound() : Results.Ok(citizen);
@@ -36,7 +37,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("GetCitizenById");
 
             //POST /citizen - endpoint to create a new citizen
-            group.MapPost("/", async (Citizen citizen, ICitizenRepository repo) =>
+            citizenGroup.MapPost("/", async (Citizen citizen, ICitizenRepository repo) =>
             {
                 //citizen.citizenID = string.Empty; // Let repository generate ID
                 var created = await repo.CreateAsync(citizen);
@@ -45,7 +46,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("CreateCitizen");
 
             //PUT /citizen/{citizenID} - endpoint to update a citizen
-            group.MapPut("/{citizenID}", async (string citizenID, Citizen citizen, ICitizenRepository repo) =>
+            citizenGroup.MapPut("/{citizenID}", async (string citizenID, Citizen citizen, ICitizenRepository repo) =>
             {
                 var updated = await repo.UpdateAsync(citizenID, citizen);
                 return updated is null ? Results.NotFound() : Results.Ok(updated);
@@ -53,7 +54,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("UpdateCitizen");
 
             //DELETE /citizen/{citizenID} - endpoint to delete a citizen by ID
-            group.MapDelete("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
+            citizenGroup.MapDelete("/{citizenID}", async (string citizenID, ICitizenRepository repo) =>
             {
                 var deleted = await repo.DeleteAsync(citizenID);
                 return deleted ? Results.NoContent() : Results.NotFound();

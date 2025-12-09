@@ -15,7 +15,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Measurement>> ReadAllAsync(int citizenId)
+        public async Task<IEnumerable<Measurement>> ReadAllByCitIDAsync(string citizenId)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +26,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
         }
 
         public async Task DeleteAsync(Measurement measurement)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Measurement>> ReadAllAsync()
         {
             throw new NotImplementedException();
         }
