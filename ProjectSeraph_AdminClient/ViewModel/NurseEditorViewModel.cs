@@ -64,10 +64,10 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public ICommand CancelCommand { get; }
 
         //Methods for save and cancel commands in nurse editor
-        public NurseEditorViewModel()
+        public NurseEditorViewModel(IMyNavigationService navigationService)
         {
             _nurseService = new NurseService();
-            _navigation = App.NavigationService!; // Uses global navigation service from App class
+            _navigation = navigationService!; // Uses global navigation service from App class
 
             SaveCommand = new DelegateCommand<object>(async _ => await OnSaveAsync());
             CancelCommand = new DelegateCommand<object>(_ => OnCancel());
@@ -95,13 +95,13 @@ namespace ProjectSeraph_AdminClient.ViewModel
             }
 
             //Navigate back to the ManageNursesViewModel after saving
-            _navigation.NavigateTo<ManageNursesViewModel>();
+            _navigation.NavigateTo<ManageNursesViewModel>(_navigation);
         }
 
         private void OnCancel() 
         {
             //Navigate back to the ManageNursesViewModel without saving
-            _navigation.NavigateTo<ManageNursesViewModel>();
+            _navigation.NavigateTo<ManageNursesViewModel>(_navigation);
         }
     }
 }

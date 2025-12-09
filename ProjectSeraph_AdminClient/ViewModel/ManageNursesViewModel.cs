@@ -39,10 +39,10 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public ICommand CreateNurseCommand { get; }
         public ICommand EditNurseCommand { get; }
 
-        public ManageNursesViewModel()
+        public ManageNursesViewModel(IMyNavigationService navigationService)
         {
             // Global navigation service from App
-            _navigation = App.NavigationService
+            _navigation = navigationService
                 ?? throw new InvalidOperationException("Navigation service is not initialized.");
 
             _http = new HttpClient
@@ -76,7 +76,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private void OnCreateNurse()
         {
             //Navigate to the NurseEditorViewModel to create a new nurse
-            _navigation.NavigateTo<NurseEditorViewModel>();
+            _navigation.NavigateTo<NurseEditorViewModel>(_navigation);
         }
 
         private void OnEditNurse(Nurse? nurse)
