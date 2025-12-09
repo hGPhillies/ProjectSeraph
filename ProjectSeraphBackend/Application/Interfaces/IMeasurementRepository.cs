@@ -9,7 +9,8 @@ namespace ProjectSeraphBackend.Application.Interfaces
     {
         Task AddAsync(Measurement measurement);
         Task<Measurement> GetAsync(Measurement measurement);
-        Task<IEnumerable<Measurement>> GetAllAsync(Citizen citizen);
+        Task<IEnumerable<Measurement>> GetAllAsync();
+        Task<IEnumerable<Measurement>> GetAllByCitIDAsync(string citizenID);
         Task UpdateAsync(Measurement measurement);
         Task DeleteAsync(Measurement measurement);
     }

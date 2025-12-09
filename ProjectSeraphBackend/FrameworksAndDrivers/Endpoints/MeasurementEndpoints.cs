@@ -15,7 +15,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
     {
         public static IEndpointRouteBuilder MapMeasurementEndpoints(this IEndpointRouteBuilder measurements)
         {
-            measurements.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
+            // Grouping all measurement-related endpoints under /measurement
+            var measurementGroup = measurements.MapGroup("/measurement")
+            .WithTags("MeasurementEndpoints"); 
+
+            measurementGroup.MapPost("/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bp);
 
@@ -23,7 +27,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodpressure");
 
-            measurements.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bs);
 
@@ -31,7 +35,25 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodsugar");
 
+            measurementGroup.MapGet("/getall", async (IMeasurementRepository measRep) =>
+            {
+                var measList = await measRep.GetAllAsync();
+
+                return measList is null ? Results.NotFound() : Results.Ok(measList);
+            })
+            .WithName("ReadAllMeasurements");
+               
+            measurementGroup.MapGet("/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            {
+                var measList = await measRep.GetAllByCitIDAsync(citizenID);
+
+                return measList is null ? Results.NotFound() : Results.Ok(measList);
+            })
+            .WithName("ReadAllMeasurementsForCitizen");
+
             return measurements;
         }
     }
 }
+
+

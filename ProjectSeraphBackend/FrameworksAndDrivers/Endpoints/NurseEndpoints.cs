@@ -17,11 +17,11 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
         public static IEndpointRouteBuilder MapNurseEndpoints(this IEndpointRouteBuilder app)
         {
             // Grouping all nurse-related endpoints under /nurse
-            var group = app.MapGroup("/nurse")
-            .WithTags("NurseEndpoints"); // Tag for grouping in Swagger/OpenAPI
+            var nurseGroup = app.MapGroup("/nurse")
+            .WithTags("NurseEndpoints"); 
 
             //GET /nurses - endpoint to get all nurses
-            group.MapGet("/getAll", async (INurseRepository repo) =>
+            nurseGroup.MapGet("/getAll", async (INurseRepository repo) =>
             {
                 var nurses = await repo.GetAllAsync();
                 return Results.Ok(nurses);
@@ -29,7 +29,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("GetAllNurses");
 
             //GET /nurses{id} - endpoint to get a nurse by ID
-            group.MapGet("/{nurseID}", async (string nurseID, INurseRepository repo) =>
+            nurseGroup.MapGet("/{nurseID}", async (string nurseID, INurseRepository repo) =>
             {
                 var nurse = await repo.GetByIdAsync(nurseID);
                 return nurse is null ? Results.NotFound() : Results.Ok(nurse);
@@ -37,7 +37,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("GetNurseById");
 
             //POST /nurses - endpoint to create a new nurse
-            group.MapPost("/", async (Nurse nurse, INurseRepository repo) =>
+            nurseGroup.MapPost("/", async (Nurse nurse, INurseRepository repo) =>
             {
                 nurse.nurseID = string.Empty; // Let repository generate ID
                 var created = await repo.CreateAsync(nurse);
@@ -46,7 +46,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("CreateNurse");
 
             //PUT /nurses/{nurseID} - endpoint to update an existing nurse
-            group.MapPut("/{nurseID}", async (string nurseID, Nurse nurse, INurseRepository repo) =>
+            nurseGroup.MapPut("/{nurseID}", async (string nurseID, Nurse nurse, INurseRepository repo) =>
             {
                 var updated = await repo.UpdateAsync(nurseID, nurse);
                 return updated is null ? Results.NotFound() : Results.Ok(updated);
@@ -54,7 +54,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 .WithName("UpdateNurse");
 
             //DELETE /nurses/{nurseID} - endpoint to delete a nurse by ID
-            group.MapDelete("/{nurseID}", async (string nurseID, INurseRepository repo) =>
+            nurseGroup.MapDelete("/{nurseID}", async (string nurseID, INurseRepository repo) =>
             {
                 var deleted = await repo.DeleteAsync(nurseID);
                 return deleted ? Results.NoContent() : Results.NotFound();
