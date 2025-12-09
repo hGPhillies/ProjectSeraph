@@ -1,7 +1,7 @@
 ï»¿import axios, { type AxiosResponse } from "axios";
 import type { BloodsugarMeasurement } from "../domain/BloodsugarMeasurement";
 
-// Bemærk: for at hente axios skal I taste disse to kommandoer i terminalvinduet
+// Bemï¿½rk: for at hente axios skal I taste disse to kommandoer i terminalvinduet
 
 // (1) npm install axios
 // (2) npm install --save-dev @types/react @types/react-dom
