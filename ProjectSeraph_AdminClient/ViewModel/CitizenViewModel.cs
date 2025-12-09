@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
@@ -44,8 +43,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _searchText = value;
+                // Keep the search box visible in the UI
+                // Filtering will be implemented later.
                 OnPropertyChanged();
-                ApplyFilter();
             }
         }
 
@@ -95,6 +95,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             }
         }
 
+        // Keep ApplyFilter implementation for future use 
         private void ApplyFilter()
         {
             if (string.IsNullOrWhiteSpace(SearchText))
@@ -123,7 +124,5 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }

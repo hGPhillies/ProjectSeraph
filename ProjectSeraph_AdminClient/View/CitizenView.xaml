@@ -14,62 +14,55 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" Margin="0 0 0 10">
-            <!-- Search box -->
+            <!-- Search box (present but currently non-functional) -->
             <TextBox x:Name="SearchBox"
-             Height="30"
-             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+                     Height="30"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 
             <!-- Watermark -->
             <TextBlock Text="Søg efter borger..."
-               Margin="5,0,0,0"
-               VerticalAlignment="Center"
-               Foreground="Gray"
-               IsHitTestVisible="False">
+           Margin="5,0,0,0"
+           VerticalAlignment="Center"
+           Foreground="Gray"
+           IsHitTestVisible="False">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Visible"/>
+                        <!-- Default to Collapsed (will show only when TextBox is empty) -->
+                        <Setter Property="Visibility" Value="Collapsed"/>
                         <Style.Triggers>
-                            <!-- Hide watermark when TextBox contains text -->
-                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                            <!-- Show watermark when TextBox is empty or null -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Text, ElementName=SearchBox}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
                                 <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-
-                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Text, ElementName=SearchBox}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
         </Grid>
 
-
-        <!--List of all Citizens-->
+        <!-- Show initial list of all citizens (bind to Citizens collection) -->
         <ListView ItemsSource="{Binding Citizens}"
                   SelectedItem="{Binding SelectedCitizen}">
             <ListView.View>
                 <GridView>
-
-                    <!--Full Name-->
                     <GridViewColumn Header="Fulde Navn" Width="200" 
                                     DisplayMemberBinding="{Binding fullName}"/>
-                    <!--Citizen ID-->
                     <GridViewColumn Header="Borger ID" Width="100" 
                                     DisplayMemberBinding="{Binding citizenID}"/>
                     <GridViewColumn Header="Seneste Måling" Width="200" 
-                DisplayMemberBinding="{Binding citizenID}"/>
-
-
-
+                                    DisplayMemberBinding="{Binding citizenID}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-
-
-
-
-
-
     </Grid>
 
 </UserControl>
