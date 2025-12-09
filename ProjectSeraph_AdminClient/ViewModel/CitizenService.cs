@@ -10,7 +10,7 @@ using ProjectSeraph_AdminClient.Model;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
-    internal class CitizenService
+    public class CitizenService
     {
         private readonly HttpClient _http;
 
@@ -27,6 +27,16 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             var result = await _http.GetFromJsonAsync<IEnumerable<Citizen>>("/citizen/getAll");
             return result ?? Enumerable.Empty<Citizen>();
+        }
+
+        public async Task<Citizen?> CreateAsync(Citizen citizen)
+        {
+            var response = await _http.PostAsJsonAsync("/citizen/create", citizen);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Citizen>();
+            }
+            return null;
         }
     }
 }

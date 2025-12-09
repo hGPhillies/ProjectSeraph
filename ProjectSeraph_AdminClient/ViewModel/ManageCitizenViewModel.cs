@@ -11,6 +11,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
     public class ManageCitizenViewModel : Bindable       
     {
         private readonly IMyNavigationService _navigation;
+        private readonly CitizenService _citizenService;
 
         //public string Title => "Manage Citizen Model";
         //public string TestContent => "This is the Manage Citizen Model content.";
@@ -107,6 +108,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             //Navigation service from App
             _navigation = App.NavigationService;
+            _citizenService = new CitizenService();
 
             //Commands
             OpenCreateCitizenCommand = new DelegateCommand<object>(_ => OnOpenCreateCitizen());
@@ -137,7 +139,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     string.IsNullOrWhiteSpace(PostalCode) ||
                     string.IsNullOrWhiteSpace(City))
                 {
-                    MessageBox.Show("Please fill in all required fields (marked with *)",
+                    MessageBox.Show("Udfyld alle felter med *",
                                   "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -152,7 +154,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                                       "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
-                }
+                }  
 
                 //Create Citizen object
                 var citizen = new Citizen 
@@ -172,6 +174,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     CanMeasureBloodPressure = CanMeasureBloodPressure,
                     CanMeasureBloodSugar = CanMeasureBloodSugar
                 };
+
+                var created = await _citizenService.CreateAsync(citizen);
 
                 //TODO: Add the save logic here API call to backend instead of just showing JSON
 

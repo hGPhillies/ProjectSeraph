@@ -11,8 +11,6 @@ namespace ProjectSeraphBackend.Domain
     {
         public String lastName { get; set; } = string.Empty;
         public String firstName { get; set; } = string.Empty;
-        //Citizen ID could be CPR-Nummer, we are using an ID for simplicity of the project
-        //and to avoid handling sensitive information
 
         // This property is the MongoDB ObjectId. MongoDB generates its value automatically
         [BsonId]
