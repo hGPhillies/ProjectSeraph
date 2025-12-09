@@ -3,7 +3,6 @@ using ProjectSeraphBackend.Application.DTO;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
 using System.Runtime.CompilerServices;
-using ZstdSharp.Unsafe;
 
 namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
 {
@@ -20,7 +19,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             var measurementGroup = measurements.MapGroup("/measurement")
             .WithTags("MeasurementEndpoints"); 
 
-            measurementGroup.MapPost("/measurement/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/send/bloodpressure", async (Bloodpressure bp, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bp);
 
@@ -28,7 +27,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodpressure");
 
-            measurementGroup.MapPost("/measurement/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
+            measurementGroup.MapPost("/send/bloodsugar", async (Bloodsugar bs, IMeasurementRepository measRep) =>
             {
                 await measRep.AddAsync(bs);
 
@@ -36,20 +35,21 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             })
             .WithName("SendBloodsugar");
 
-            //measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
-            //{
-            //    var measList = await measRep.GetAllAsync(citizenID);
-
-            //    return measList is null ? Results.NotFound() : measList;
-            //})
-            //.WithName("ReadAllMeasurementsForCitizen");
-
-            measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            measurementGroup.MapGet("/getall", async (IMeasurementRepository measRep) =>
             {
-                var measList = await measRep.GetAllAsync(citizenID);
+                var measList = await measRep.GetAllAsync();
+
                 return measList is null ? Results.NotFound() : Results.Ok(measList);
             })
-                .WithName("ReadAllMeasurementsForCitizen"); 
+            .WithName("ReadAllMeasurements");
+               
+            measurementGroup.MapGet("/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            {
+                var measList = await measRep.GetAllByCitIDAsync(citizenID);
+
+                return measList is null ? Results.NotFound() : Results.Ok(measList);
+            })
+            .WithName("ReadAllMeasurementsForCitizen");
 
             return measurements;
         }

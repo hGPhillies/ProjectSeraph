@@ -5,7 +5,7 @@ namespace ProjectSeraphBackend.Application.DTO
     public abstract class MeasurementDTO
     {
         public string? MeasurementID { get; set; }
-        public int CitizenID { get; set; }
+        public string CitizenID { get; set; }
         // Timestamp of the measurement
         public DateTime Time { get; set; }
 
