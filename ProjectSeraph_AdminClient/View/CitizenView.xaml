@@ -13,38 +13,56 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--List of all nurses-->
-        <ListView ItemsSource="{Binding Nurses}"
-                  SelectedItem="{Binding SelectedNurse}">
+        <Grid Grid.Row="1" Margin="0 0 0 10">
+            <!-- Search box (present but currently non-functional) -->
+            <TextBox x:Name="SearchBox"
+                     Height="30"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+
+            <!-- Watermark -->
+            <TextBlock Text="Søg efter borger..."
+           Margin="5,0,0,0"
+           VerticalAlignment="Center"
+           Foreground="Gray"
+           IsHitTestVisible="False">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <!-- Default to Collapsed (will show only when TextBox is empty) -->
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <!-- Show watermark when TextBox is empty or null -->
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Text, ElementName=SearchBox}" Value="{x:Null}"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Text, ElementName=SearchBox}" Value=""/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+
+        <!-- Show initial list of all citizens (bind to Citizens collection) -->
+        <ListView ItemsSource="{Binding Citizens}"
+                  SelectedItem="{Binding SelectedCitizen}">
             <ListView.View>
                 <GridView>
-
-                    <!--Full Name-->
                     <GridViewColumn Header="Fulde Navn" Width="200" 
-                                    DisplayMemberBinding="{Binding FullName}"/>
-                    <!--Nurse ID-->
+                                    DisplayMemberBinding="{Binding fullName}"/>
                     <GridViewColumn Header="Borger ID" Width="100" 
                                     DisplayMemberBinding="{Binding citizenID}"/>
-
-                    <!--Edit nurse menu-->
-                    <GridViewColumn Header="">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                               
-
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
+                    <GridViewColumn Header="Seneste Måling" Width="200" 
+                                    DisplayMemberBinding="{Binding LatestMeasurement}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-
-
-
-
-
-
     </Grid>
 
 </UserControl>

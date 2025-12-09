@@ -16,7 +16,7 @@ namespace ProjectSeraphBackend.Domain
 
         // This property is the MongoDB ObjectId. MongoDB generates its value automatically
         [BsonId]
-        [BsonRepresentation(BsonType.String)] //Changed from (BsonType.ObjectId) Because citizenID is a string
+        [BsonRepresentation(BsonType.ObjectId)] //Changed from (BsonType.ObjectId) Because citizenID is a string
         public String citizenID { get; set; } = string.Empty;
         public Home home { get; set; } = new Home();
         public int age { get; set; }

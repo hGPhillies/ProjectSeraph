@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DnsClient.Internal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging; 
 using ProjectSeraphBackend.Application.Interfaces;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 
 namespace ProjectSeraphBackend.Application.Services
 {
     public class WebSocketService : IWebSocketService
     {
         private WebSocket? _webSocket;
+        private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
         private readonly ILogger<WebSocketService> _logger;
 
         public WebSocketService(ILogger<WebSocketService> logger)
@@ -19,82 +22,132 @@ namespace ProjectSeraphBackend.Application.Services
 
         public async Task HandleConnection(HttpContext context)
         {
-            _logger.LogInformation("📡 HandleConnection called");
+            _logger.LogInformation("📡 Alarm connection handler called");
 
-            if (context.WebSockets.IsWebSocketRequest)
+            if (!context.WebSockets.IsWebSocketRequest)
             {
-                _logger.LogInformation("✅ It's a WebSocket request!");
+                // ... (400 Bad Request logic remains)
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                return;
+            }
 
-                if (_webSocket?.State == WebSocketState.Open)
-                {
-                    _logger.LogInformation("⚠️ Closing existing connection...");
-                    await _webSocket.CloseAsync(
-                        WebSocketCloseStatus.NormalClosure,
-                        "New connection established",
-                        CancellationToken.None);
-                }
+            WebSocket newWebSocket = null;
 
-                _webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                _logger.LogInformation("🎉 WebSocket connection accepted!");
+            try
+            {
+                // 1. Accept the connection (This can throw if the handshake fails)
+                newWebSocket = await context.WebSockets.AcceptWebSocketAsync();
 
+                // 2. Safely replace or close the existing connection (Write Lock)
+                _lock.EnterWriteLock();
                 try
                 {
-                    await KeepConnectionAlive();
-                }
-                catch (WebSocketException ex)
-                {
-                    _logger.LogWarning(ex, "❌ Error in WebSocket connection");
+                    if (_webSocket?.State == WebSocketState.Open)
+                    {
+                        _logger.LogInformation("⚠️ Closing old connection for new client...");
+                        // Non-blocking close attempt on the old socket
+                        _ = Task.Run(async () =>
+                        {
+                            try
+                            {
+                                await _webSocket.CloseAsync(
+                                    WebSocketCloseStatus.NormalClosure, "Replaced", CancellationToken.None);
+                            }
+                            catch { /* Suppress errors during disposal */ }
+                        });
+                    }
+
+                    _webSocket = newWebSocket;
+                    _logger.LogInformation("🎉 New WebSocket connection accepted and stored!");
                 }
                 finally
                 {
-                    _webSocket = null;
-                    _logger.LogInformation("👋 WebSocket disconnected");
+                    _lock.ExitWriteLock();
                 }
+
+                // 3. BLOCKING CALL: Await the connection loop. 
+                await KeepConnectionAlive(newWebSocket);
+
+                // Execution only reaches here if KeepConnectionAlive completes (disconnect/close)
             }
-            else
+            catch (WebSocketException ex)
             {
-                _logger.LogWarning("❌ Not a WebSocket request");
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                // Catch connection errors that happen during handshake or immediately after acceptance
+                _logger.LogError(ex, "❌ WebSocket error during connection setup or background run.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "❌ Unexpected error during WebSocket handling.");
+            }
+            finally
+            {
+                // 4. CRITICAL CLEANUP: Safely clear the reference regardless of how the connection terminated.
+                // We only clear it if the socket we were managing is the current socket.
+                _lock.EnterWriteLock();
+                try
+                {
+                    if (_webSocket == newWebSocket)
+                    {
+                        _webSocket = null;
+                        _logger.LogInformation("👋 WebSocket disconnected and reference cleared.");
+                    }
+                    // If newWebSocket is null here, it means AcceptWebSocketAsync failed, 
+                    // and we didn't store anything, which is safe.
+                }
+                finally
+                {
+                    _lock.ExitWriteLock();
+                }
+
+                // Ensure the WebSocket object itself is disposed if it was successfully created
+                newWebSocket?.Dispose();
             }
         }
 
-        private async Task KeepConnectionAlive()
+        private async Task KeepConnectionAlive(WebSocket socket)
         {
-            if (_webSocket == null) return;
-
             var buffer = new byte[1024];
 
-            while (_webSocket.State == WebSocketState.Open)
+            try
             {
-                var result = await _webSocket.ReceiveAsync(
-                    new ArraySegment<byte>(buffer),
-                    CancellationToken.None);
-
-                if (result.MessageType == WebSocketMessageType.Close)
+                while (socket.State == WebSocketState.Open)
                 {
-                    await _webSocket.CloseAsync(
-                        WebSocketCloseStatus.NormalClosure,
-                        "Client closed",
+                    var result = await socket.ReceiveAsync(
+                        new ArraySegment<byte>(buffer),
                         CancellationToken.None);
 
-                    _logger.LogInformation("WebSocket connection closed by client.");
-                    break;
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        await socket.CloseAsync(
+                            WebSocketCloseStatus.NormalClosure, "Client closed", CancellationToken.None);
+                        break;
+                    }
                 }
             }
+            catch (WebSocketException ex)
+            {
+                // Log warnings for normal disconnects or immediate failures
+                _logger.LogWarning(ex, "❌ WebSocket connection terminated due to error.");
+            }
+            // No finally block here, as HandleAlarmSocketConnection handles cleanup.
         }
 
         public async Task<bool> SendToClient(object message)
         {
+            _lock.EnterReadLock();
+            var socketToSend = _webSocket;
+            _lock.ExitReadLock();
+
             _logger.LogInformation("📨 Attempting to send message to client...");
 
-            if (_webSocket?.State == WebSocketState.Open)
+            if (socketToSend?.State == WebSocketState.Open)
             {
                 try
                 {
                     var json = JsonSerializer.Serialize(message);
-                    var bytes = Encoding.UTF8.GetBytes(json);
+                    var bytes = Encoding.UTF8.GetBytes(json);                    
 
-                    await _webSocket.SendAsync(
+                    await socketToSend.SendAsync(
                         new ArraySegment<byte>(bytes),
                         WebSocketMessageType.Text,
                         true,
@@ -114,6 +167,20 @@ namespace ProjectSeraphBackend.Application.Services
             return false;
         }
 
-        public bool IsConnected => _webSocket?.State == WebSocketState.Open;
+        public bool IsConnected
+        {
+            get
+            {
+                _lock.EnterReadLock();
+                try
+                {
+                    return _webSocket?.State == WebSocketState.Open;
+                }
+                finally
+                {
+                    _lock.ExitReadLock();
+                }
+            }
+        }
     }
 }

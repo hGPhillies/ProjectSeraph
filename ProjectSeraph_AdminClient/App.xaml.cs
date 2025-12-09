@@ -16,7 +16,8 @@ namespace ProjectSeraph_AdminClient
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);            
+            base.OnStartup(e);           
+            
         }
     }
 
