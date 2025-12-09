@@ -20,6 +20,10 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="10,10,0,0" Click="CreateCitizen_Click"
                 Style="{x:Null}"/>
+        <Button Grid.Row="1" Content="Opdater Borger" Width="120" Height="40" 
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="140,10,0,0" Click="UpdateCitizen_Click"
+                Style="{x:Null}"/> 
 
         <!-- Modal Popup Overlay -->
         <Grid x:Name="ModalOverlay" Grid.RowSpan="2" 
