@@ -3,6 +3,7 @@ using ProjectSeraphBackend.Application.DTO;
 using ProjectSeraphBackend.Application.Interfaces;
 using ProjectSeraphBackend.Domain;
 using System.Runtime.CompilerServices;
+using ZstdSharp.Unsafe;
 
 namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
 {
@@ -34,6 +35,21 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
                 return Results.Created();
             })
             .WithName("SendBloodsugar");
+
+            //measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            //{
+            //    var measList = await measRep.GetAllAsync(citizenID);
+
+            //    return measList is null ? Results.NotFound() : measList;
+            //})
+            //.WithName("ReadAllMeasurementsForCitizen");
+
+            measurements.MapGet("/measurement/getall/{citizenID}", async (string citizenID, IMeasurementRepository measRep) =>
+            {
+                var measList = await measRep.GetAllAsync(citizenID);
+                return measList is null ? Results.NotFound() : Results.Ok(measList);
+            })
+                .WithName("ReadAllMeasurementsForCitizen"); 
 
             return measurements;
         }
