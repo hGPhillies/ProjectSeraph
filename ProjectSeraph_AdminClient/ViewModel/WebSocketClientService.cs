@@ -33,18 +33,32 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 _cts = new CancellationTokenSource();
                 _webSocket = new ClientWebSocket();
 
+                if(_webSocketUrl.StartsWith("wss", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Ignore security checks for development
+                    _webSocket.Options.RemoteCertificateValidationCallback = 
+                        (sender, certificate, chain, sslPolicyErrors) => true;
+                }
+
                 ConnectionChanged?.Invoke(false, "Connecting...");
 
                 await _webSocket.ConnectAsync(new Uri(_webSocketUrl), _cts.Token);
 
-                ConnectionChanged?.Invoke(true, "Connected");
+                if (_webSocket?.State == WebSocketState.Open) 
+                {
+                    ConnectionChanged?.Invoke(true, "Connected");
+                    _ = Task.Run(() => ListenForAlarmsAsync(_cts.Token));
+                }
+                else
+                {
+                    ConnectionChanged?.Invoke(false, $"Connection Failed: State is {_webSocket.State}");
+                }
 
-                _ = Task.Run(() => ListenForAlarmsAsync(_cts.Token));
             }
             catch (Exception ex)
             {
                 ConnectionChanged?.Invoke(false, $"Connection failed: {ex.Message}");
-                throw;
+                Console.WriteLine($"Websocket Connection Exception: {ex.Message}");
             }
         }
 
@@ -59,9 +73,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     var result = await _webSocket.ReceiveAsync(
                         new ArraySegment<byte>(buffer), cancellationToken);
 
-                    if(result.MessageType == WebSocketMessageType.Close)
+                    if(result.MessageType == WebSocketMessageType.Close || _webSocket.State != WebSocketState.Open)
                     {
-                        await DisconnectAsync();
                         break;
                     }
 
@@ -81,6 +94,15 @@ namespace ProjectSeraph_AdminClient.ViewModel
             {
                 ConnectionChanged?.Invoke(false, $"Error: {ex.Message}");
             }
+            finally
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ConnectionChanged?.Invoke(false, "Disconnected");
+                });
+
+                await DisconnectAsync();
+            }
         }
 
         private void ProcessMessage(string json)
@@ -92,7 +114,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     var alarmMessage = JsonSerializer.Deserialize<AlarmMessage>(json);
 
                     // All websocket messages are red alarms
-                    if (alarmMessage != null && !string.IsNullOrEmpty(alarmMessage.CitizenId))
+                    if (alarmMessage != null)
                     {
                         AlarmReceived?.Invoke(alarmMessage);
                     }
@@ -127,6 +149,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         public void Dispose()
         {
+            _cts?.Cancel();
             _webSocket?.Dispose();
             _cts?.Dispose();
         }

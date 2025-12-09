@@ -23,8 +23,20 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _webSocketClientService.AlarmReceived += OnAlarmReceived;
             _webSocketClientService.ConnectionChanged += OnConnectionChanged;
 
-            _ = _webSocketClientService.ConnectAsync();
-        }        
+            StartConnection();
+        }     
+        
+        private async void StartConnection()
+        {
+            try
+            {
+                await _webSocketClientService.ConnectAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"FATAL Alarm connection error: {e.Message}");
+            }
+        }
 
         private void OnAlarmReceived(AlarmMessage alarmMessage)
         {
@@ -35,11 +47,10 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 Timestamp = alarmMessage.Timestamp
             };
             
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                var alarmPopUpWindow = new AlarmPopUpWindow(alarm);
-                alarmPopUpWindow.Show();
-            });
+            
+            var alarmPopUpWindow = new AlarmPopUpWindow(alarm);
+            alarmPopUpWindow.Show();
+            
         }
 
         private void OnConnectionChanged(bool isConnected, string message)

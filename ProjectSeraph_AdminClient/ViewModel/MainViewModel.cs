@@ -23,7 +23,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         public MainViewModel()
         {
-            var webSocketClient = new WebSocketClientService("ws://localhost:8080/ws/alarms");
+            var webSocketClient = new WebSocketClientService("wss://localhost:5001/ws/alarms");
             _alarmService = new AlarmService(webSocketClient);
             _navigationService = new MyNavigationService();
             NavigationCommand = new DelegateCommand<string>(NavigateTo);
