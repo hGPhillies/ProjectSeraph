@@ -5,6 +5,10 @@
         xmlns:viewmodel="clr-namespace:ProjectSeraph_AdminClient.ViewModel"
         Title="MainWindow" Height="650" Width="900">
 
+    <Window.DataContext>
+        <viewmodel:MainViewModel />
+    </Window.DataContext>
+        
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodel:CitizenViewModel}">
             <views:CitizenView />
@@ -57,6 +61,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
+       
 
     <Grid>
         <Grid.RowDefinitions>
@@ -88,6 +93,35 @@
             </Border>
         </Grid>
 
-        <Border Grid.Row="2" Height="20" Background="LightGray"/>
+        <StatusBar Grid.Row="2" Background="LightGray">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">                    
+                    <Ellipse Width="10" Height="10" Margin="5,0,5,0">
+                        <Ellipse.Style>
+                            <Style TargetType="Ellipse">
+                                <Setter Property="Fill" Value="Gray"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding AlarmService.IsConnected}" Value="True">
+                                        <Setter Property="Fill" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding AlarmService.IsConnected}" Value="False">
+                                        <Setter Property="Fill" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Ellipse.Style>
+                    </Ellipse>
+                    <TextBlock VerticalAlignment="Center">
+                <Run Text="Alerts:"/>
+                <Run Text="{Binding AlarmService.IsConnected, Mode=OneWay, StringFormat=' {0}'}" FontWeight="Bold"/>
+                    </TextBlock>
+                </StackPanel>
+            </StatusBarItem>
+
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" VerticalAlignment="Center"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

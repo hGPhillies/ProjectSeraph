@@ -35,7 +35,7 @@ namespace ProjectSeraphBackend.InterfaceAdapters.RepositoryImplementations
 
         public async Task<Citizen> CreateAsync(Citizen citizen)
         {
-            citizen.citizenID = null;
+            //citizen.citizenID = null;
             await _citizens.InsertOneAsync(citizen);
             return citizen;
         }
