@@ -59,7 +59,7 @@
                     <GridViewColumn Header="Borger ID" Width="100" 
                                     DisplayMemberBinding="{Binding citizenID}"/>
                     <GridViewColumn Header="Seneste Måling" Width="200" 
-                                    DisplayMemberBinding="{Binding citizenID}"/>
+                                    DisplayMemberBinding="{Binding LatestMeasurement}"/>
                 </GridView>
             </ListView.View>
         </ListView>

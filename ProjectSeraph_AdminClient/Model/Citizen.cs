@@ -12,5 +12,7 @@ namespace ProjectSeraph_AdminClient.Model
 
         // Computed full 
         public string fullName => $"{firstName} {lastName}".Trim();
+
+        public string LatestMeasurement { get; set; } = string.Empty;
     }
 }

@@ -62,27 +62,39 @@ namespace ProjectSeraph_AdminClient.ViewModel
             };
 
             RefreshCitizensCommand = new DelegateCommand<object>(async _ => await LoadCitizensAsync());
-            RefreshMeasurementsCommand = new DelegateCommand<object>(async _ => await LoadMeasurement());
+            RefreshMeasurementsCommand = new DelegateCommand<object>(async _ => await LoadMeasurementAsync());
 
             _ = LoadCitizensAsync();
         }
 
         public async Task LoadCitizensAsync()
         {
+            await LoadMeasurementAsync();
+
             var result = await _http.GetFromJsonAsync<IEnumerable<Citizen>>("/citizen/getAll");
             Citizens.Clear();
             FilteredCitizens.Clear();
             if (result != null)
             {
+                var latestByCitizen = BuildLatestMeasurementMap();
                 foreach (var citizen in result)
                 {
+                    if (latestByCitizen.TryGetValue(citizen.citizenID, out var latest))
+                    {
+                        citizen.LatestMeasurement = $"{latest.MeasurementType}: {latest.Value}{latest.Unit} ({latest.Timestamp:g})";
+                    }
+                    else
+                    {
+                        citizen.LatestMeasurement = "No measurements";
+                    }
+
                     Citizens.Add(citizen);
                     FilteredCitizens.Add(citizen);
                 }
             }
         }
 
-        public async Task LoadMeasurement()
+        public async Task LoadMeasurementAsync()
         {
             var result = await _http.GetFromJsonAsync<IEnumerable<MeasurementData>>("/measurement/getAll");
             Measurements.Clear();
@@ -93,6 +105,14 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     Measurements.Add(measurement);
                 }
             }
+        }
+
+        private Dictionary<string, MeasurementData> BuildLatestMeasurementMap()
+        {
+            return Measurements
+                .GroupBy(m => m.CitizenId)
+                .Select(g => g.OrderByDescending(m => m.Timestamp).First())
+                .ToDictionary(m => m.CitizenId, m => m);
         }
 
         // Keep ApplyFilter implementation for future use 
