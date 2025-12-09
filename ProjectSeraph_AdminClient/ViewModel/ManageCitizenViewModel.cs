@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProjectSeraph_AdminClient.Model;
 using System;
-using System.Runtime.Intrinsics.Arm;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -9,8 +8,10 @@ using System.Windows.Input;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
-    public class ManageCitizenViewModel : Bindable
+    public class ManageCitizenViewModel : Bindable       
     {
+        private readonly IMyNavigationService _navigation;
+
         //public string Title => "Manage Citizen Model";
         //public string TestContent => "This is the Manage Citizen Model content.";
 
@@ -104,6 +105,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
         //Constructor with command implementations
         public ManageCitizenViewModel()
         {
+            //Navigation service from App
+            _navigation = App.NavigationService;
+
             //Commands
             OpenCreateCitizenCommand = new DelegateCommand<object>(_ => OnOpenCreateCitizen());
             SaveCommand = new DelegateCommand<object>(async _ => await OnSaveCitizenAsync()); 
@@ -151,29 +155,29 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 }
 
                 //Create Citizen object
-                var citizenData = new
+                var citizen = new Citizen 
                 {
-                    lastName = LastName.Trim(),
-                    firstName = FirstName.Trim(),
-                    citizenID = String.Empty,
-                    home = new
+                    LastName = LastName.Trim(),
+                    FirstName = FirstName.Trim(),
+                    CitizenID = String.Empty, //ID will be assigned by backend
+                    Home = new Home 
                     {
-                        streetName = StreetName.Trim(),
-                        houseNumber = HouseNumber.Trim(),
-                        postalCode = PostalCode.Trim(),
-                        city = City.Trim(),
-                        floorNumber = floorNumber,
-                        door = (Door ?? string.Empty).Trim()
+                        StreetName = StreetName.Trim(),
+                        HouseNumber = HouseNumber.Trim(),
+                        PostalCode = PostalCode.Trim(),
+                        City = City.Trim(),
+                        FloorNumber = floorNumber,
+                        Door = (Door ?? string.Empty).Trim() 
                     },
                     CanMeasureBloodPressure = CanMeasureBloodPressure,
                     CanMeasureBloodSugar = CanMeasureBloodSugar
                 };
 
-                //Convert to JSON (for API call or saving)
-                string json = JsonConvert.SerializeObject(citizenData, Formatting.Indented);
+                //TODO: Add the save logic here API call to backend instead of just showing JSON
 
-                //TODO: Add the save logic here API call to backend
-                MessageBox.Show($"Citizen created successfully!\n\nJSON:\n{json}",
+                //Convert to JSON (for API call or saving)
+                string json = JsonConvert.SerializeObject(citizen, Formatting.Indented);
+                MessageBox.Show($"Borger er oprettet!\n\nJSON:\n{json}",
                                 "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 //Close the form
@@ -182,9 +186,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 //Clear form for next use
                 ClearForm();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show($"Error saving citizen: {ex.Message}",
+                MessageBox.Show($"Der skete en fejl i borgeroprettelse: {ex.Message}",
                                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             await Task.CompletedTask;

@@ -31,9 +31,9 @@ namespace ProjectSeraph_AdminClient
 
             
             _alertService = new AlarmService();
-            DataContext = new MainViewModel(navigationService);
-        }
 
-        
+            //Set the DataContext to MainViewModel with navigation service
+            DataContext = new MainViewModel(navigationService);
+        }        
     }
 }

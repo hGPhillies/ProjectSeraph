@@ -21,23 +21,16 @@ namespace ProjectSeraphBackend.Domain
         public Home home { get; set; } = new Home();
         public int age { get; set; }
 
-        public Citizen() : base(string.Empty, string.Empty) 
-        {
+        //Citizen permissions 
+        public bool canMeasureBloodPressure { get; set; }
+        public bool canMeasureBloodSugar { get; set; }
 
-        }
-        public Citizen(string userName, string password) : base(userName, password)
-        {
+        public Citizen() : base(string.Empty, string.Empty) { }
+        public Citizen(string userName, string password) : base(userName, password) { }
 
-        }
 
-        private void homeAdress()
-        {
+        private void homeAdress() { }
 
-        }
-
-        private void myMeasurements()
-        {
-        }
-
+        private void myMeasurements() { }
     }
 }
