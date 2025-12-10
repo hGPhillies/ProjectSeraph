@@ -31,7 +31,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         public async Task<Citizen?> CreateAsync(Citizen citizen)
         {
-            var response = await _http.PostAsJsonAsync("/citizen/create", citizen);
+            var response = await _http.PostAsJsonAsync("/citizen", citizen);
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<Citizen>();
