@@ -35,6 +35,9 @@
         <DataTemplate DataType="{x:Type viewmodel:ManageCitizenViewModel}">
             <views:ManageCitizenView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:LoginViewModel}">
+            <views:LoginView />
+        </DataTemplate>
 
         <Style x:Key="NavigationButtonStyle" TargetType="Button">
             <Style.Triggers>
@@ -60,7 +63,8 @@
                     </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
-        </Style>
+        </Style>       
+
     </Window.Resources>
        
 

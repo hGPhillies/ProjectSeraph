@@ -16,6 +16,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private readonly AlarmService _alarmService;
         private readonly MyNavigationService _navigationService;
         private Bindable _currentViewModel;
+        private bool _isNavigationVisible;
 
         public AlarmService AlarmService => _alarmService;
         public ICommand NavigationCommand { get; }
@@ -35,8 +36,10 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 CurrentViewModel = viewModel;
             };
                 
-            _navigationService.NavigateTo<CitizenViewModel>(_navigationService);
+            _navigationService.NavigateTo<LoginViewModel>(_navigationService);
         }
+
+
 
         private void ExecuteTestAlarm()
         {
@@ -48,11 +51,28 @@ namespace ProjectSeraph_AdminClient.ViewModel
             get { return _currentViewModel; }
             set
             {
-                _currentViewModel = value;
-                propertyIsChanged(nameof(CurrentViewModel));
+                if (_currentViewModel != value)
+                {
+                    _currentViewModel = value;
+                    PropertyIsChanged(nameof(CurrentViewModel));
+                    
+                }
             }
         }
-        
+
+        public bool IsNavigationVisible
+        {
+            get => _isNavigationVisible;
+            private set
+            {
+                if (_isNavigationVisible != value)
+                {
+                    _isNavigationVisible = value;
+                    PropertyIsChanged(nameof(IsNavigationVisible));
+                }
+            }
+        }
+
         private void NavigateTo(string viewType)
         {
             switch(viewType)
