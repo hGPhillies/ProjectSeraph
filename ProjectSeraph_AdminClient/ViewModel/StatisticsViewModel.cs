@@ -12,15 +12,14 @@ using LiveCharts.Wpf;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
-    /// <summary>
-    /// Represents a view model for displaying statistical data in a user interface.
-    /// </summary>
-    /// <remarks>This class is designed to be used in data binding scenarios where statistical data needs to
-    /// be presented and updated dynamically. It inherits from the <see cref="Bindable"/> class, allowing it to
-    /// participate in property change notifications.</remarks>
+   /// <summary>
+   /// Represents a view model for displaying and managing statistics related to measurements.
+   /// </summary>
+   /// <remarks>This view model provides functionality to load measurement data, process it for statistical
+   /// analysis, and update UI elements such as charts and measurement counts. It supports data binding for measurement
+   /// counts per day and chart data, and includes a command for refreshing the data.</remarks>
     public class StatisticsViewModel : Bindable
     {
-        //private readonly HttpClient _http;
         private readonly IMyNavigationService _navigation;
         private readonly MeasurementService _measurementService;
 
@@ -36,6 +35,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
 
         private DateTime? _selectedDate;
+        //Selected date for filtering measurement count
         public DateTime? SelectedDate
         {
             get => _selectedDate;
@@ -48,6 +48,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         }
 
         private int _selectedDateCount;
+        //Count of measurements for the selected date
         public int SelectedDateCount
         {
             get => _selectedDateCount;
@@ -80,8 +81,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             MeasurementCounts.Clear();
             _allMeasurements = Array.Empty<MeasurementData>();
-
-            try 
+            
+            try
             {
                 //TESTDATA - Fjernes når backend er klar
                 await Task.Delay(100); // bare så metoden stadig er async
@@ -145,19 +146,20 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 //END TESTDATA
 
 
-                //Denne udkommenteres når backend er klar og testdata er slettet igen
+                //Denne udkommenteres når backend er klar med målinger og testdata er slettet igen
                 //var result = (await _measurementService.GetAllAsync()).ToArray();
+
                 _allMeasurements = result;
 
                 //Group by date and count measurements per day
                 var grouped = result
-                    .GroupBy(m => m.Timestamp.Date)
-                    .Select(g => new MeasurementCountPerDay
+                    .GroupBy(m => m.Timestamp.Date) //LINQ query to group by date
+                    .Select(g => new MeasurementCountPerDay 
                     {
                         Date = g.Key,
                         Count = g.Count()
                     })
-                    .OrderBy(x => x.Date);
+                    .OrderBy(x => x.Date); //LINQ query to group and count measurements
                 foreach (var item in grouped)
                     MeasurementCounts.Add(item);
 
