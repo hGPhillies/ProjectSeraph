@@ -161,7 +161,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 {
                     LastName = LastName.Trim(),
                     FirstName = FirstName.Trim(),
-                    CitizenID = String.Empty, //ID will be assigned by backend
+                    //CitizenID = String.Empty, //ID will be assigned by backend
                     Home = new Home 
                     {
                         StreetName = StreetName.Trim(),

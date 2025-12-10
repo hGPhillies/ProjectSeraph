@@ -17,7 +17,7 @@ namespace ProjectSeraph_AdminClient.Model
         // Computed full 
         public string fullName => $"{FirstName} {LastName}".Trim();
 
-        public string CitizenID { get; set; } = string.Empty;
+        public string? CitizenID { get; set; } = string.Empty;
 
         // Address object – this is the one you new'er op i ViewModel:
         // Home = new Home { StreetName = ..., HouseNumber = ... }
