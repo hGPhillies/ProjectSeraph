@@ -79,7 +79,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 var latestByCitizen = BuildLatestMeasurementMap();
                 foreach (var citizen in result)
                 {
-                    if (latestByCitizen.TryGetValue(citizen.citizenID, out var latest))
+                    if (latestByCitizen.TryGetValue(citizen.CitizenID, out var latest))
                     {
                         citizen.LatestMeasurement = $"{latest.MeasurementType}: {latest.Value}{latest.Unit} ({latest.Timestamp:g})";
                     }
