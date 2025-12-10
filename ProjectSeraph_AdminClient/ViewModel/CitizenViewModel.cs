@@ -52,10 +52,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public ICommand RefreshCitizensCommand { get; }
         public ICommand RefreshMeasurementsCommand { get; }
 
-        public CitizenViewModel()
+        public CitizenViewModel(IMyNavigationService navigationService)
         {
-            _navigation = App.NavigationService
-                ?? throw new InvalidOperationException("Navigation service is not initialized.");
+            _navigation = navigationService;
             _http = new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:5001")
