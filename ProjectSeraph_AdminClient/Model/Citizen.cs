@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 namespace ProjectSeraph_AdminClient.Model
 {
     public class Citizen
-    {
+    {     
+
         // Basic person data
         public string LastName { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;
+
+        // Computed full 
+        public string fullName => $"{FirstName} {LastName}".Trim();
+
         public string CitizenID { get; set; } = string.Empty;
 
         // Address object – this is the one you new'er op i ViewModel:
@@ -20,6 +25,7 @@ namespace ProjectSeraph_AdminClient.Model
 
         public int Age { get; set; }
 
+        public string LatestMeasurement { get; set; } = string.Empty;
 
 
         // Citizen permissions
