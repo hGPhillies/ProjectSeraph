@@ -42,7 +42,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             var alarm = new Alarm
             {
-                CitizenId = alarmMessage.CitizenId,
+                CitizenID = alarmMessage.CitizenID,
                 CitizenName = alarmMessage.CitizenName,
                 Timestamp = alarmMessage.Timestamp
             };
@@ -73,7 +73,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             {
                 var testAlarm = new Alarm
                 {
-                    CitizenId = "999",
+                    CitizenID = "999",
                     CitizenName = "Test Citizen",
                     Timestamp = DateTime.Now
                 };

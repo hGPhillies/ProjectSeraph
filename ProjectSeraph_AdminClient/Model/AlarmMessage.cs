@@ -8,7 +8,7 @@ namespace ProjectSeraph_AdminClient.Model
 {
     public class AlarmMessage
     {
-        public string CitizenId { get; set; }
+        public string CitizenID { get; set; }
         public string CitizenName { get; set; }
         public DateTime Timestamp { get; set; }
     }

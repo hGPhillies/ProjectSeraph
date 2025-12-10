@@ -15,7 +15,7 @@ namespace ProjectSeraph_AdminClient.Model
         public string FirstName { get; set; } = string.Empty;
 
         // Computed full 
-        public string fullName => $"{FirstName} {LastName}".Trim();
+        public string FullName => $"{FirstName} {LastName}".Trim();
 
         public string CitizenID { get; set; } = string.Empty;
 

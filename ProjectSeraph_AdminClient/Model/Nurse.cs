@@ -11,10 +11,10 @@ namespace ProjectSeraph_AdminClient.Model
     /// </summary>
     public class Nurse
     {
-        public string? nurseID { get; set; }
-        public string fullName { get; set; } = string.Empty;
-        public string userName { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
+        public string? NurseID { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
 
         // Kan udvides med rettigheder evt. 
     }

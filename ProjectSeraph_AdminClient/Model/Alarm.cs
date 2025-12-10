@@ -11,7 +11,7 @@ namespace ProjectSeraph_AdminClient.Model
     public class Alarm : Bindable
     {
         // Websocket transfered properties        
-        public string CitizenId { get; set; }
+        public string CitizenID { get; set; }
         public DateTime Timestamp { get; set; }
         public string CitizenName { get; set; }
 

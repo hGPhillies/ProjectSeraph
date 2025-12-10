@@ -11,7 +11,7 @@ namespace ProjectSeraph_AdminClient.Model
     public class MeasurementData
     {
         [JsonProperty("citizenId")]
-        public string CitizenId { get; set; }
+        public string CitizenID { get; set; }
 
         [JsonProperty("citizenName")]
         public string CitizenName { get; set; }

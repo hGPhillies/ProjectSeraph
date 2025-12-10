@@ -109,9 +109,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private Dictionary<string, MeasurementData> BuildLatestMeasurementMap()
         {
             return Measurements
-                .GroupBy(m => m.CitizenId)
+                .GroupBy(m => m.CitizenID)
                 .Select(g => g.OrderByDescending(m => m.Timestamp).First())
-                .ToDictionary(m => m.CitizenId, m => m);
+                .ToDictionary(m => m.CitizenID, m => m);
         }
 
         // Keep ApplyFilter implementation for future use 
@@ -128,7 +128,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             var lower = SearchText.ToLower();
 
             var filtered = Citizens.Where(c =>
-                (c.fullName != null && c.fullName.ToLower().Contains(lower)) ||
+                (c.FullName != null && c.FullName.ToLower().Contains(lower)) ||
                 c.CitizenID.ToString().ToLower().Contains(lower)
             );
 

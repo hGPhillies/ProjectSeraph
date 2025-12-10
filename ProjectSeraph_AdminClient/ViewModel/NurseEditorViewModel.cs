@@ -80,9 +80,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
             var nurse = new Nurse
             {
-                fullName = FullName,
-                userName = Username,
-                password = Password
+                FullName = FullName,
+                UserName = Username,
+                Password = Password
 
                 //SET NURSE PERMISSIONS HERE WHEN THEY ARE ADDED TO THE MODEL
             };

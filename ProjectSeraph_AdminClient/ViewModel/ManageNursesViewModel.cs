@@ -68,7 +68,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                          ?? Array.Empty<Nurse>();
 
             var sorted = result
-                .OrderBy(n => n.fullName) // LINQ: Sort nurses by full name
+                .OrderBy(n => n.FullName) // LINQ: Sort nurses by full name
                 .ToList();
 
             foreach (var nurse in sorted)
