@@ -34,7 +34,6 @@ namespace ProjectSeraph_AdminClient.Model
     public class Home
     {
         // These match the fields we bind to in the ViewModel:
-        // StreetName, HouseNumber, PostalCode, City, FloorNumber, Door
         public string StreetName { get; set; } = string.Empty;
         public string HouseNumber { get; set; } = string.Empty;
         public string PostalCode { get; set; } = string.Empty;
