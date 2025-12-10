@@ -19,8 +19,6 @@ namespace ProjectSeraph_AdminClient.Model
 
         public string CitizenID { get; set; } = string.Empty;
 
-        // Address object – this is the one you new'er op i ViewModel:
-        // Home = new Home { StreetName = ..., HouseNumber = ... }
         public Home Home { get; set; } = new Home();
 
         public int Age { get; set; }
