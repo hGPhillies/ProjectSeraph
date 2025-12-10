@@ -89,6 +89,7 @@ namespace ProjectSeraphBackend
             app.MapCitizenEndpoints();
             app.MapAlarmWebSocket();
             app.MapMeasurementEndpoints();
+          
 
             app.Run();
 

@@ -67,7 +67,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public NurseEditorViewModel(IMyNavigationService navigationService)
         {
             _nurseService = new NurseService();
-            _navigation = navigationService!; // Uses global navigation service from App class
+            _navigation = navigationService!; 
 
             SaveCommand = new DelegateCommand<object>(async _ => await OnSaveAsync());
             CancelCommand = new DelegateCommand<object>(_ => OnCancel());

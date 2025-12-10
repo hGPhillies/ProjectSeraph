@@ -35,7 +35,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 CurrentViewModel = viewModel;
             };
                 
-            _navigationService.NavigateTo<CitizenViewModel>();
+            _navigationService.NavigateTo<CitizenViewModel>(_navigationService);
         }
 
         private void ExecuteTestAlarm()
@@ -58,7 +58,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             switch(viewType)
             {
                 case "Citizen":
-                    _navigationService.NavigateTo<CitizenViewModel>();
+                    _navigationService.NavigateTo<CitizenViewModel>(_navigationService);
                     break;
 
                 case "Measurements":

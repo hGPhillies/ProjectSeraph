@@ -39,7 +39,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             //POST /citizen - endpoint to create a new citizen
             citizenGroup.MapPost("/", async (Citizen citizen, ICitizenRepository repo) =>
             {
-                citizen.citizenID = string.Empty; // Let repository generate ID
+                //citizen.citizenID = string.Empty; // Let repository generate ID
                 var created = await repo.CreateAsync(citizen);
                 return Results.Created($"/api/citizen/{created.citizenID}", created);
             })
