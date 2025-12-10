@@ -78,7 +78,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 var latestByCitizen = BuildLatestMeasurementMap();
                 foreach (var citizen in result)
                 {
-                    if (latestByCitizen.TryGetValue(citizen.citizenID, out var latest))
+                    if (latestByCitizen.TryGetValue(citizen.CitizenID, out var latest))
                     {
                         citizen.LatestMeasurement = $"{latest.MeasurementType}: {latest.Value}{latest.Unit} ({latest.Timestamp:g})";
                     }
@@ -129,7 +129,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
             var filtered = Citizens.Where(c =>
                 (c.fullName != null && c.fullName.ToLower().Contains(lower)) ||
-                c.citizenID.ToString().ToLower().Contains(lower)
+                c.CitizenID.ToString().ToLower().Contains(lower)
             );
 
             FilteredCitizens.Clear();

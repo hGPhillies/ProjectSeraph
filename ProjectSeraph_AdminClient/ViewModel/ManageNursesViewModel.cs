@@ -67,7 +67,11 @@ namespace ProjectSeraph_AdminClient.ViewModel
             var result = await _http.GetFromJsonAsync<Nurse[]>("/nurse/getAll")
                          ?? Array.Empty<Nurse>();
 
-            foreach (var nurse in result)
+            var sorted = result
+                .OrderBy(n => n.fullName) // LINQ: Sort nurses by full name
+                .ToList();
+
+            foreach (var nurse in sorted)
             {
                 Nurses.Add(nurse);
             }

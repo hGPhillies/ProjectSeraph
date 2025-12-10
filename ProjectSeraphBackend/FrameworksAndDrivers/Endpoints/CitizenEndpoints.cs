@@ -41,7 +41,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             {
                 //citizen.citizenID = string.Empty; // Let repository generate ID
                 var created = await repo.CreateAsync(citizen);
-                return Results.Created($"/api/citizen/{created.citizenID}", created);
+                return Results.Created($"/citizen/{created.citizenID}", created);
             })
                 .WithName("CreateCitizen");
 
