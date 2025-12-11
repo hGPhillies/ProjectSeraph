@@ -4,31 +4,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace ProjectSeraph_AdminClient.Model
 {
     //Subject to change depending on the values we send
     public class MeasurementData
     {
-        [JsonProperty("citizenId")]
+        [JsonPropertyName("citizenId")]
         public string CitizenId { get; set; }
 
-        [JsonProperty("citizenName")]
+        [JsonPropertyName("citizenName")]
         public string CitizenName { get; set; }
 
-        [JsonProperty("measurementType")]
+        [JsonPropertyName("measurementType")]
         public string MeasurementType { get; set; } // "BloodPressure", "HeartRate", etc.
 
-        [JsonProperty("value")]
+        [JsonPropertyName("value")]
         public double Value { get; set; }
 
-        [JsonProperty("unit")]
+        [JsonPropertyName("unit")]
         public string Unit { get; set; } // "mmHg", "bpm", etc.
 
-        [JsonProperty("timestamp")]
+        [JsonPropertyName("time")]
         public DateTime Timestamp { get; set; }
 
-        [JsonProperty("AlarmType")]
+        [JsonPropertyName("AlarmType")]
         public string AlarmType { get; set; }
     }
 }

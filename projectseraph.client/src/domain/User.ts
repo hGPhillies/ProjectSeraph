@@ -1,9 +1,15 @@
 ﻿//REFACTOR
+type Nullable<T> = T | undefined | null;
 class User {
-    isNurse: boolean;
+    username: string | null | undefined;
+    password: string | null | undefined;
+    id: Nullable<string>;
+    nurse: boolean;
+    loggedIn: boolean;
 
-    constructor(isNurse: boolean) {
-        this.isNurse = isNurse;
+    constructor(isNurse: boolean, LoggedIn: boolean) {
+        this.nurse = isNurse;
+        this.loggedIn = LoggedIn;
     }
 }
 
