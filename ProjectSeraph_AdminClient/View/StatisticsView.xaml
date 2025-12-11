@@ -29,10 +29,15 @@
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Labels="{Binding Labels}" Title="Dato"/>
             </lvc:CartesianChart.AxisX>
+            <!-- Y-akse konfiguration. Step="1" = der laves kun streger for 0,1,2 osv.-->
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Antal målinger"
-                MinValue="0"
-                Unit="1" />
+              MinValue="0"
+              MaxValue="10">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1" />
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
