@@ -28,7 +28,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         }
 
         // Retrieves all measurement data for a specific citizen by their ID. (GET /measurement/getAll{citizenID})
-        //Maybe for later use, if we want to filter measurements by citizen
+        //Maybe for later use, to filter measurements by citizen
         public async Task<IEnumerable<MeasurementData>>GetAllByCitizenIdAsync(string citizenID)
         {
             if(string.IsNullOrWhiteSpace(citizenID))           

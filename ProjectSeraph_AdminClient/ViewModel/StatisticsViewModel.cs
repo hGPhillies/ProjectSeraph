@@ -83,71 +83,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _allMeasurements = Array.Empty<MeasurementData>();
             
             try
-            {
-                //TESTDATA - Fjernes når backend er klar
-                await Task.Delay(100); // bare så metoden stadig er async
-                var result = new List<MeasurementData>
-        {
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today.AddDays(-3),
-                MeasurementType = "HeartRate",
-                Value = 72,
-                Unit = "bpm",
-                CitizenId = "1",
-                CitizenName = "Anna"
-            },
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today.AddDays(-3),
-                MeasurementType = "BloodPressure",
-                Value = 120,
-                Unit = "mmHg",
-                CitizenId = "1",
-                CitizenName = "Anna"
-            },
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today.AddDays(-2),
-                MeasurementType = "HeartRate",
-                Value = 80,
-                Unit = "bpm",
-                CitizenId = "2",
-                CitizenName = "Bo"
-            },
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today.AddDays(-1),
-                MeasurementType = "BloodSugar",
-                Value = 6.4,
-                Unit = "mmol/L",
-                CitizenId = "1",
-                CitizenName = "Anna"
-            },
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today,
-                MeasurementType = "BloodPressure",
-                Value = 118,
-                Unit = "mmHg",
-                CitizenId = "2",
-                CitizenName = "Bo"
-            },
-            new MeasurementData
-            {
-                Timestamp = DateTime.Today,
-                MeasurementType = "HeartRate",
-                Value = 77,
-                Unit = "bpm",
-                CitizenId = "2",
-                CitizenName = "Bo"
-            }
-        }.ToArray();
-                //END TESTDATA
-
-
-                //Denne udkommenteres når backend er klar med målinger og testdata er slettet igen
-                //var result = (await _measurementService.GetAllAsync()).ToArray();
+            {  
+                var result = (await _measurementService.GetAllAsync()).ToArray();
 
                 _allMeasurements = result;
 
