@@ -17,10 +17,8 @@ namespace ProjectSeraph_AdminClient.Model
         // Computed full 
         public string fullName => $"{FirstName} {LastName}".Trim();
 
-        public string CitizenID { get; set; } = string.Empty;
+        public string? CitizenID { get; set; } = string.Empty;
 
-        // Address object – this is the one you new'er op i ViewModel:
-        // Home = new Home { StreetName = ..., HouseNumber = ... }
         public Home Home { get; set; } = new Home();
 
         public int Age { get; set; }
@@ -36,7 +34,6 @@ namespace ProjectSeraph_AdminClient.Model
     public class Home
     {
         // These match the fields we bind to in the ViewModel:
-        // StreetName, HouseNumber, PostalCode, City, FloorNumber, Door
         public string StreetName { get; set; } = string.Empty;
         public string HouseNumber { get; set; } = string.Empty;
         public string PostalCode { get; set; } = string.Empty;

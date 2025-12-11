@@ -161,7 +161,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 {
                     LastName = LastName.Trim(),
                     FirstName = FirstName.Trim(),
-                    CitizenID = String.Empty, //ID will be assigned by backend
+                    //CitizenID = String.Empty, //ID will be assigned by backend
                     Home = new Home 
                     {
                         StreetName = StreetName.Trim(),
@@ -177,7 +177,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
                 var created = await _citizenService.CreateAsync(citizen);
 
-                //TODO: Add the save logic here API call to backend instead of just showing JSON
+            
 
                 //Convert to JSON (for API call or saving)
                 string json = JsonConvert.SerializeObject(citizen, Formatting.Indented);
