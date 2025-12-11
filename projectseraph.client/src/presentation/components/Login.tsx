@@ -1,8 +1,8 @@
 ﻿import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import type User from "../../domain/User";
+import { useNavigate } from 'react-router-dom';
 import AuthenticationService from "../../services/AuthenticationService";
-import { userContext, type AuthorizedUser } from "../../application/UserContext.tsx"
+import { userContext, type AuthorizedUser } from "../../application/UserContext.tsx";
+import { AuthenticateUser } from '../../application//UseCases/AuthenticateUser.ts';
 
 function Login() {
     const { setUser } = userContext();
@@ -27,10 +27,13 @@ function Login() {
         setLoading(true);
 
         try {
-            const authenticatedUser: AuthorizedUser = await AuthenticationService.authenticateLogin({
-                username: username,
-                password: password,
-            });
+            const loginUseCase = AuthenticateUser(AuthenticationService);
+            const seraphServerResponse = await loginUseCase(username, password);
+
+            const authenticatedUser: AuthorizedUser = {
+                ...seraphServerResponse,
+                loggedIn: true,
+            };
             setUser(authenticatedUser);
 
             setSuccess(true);

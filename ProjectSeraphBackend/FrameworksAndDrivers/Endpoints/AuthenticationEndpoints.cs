@@ -9,6 +9,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.Endpoints
             var authGroup = app.MapGroup("/auth")
             .WithTags("AuthenticationEndpoints");
 
+            //post, not get, to encrypt credentials
             authGroup.MapPost("/user", async () =>
             {
                 return new
