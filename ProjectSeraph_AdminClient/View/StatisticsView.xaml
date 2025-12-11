@@ -30,7 +30,9 @@
                 <lvc:Axis Labels="{Binding Labels}" Title="Dato"/>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Antal målinger"/>
+                <lvc:Axis Title="Antal målinger"
+                MinValue="0"
+                Unit="1" />
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
