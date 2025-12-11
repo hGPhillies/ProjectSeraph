@@ -11,7 +11,7 @@ namespace ProjectSeraph_AdminClient
     {
         public MainWindow()
         {
-            InitializeComponent();                     
+            InitializeComponent();
 
         }
 
@@ -19,9 +19,9 @@ namespace ProjectSeraph_AdminClient
         {
             if (DataContext is MainViewModel viewModel)
             {
-                viewModel.AlarmService?.Dispose();   
+                viewModel.AlarmService?.Dispose();
             }
             base.OnClosed(e);
-        }        
+        }
     }
 }

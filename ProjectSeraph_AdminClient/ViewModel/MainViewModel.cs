@@ -46,6 +46,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _alarmService.TestAlarm();
         }
 
+        
         public Bindable CurrentViewModel
         {
             get { return _currentViewModel; }
