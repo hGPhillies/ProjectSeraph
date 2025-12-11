@@ -1,5 +1,5 @@
 ﻿using ProjectSeraph_AdminClient.Model;
-
+using ProjectSeraph_AdminClient.Services;
 using System.Windows.Input;
 
 namespace ProjectSeraph_AdminClient.ViewModel
@@ -14,7 +14,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
     public class MainViewModel : Bindable
     {
         private readonly AlarmService _alarmService;
-        private readonly MyNavigationService _navigationService;
+        private readonly MyNavigationService _navigationService;   
+        private readonly AuthenticationService _authService;
+        private readonly WebSocketClientService _webSocketClient;
         private Bindable _currentViewModel;
         private bool _isNavigationVisible;
 
@@ -24,21 +26,33 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         public MainViewModel()
         {
-            var webSocketClient = new WebSocketClientService("wss://localhost:5001/ws/alarms");
-            _alarmService = new AlarmService(webSocketClient);
+            _webSocketClient = new WebSocketClientService("wss://localhost:5001/ws/alarms");
+            _alarmService = new AlarmService(_webSocketClient);
             _navigationService = new MyNavigationService();
+            _authService = new AuthenticationService();
             NavigationCommand = new DelegateCommand<string>(NavigateTo);
             TestAlarmCommand = new DelegateCommand<object>(_ => ExecuteTestAlarm());
-
+            _navigationService.LoginSuccessful += OnLoginSuccessful;
 
             _navigationService.CurrentViewModelChanged += (viewModel) =>
             {
                 CurrentViewModel = viewModel;
             };
                 
-            _navigationService.NavigateTo<LoginViewModel>(_navigationService);
+            var loginViewModel = new LoginViewModel(_navigationService, _authService);
+
+            CurrentViewModel = loginViewModel;
+
+            ((DelegateCommand<object>)loginViewModel.LoginCommand)?.RaiseCanExecuteChanged();
         }
 
+        private void OnLoginSuccessful(string username)
+        {
+            LoggedInUserID = username;
+                
+            IsNavigationVisible = true;
+            _navigationService.NavigateTo<CitizenViewModel>(_navigationService);
+        }
 
 
         private void ExecuteTestAlarm()
@@ -57,6 +71,20 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     _currentViewModel = value;
                     PropertyIsChanged(nameof(CurrentViewModel));
                     
+                }
+            }
+        }
+
+        private string _loggedInUserID;
+        public string LoggedInUserID
+        {
+            get => _loggedInUserID;
+            private set
+            {
+                if (_loggedInUserID != value)
+                {
+                    _loggedInUserID = value;
+                    PropertyIsChanged(nameof(LoggedInUserID));
                 }
             }
         }
@@ -103,8 +131,9 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     break;
 
                 case "Manage Citizen":
-                    _navigationService.NavigateTo<ManageCitizenViewModel>();
-                    break;
+                    _navigationService.NavigateTo<ManageCitizenViewModel>(_navigationService);
+                    break;              
+
 
             }
         }

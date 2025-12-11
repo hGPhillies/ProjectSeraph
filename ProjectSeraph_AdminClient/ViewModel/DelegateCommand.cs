@@ -14,10 +14,11 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// allowing for flexible command execution and validation logic. The command can be executed if the <see
     /// cref="CanExecute"/> method returns <see langword="true"/>.</remarks>
     /// <typeparam name="T">The type of the parameter passed to the command.</typeparam>
-    class DelegateCommand<T> : ICommand
+    public class DelegateCommand<T> : ICommand
     {
         private readonly Action<T> _execute;
         private readonly Func<T, bool> _canExecute;
+        private EventHandler _canExecuteChanged;
 
         public DelegateCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
@@ -31,8 +32,20 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add
+            {
+                _canExecuteChanged += value;
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                _canExecuteChanged -= value;
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+        public void RaiseCanExecuteChanged()
+        {
+            _canExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

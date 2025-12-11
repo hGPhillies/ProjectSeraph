@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:ProjectSeraph_AdminClient.View"
         xmlns:viewmodel="clr-namespace:ProjectSeraph_AdminClient.ViewModel"
+        xmlns:local="clr-namespace:ProjectSeraph_AdminClient"
         WindowState="Maximized"
         Title="MainWindow">
 
@@ -63,7 +64,9 @@
                     </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
-        </Style>       
+        </Style>
+
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
     </Window.Resources>
        
@@ -81,16 +84,30 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Margin="15,80,11,10">
+            <StackPanel Grid.Column="0" Margin="15,80,11,10" Visibility="{Binding IsNavigationVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Image Source="pack://application:,,,/ProjectSeraph_AdminClient;component/Resources/seraph_logo.png"
                        Height="50" Margin="0,0,0,20"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Borger" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Citizen" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Målinger" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Measurements" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Alarmer" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Alarms" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Kontakt" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Contact" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Statistik" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Statistics" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Administrer sygeplejersker" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" CommandParameter="Manage Nurses" Margin="0,5"/>
-                <Button Height="22" Width="120" Background="LightSlateGray" Content="Redigér Borger" Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}"  CommandParameter="Manage Citizen" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Borger" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" 
+                        CommandParameter="Citizen" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Målinger" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" 
+                        CommandParameter="Measurements" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Alarmer" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" 
+                        CommandParameter="Alarms" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Kontakt" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}"
+                        CommandParameter="Contact" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Statistik" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" 
+                        CommandParameter="Statistics" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Administrer sygeplejersker" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}" 
+                        CommandParameter="Manage Nurses" Margin="0,5"/>
+                <Button Height="22" Width="120" Background="LightSlateGray" Content="Redigér Borger" 
+                        Command="{Binding NavigationCommand}" Style="{StaticResource NavigationButtonStyle}"  
+                        CommandParameter="Manage Citizen" Margin="0,5"/>
             </StackPanel>
 
             <Border Grid.Column="1" Margin="10,10,10,10" BorderBrush="Gray" BorderThickness="1">
@@ -100,7 +117,7 @@
 
         <StatusBar Grid.Row="2" Background="LightGray">
             <StatusBarItem>
-                <StackPanel Orientation="Horizontal">                    
+                <StackPanel Orientation="Horizontal">
                     <Ellipse Width="10" Height="10" Margin="5,0,5,0">
                         <Ellipse.Style>
                             <Style TargetType="Ellipse">
@@ -121,11 +138,21 @@
                 <Run Text="{Binding AlarmService.IsConnected, Mode=OneWay, StringFormat=' {0}'}" FontWeight="Bold"/>
                     </TextBlock>
                 </StackPanel>
-            </StatusBarItem>
 
+            </StatusBarItem>
             <Separator/>
             <StatusBarItem>
                 <TextBlock Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" VerticalAlignment="Center"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <StatusBar Grid.Row="2" Background="LightGray">
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock VerticalAlignment="Center" Margin="10,0,0,0">
+                <Run Text="Logged In User: " FontWeight="SemiBold"/>
+                <Run Text="{Binding LoggedInUserID, Mode=OneWay}"/>
+                </TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>
