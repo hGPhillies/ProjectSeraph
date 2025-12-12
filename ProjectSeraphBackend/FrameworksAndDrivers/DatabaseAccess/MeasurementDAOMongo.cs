@@ -35,7 +35,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             });
             BsonClassMap.RegisterClassMap<Bloodsugar>(cm =>
             {
-                cm.MapMember(m => m.millimolePerLiter);
+                cm.MapMember(m => m.MillimolePerLiter);
             });
             BsonClassMap.RegisterClassMap<Pulse>(cm =>
             {
