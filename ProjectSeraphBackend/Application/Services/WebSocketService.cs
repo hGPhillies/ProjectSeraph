@@ -26,7 +26,6 @@ namespace ProjectSeraphBackend.Application.Services
 
             if (!context.WebSockets.IsWebSocketRequest)
             {
-                // ... (400 Bad Request logic remains)
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 return;
             }
@@ -35,17 +34,15 @@ namespace ProjectSeraphBackend.Application.Services
 
             try
             {
-                // 1. Accept the connection (This can throw if the handshake fails)
                 newWebSocket = await context.WebSockets.AcceptWebSocketAsync();
 
-                // 2. Safely replace or close the existing connection (Write Lock)
                 _lock.EnterWriteLock();
                 try
                 {
                     if (_webSocket?.State == WebSocketState.Open)
                     {
                         _logger.LogInformation("⚠️ Closing old connection for new client...");
-                        // Non-blocking close attempt on the old socket
+                        
                         _ = Task.Run(async () =>
                         {
                             try
@@ -65,14 +62,11 @@ namespace ProjectSeraphBackend.Application.Services
                     _lock.ExitWriteLock();
                 }
 
-                // 3. BLOCKING CALL: Await the connection loop. 
                 await KeepConnectionAlive(newWebSocket);
 
-                // Execution only reaches here if KeepConnectionAlive completes (disconnect/close)
             }
             catch (WebSocketException ex)
             {
-                // Catch connection errors that happen during handshake or immediately after acceptance
                 _logger.LogError(ex, "❌ WebSocket error during connection setup or background run.");
             }
             catch (Exception ex)
@@ -81,8 +75,7 @@ namespace ProjectSeraphBackend.Application.Services
             }
             finally
             {
-                // 4. CRITICAL CLEANUP: Safely clear the reference regardless of how the connection terminated.
-                // We only clear it if the socket we were managing is the current socket.
+                
                 _lock.EnterWriteLock();
                 try
                 {
@@ -91,15 +84,13 @@ namespace ProjectSeraphBackend.Application.Services
                         _webSocket = null;
                         _logger.LogInformation("👋 WebSocket disconnected and reference cleared.");
                     }
-                    // If newWebSocket is null here, it means AcceptWebSocketAsync failed, 
-                    // and we didn't store anything, which is safe.
+                    
                 }
                 finally
                 {
                     _lock.ExitWriteLock();
                 }
 
-                // Ensure the WebSocket object itself is disposed if it was successfully created
                 newWebSocket?.Dispose();
             }
         }
