@@ -13,9 +13,6 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private readonly IMyNavigationService _navigation;
         private readonly CitizenService _citizenService;
 
-        //public string Title => "Manage Citizen Model";
-        //public string TestContent => "This is the Manage Citizen Model content.";
-
         #region Properties 
         //Formular fields
         private string _lastName;
