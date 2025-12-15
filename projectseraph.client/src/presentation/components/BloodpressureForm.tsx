@@ -14,7 +14,6 @@ function BloodpressureForm() {
     const [success, setSuccess] = useState<boolean>(false);
     const { user } = userContext();
 
-    // På sigt skal laves en feedback/pop-up med "MÅLING SENDT + Værdierne" i stedet for navigate
     const navigate = useNavigate();
 
     // Validation - check if all inputfields have value
