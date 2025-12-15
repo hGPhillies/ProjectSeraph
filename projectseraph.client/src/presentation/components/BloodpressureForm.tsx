@@ -42,7 +42,7 @@ function BloodpressureForm() {
             systolic: Number(systolic),
             diastolic: Number(diastolic),
             pulse: Number(pulse),
-            timestamp: new Date().toISOString(),
+            time: new Date().toISOString(),
             citizenId: user.id, // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
         };
 
