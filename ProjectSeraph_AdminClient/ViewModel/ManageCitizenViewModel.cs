@@ -173,9 +173,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 };
 
                 var created = await _citizenService.CreateAsync(citizen);
-
-            
-
+          
                 //Convert to JSON (for API call or saving)
                 string json = JsonConvert.SerializeObject(citizen, Formatting.Indented);
                 MessageBox.Show($"Borger er oprettet!\n\nJSON:\n{json}",
