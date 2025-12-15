@@ -13,9 +13,6 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private readonly IMyNavigationService _navigation;
         private readonly CitizenService _citizenService;
 
-        //public string Title => "Manage Citizen Model";
-        //public string TestContent => "This is the Manage Citizen Model content.";
-
         #region Properties 
         //Formular fields
         private string _lastName;
@@ -176,9 +173,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
                 };
 
                 var created = await _citizenService.CreateAsync(citizen);
-
-            
-
+          
                 //Convert to JSON (for API call or saving)
                 string json = JsonConvert.SerializeObject(citizen, Formatting.Indented);
                 MessageBox.Show($"Borger er oprettet!\n\nJSON:\n{json}",

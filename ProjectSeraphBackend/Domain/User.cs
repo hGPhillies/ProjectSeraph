@@ -6,8 +6,8 @@
     /// </summary>
     public class User
     {
-        public String userName { get; set; } = string.Empty;
-        public String password { get; set; } = string.Empty;
+        public string userName { get; set; } = string.Empty;
+        public string password { get; set; } = string.Empty;
 
         //Parameterless constructor for MongoDB
         public User()
@@ -15,7 +15,7 @@
         }
 
         //Constructor with parameters for creating a User object
-        public User(String userName, String password)
+        public User(string userName, string password)
         {
             this.userName = userName;
             this.password = password;

@@ -9,17 +9,17 @@ namespace ProjectSeraphBackend.Domain
     /// </summary>
     public class Citizen : User
     {
-        public String lastName { get; set; } = string.Empty;
-        public String firstName { get; set; } = string.Empty;
+        public string lastName { get; set; } = string.Empty;
+        public string firstName { get; set; } = string.Empty;
 
         // This property is the MongoDB ObjectId. MongoDB generates its value automatically
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)] //Changed from (BsonType.ObjectId) Because citizenID is a string
-        public String citizenID { get; set; } = string.Empty;
+        public string citizenID { get; set; } = string.Empty;
         public Home home { get; set; } = new Home();
         public int age { get; set; }
 
-        //Citizen permissions 
+        //Citizen permissions   
         public bool canMeasureBloodPressure { get; set; }
         public bool canMeasureBloodSugar { get; set; }
 
