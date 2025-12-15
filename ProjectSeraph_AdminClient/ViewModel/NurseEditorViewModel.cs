@@ -26,7 +26,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _fullName = value;
-                propertyIsChanged(nameof(FullName));
+                PropertyIsChanged(nameof(FullName));
             }
         }
 
@@ -37,7 +37,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _username = value;
-                propertyIsChanged(nameof(Username));
+                PropertyIsChanged(nameof(Username));
             }
         }
 
@@ -48,7 +48,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _password = value;
-                propertyIsChanged(nameof(Password));
+                PropertyIsChanged(nameof(Password));
             }
         }
 

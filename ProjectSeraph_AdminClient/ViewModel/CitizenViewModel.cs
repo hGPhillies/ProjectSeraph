@@ -32,7 +32,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _selectedCitizen = value;
-                propertyIsChanged(nameof(SelectedCitizen));
+                PropertyIsChanged(nameof(SelectedCitizen));
             }
         }
 

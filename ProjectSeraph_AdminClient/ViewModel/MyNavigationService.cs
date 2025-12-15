@@ -16,7 +16,13 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// with or without parameters.</remarks>
     class MyNavigationService : IMyNavigationService
     {
+        public event Action<string> LoginSuccessful;
         public event Action<Bindable> CurrentViewModelChanged;
+
+        public void NavigateToMain(string username)
+        {
+            LoginSuccessful?.Invoke(username);
+        }
 
         public void NavigateTo<T>() where T : Bindable
         {

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="⚠️ Critical Measurement Alert"
         Height="250" Width="450"
-    WindowStyle="ToolWindow"
+        WindowStyle="ToolWindow"
         WindowStartupLocation="CenterScreen"
         Topmost="True">
 

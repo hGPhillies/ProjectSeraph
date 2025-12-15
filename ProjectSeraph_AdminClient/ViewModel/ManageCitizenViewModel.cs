@@ -13,64 +13,61 @@ namespace ProjectSeraph_AdminClient.ViewModel
         private readonly IMyNavigationService _navigation;
         private readonly CitizenService _citizenService;
 
-        //public string Title => "Manage Citizen Model";
-        //public string TestContent => "This is the Manage Citizen Model content.";
-
         #region Properties 
         //Formular fields
         private string _lastName;
         public string LastName
         {
             get => _lastName;
-            set { _lastName = value; propertyIsChanged(nameof(LastName)); }
+            set { _lastName = value; PropertyIsChanged(nameof(LastName)); }
         }
 
         private string _firstName;
         public string FirstName
         {
             get => _firstName;
-            set { _firstName = value; propertyIsChanged(nameof(FirstName)); }
+            set { _firstName = value; PropertyIsChanged(nameof(FirstName)); }
         }
 
         private string _streetName;
         public string StreetName
         {
             get => _streetName;
-            set { _streetName = value; propertyIsChanged(nameof(StreetName)); }
+            set { _streetName = value; PropertyIsChanged(nameof(StreetName)); }
         }
         private string _houseNumber;
         public string HouseNumber
         {
             get => _houseNumber;
-            set { _houseNumber = value; propertyIsChanged(nameof(HouseNumber)); }
+            set { _houseNumber = value; PropertyIsChanged(nameof(HouseNumber)); }
         }
 
         private string _postalCode;
         public string PostalCode
         {
             get => _postalCode;
-            set { _postalCode = value; propertyIsChanged(nameof(PostalCode)); }
+            set { _postalCode = value; PropertyIsChanged(nameof(PostalCode)); }
         }
 
         private string _city;
         public string City
         {
             get => _city;
-            set { _city = value; propertyIsChanged(nameof(City)); }
+            set { _city = value; PropertyIsChanged(nameof(City)); }
         }
 
         private string _floorNumber;
         public string FloorNumber
         {
             get => _floorNumber;
-            set { _floorNumber = value; propertyIsChanged(nameof(FloorNumber)); }
+            set { _floorNumber = value; PropertyIsChanged(nameof(FloorNumber)); }
         }
 
         private string _door;
         public string Door
         {
             get => _door;
-            set { _door = value; propertyIsChanged(nameof(Door)); }
+            set { _door = value; PropertyIsChanged(nameof(Door)); }
         }
         #endregion
 
@@ -80,14 +77,14 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public bool CanMeasureBloodPressure
         {
             get => _canMeasureBloodPressure;
-            set { _canMeasureBloodPressure = value; propertyIsChanged(nameof(CanMeasureBloodPressure)); }
+            set { _canMeasureBloodPressure = value; PropertyIsChanged(nameof(CanMeasureBloodPressure)); }
         }
 
         private bool _canMeasureBloodSugar;
         public bool CanMeasureBloodSugar
         {
             get => _canMeasureBloodSugar;
-            set { _canMeasureBloodSugar = value; propertyIsChanged(nameof(CanMeasureBloodSugar)); }
+            set { _canMeasureBloodSugar = value; PropertyIsChanged(nameof(CanMeasureBloodSugar)); }
         }
         #endregion
 
@@ -95,7 +92,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public bool IsCreateCitizenVisible
         {
             get => _isCreateCitizenVisible;
-            set { _isCreateCitizenVisible = value; propertyIsChanged(nameof(IsCreateCitizenVisible)); }
+            set { _isCreateCitizenVisible = value; PropertyIsChanged(nameof(IsCreateCitizenVisible)); }
         }
 
         //COMMANDS
@@ -104,10 +101,10 @@ namespace ProjectSeraph_AdminClient.ViewModel
         public ICommand CancelCommand { get; }
 
         //Constructor with command implementations
-        public ManageCitizenViewModel()
+        public ManageCitizenViewModel(IMyNavigationService NavigationService)
         {
-            //Navigation service from App
-            _navigation = App.NavigationService;
+            //Navigation service
+            _navigation = NavigationService;
             _citizenService = new CitizenService();
 
             //Commands

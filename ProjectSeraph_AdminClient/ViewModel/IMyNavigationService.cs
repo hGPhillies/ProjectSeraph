@@ -14,8 +14,11 @@ namespace ProjectSeraph_AdminClient.ViewModel
     /// passing parameters. It also provides an event to notify when the current view model changes.</remarks>
     public interface IMyNavigationService
     {
+        void NavigateToMain(string username);
         void NavigateTo<T>() where T : Bindable;
         void NavigateTo<T>(object parameter) where T : Bindable;
+        event Action<string> LoginSuccessful;
         event Action<Bindable> CurrentViewModelChanged;
+        
     }
 }

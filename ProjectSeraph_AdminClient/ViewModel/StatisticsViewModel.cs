@@ -42,7 +42,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _selectedDate = value;
-                propertyIsChanged(nameof(SelectedDate));
+                PropertyIsChanged(nameof(SelectedDate));
                 UpdateSelectedDateCount();
             }
         }
@@ -55,7 +55,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             set
             {
                 _selectedDateCount = value;
-                propertyIsChanged(nameof(SelectedDateCount));
+                PropertyIsChanged(nameof(SelectedDateCount));
             }
         }
 
@@ -123,8 +123,8 @@ namespace ProjectSeraph_AdminClient.ViewModel
                     Values = values
                 }
             };
-            propertyIsChanged(nameof(Labels));
-            propertyIsChanged(nameof(SeriesCollection));
+            PropertyIsChanged(nameof(Labels));
+            PropertyIsChanged(nameof(SeriesCollection));
         }
 
         //Updates the count of measurements for the selected date
