@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\projectseraph.client\projectseraph.client.esproj" />
     <ProjectReference Include="..\ProjectSeraphBackend\ProjectSeraphBackend.csproj" />
-    <ProjectReference Include="..\ProjectSeraph_AdminClient\ProjectSeraph_AdminClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>
