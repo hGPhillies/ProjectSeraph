@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using ProjectSeraph_AdminClient.Model;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+[assembly: InternalsVisibleTo("ProjectSeraph_AdminClient_Tests")]
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
@@ -124,7 +126,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             IsCreateCitizenVisible = false;
         }
 
-        private async Task OnSaveCitizenAsync()
+        internal async Task OnSaveCitizenAsync()
         {
             try
             {

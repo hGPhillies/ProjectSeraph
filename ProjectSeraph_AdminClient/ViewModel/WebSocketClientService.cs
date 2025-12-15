@@ -3,10 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ProjectSeraph_AdminClient_Tests")]
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {
@@ -25,7 +29,6 @@ namespace ProjectSeraph_AdminClient.ViewModel
         {
             _webSocketUrl = webSocketUrl;
         }
-
         public async Task ConnectAsync()
         {
             try
