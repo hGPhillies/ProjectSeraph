@@ -1,4 +1,5 @@
 ﻿using ProjectSeraph_AdminClient.Model;
+using ProjectSeraph_AdminClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ProjectSeraph_AdminClient.ViewModel
+namespace ProjectSeraph_AdminClient.Services
 {
     public class WebSocketClientService : IWebSocketClientService, IDisposable
     {

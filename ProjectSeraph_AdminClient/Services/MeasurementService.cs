@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Net.Http.Json;       
+using System.Net.Http.Json;
 
-namespace ProjectSeraph_AdminClient.ViewModel
+namespace ProjectSeraph_AdminClient.Services
 {
     public class MeasurementService
     {
