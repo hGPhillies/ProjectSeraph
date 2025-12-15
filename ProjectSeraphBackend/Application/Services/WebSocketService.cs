@@ -7,6 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ProjectSeraphBackend.Tests")]
+
 namespace ProjectSeraphBackend.Application.Services
 {
     public class WebSocketService : IWebSocketService
@@ -22,7 +24,7 @@ namespace ProjectSeraphBackend.Application.Services
 
         public async Task HandleConnection(HttpContext context)
         {
-            _logger.LogInformation("📡 Alarm connection handler called");
+            _logger.LogInformation("Alarm connection handler called");
 
             if (!context.WebSockets.IsWebSocketRequest)
             {
@@ -41,7 +43,7 @@ namespace ProjectSeraphBackend.Application.Services
                 {
                     if (_webSocket?.State == WebSocketState.Open)
                     {
-                        _logger.LogInformation("⚠️ Closing old connection for new client...");
+                        _logger.LogInformation("Closing old connection for new client...");
                         
                         _ = Task.Run(async () =>
                         {
@@ -55,7 +57,7 @@ namespace ProjectSeraphBackend.Application.Services
                     }
 
                     _webSocket = newWebSocket;
-                    _logger.LogInformation("🎉 New WebSocket connection accepted and stored!");
+                    _logger.LogInformation("New WebSocket connection accepted and stored!");
                 }
                 finally
                 {
@@ -67,11 +69,11 @@ namespace ProjectSeraphBackend.Application.Services
             }
             catch (WebSocketException ex)
             {
-                _logger.LogError(ex, "❌ WebSocket error during connection setup or background run.");
+                _logger.LogError(ex, "WebSocket error during connection setup or background run.");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "❌ Unexpected error during WebSocket handling.");
+                _logger.LogError(ex, "Unexpected error during WebSocket handling.");
             }
             finally
             {
@@ -82,7 +84,7 @@ namespace ProjectSeraphBackend.Application.Services
                     if (_webSocket == newWebSocket)
                     {
                         _webSocket = null;
-                        _logger.LogInformation("👋 WebSocket disconnected and reference cleared.");
+                        _logger.LogInformation("WebSocket disconnected and reference cleared.");
                     }
                     
                 }
@@ -95,7 +97,7 @@ namespace ProjectSeraphBackend.Application.Services
             }
         }
 
-        private async Task KeepConnectionAlive(WebSocket socket)
+        internal async Task KeepConnectionAlive(WebSocket socket)
         {
             var buffer = new byte[1024];
 
@@ -118,7 +120,7 @@ namespace ProjectSeraphBackend.Application.Services
             catch (WebSocketException ex)
             {
                 // Log warnings for normal disconnects or immediate failures
-                _logger.LogWarning(ex, "❌ WebSocket connection terminated due to error.");
+                _logger.LogWarning(ex, "WebSocket connection terminated due to error.");
             }
             // No finally block here, as HandleAlarmSocketConnection handles cleanup.
         }
@@ -129,7 +131,7 @@ namespace ProjectSeraphBackend.Application.Services
             var socketToSend = _webSocket;
             _lock.ExitReadLock();
 
-            _logger.LogInformation("📨 Attempting to send message to client...");
+            _logger.LogInformation("Attempting to send message to client...");
 
             if (socketToSend?.State == WebSocketState.Open)
             {
@@ -144,17 +146,17 @@ namespace ProjectSeraphBackend.Application.Services
                         true,
                         CancellationToken.None);
 
-                    _logger.LogInformation("✅ Message sent to WebSocket client");
+                    _logger.LogInformation("Message sent to WebSocket client");
                     return true;
                 }
                 catch (WebSocketException ex)
                 {
-                    _logger.LogError(ex, "❌ Failed to send WebSocket message");
+                    _logger.LogError(ex, "Failed to send WebSocket message");
                     return false;
                 }
             }
 
-            _logger.LogWarning("⚠️ No active WebSocket connection to send message");
+            _logger.LogWarning("No active WebSocket connection to send message");
             return false;
         }
 

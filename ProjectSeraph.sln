@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36705.20 d17.14
+VisualStudioVersion = 17.14.36705.20
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "projectseraph.client", "projectseraph.client\projectseraph.client.esproj", "{96E45DFB-A70F-EA8B-43AF-40C73F34CC30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSeraph_AdminClient", "ProjectSeraph_AdminClient\ProjectSeraph_AdminClient.csproj", "{210DE387-D029-4587-85E2-B6068D15336C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSeraphBackend", "ProjectSeraphBackend\ProjectSeraphBackend.csproj", "{E90DC2A4-8E6C-4223-AC85-19EF51DCFF89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectSepraphTest", "ProjectSepraphTest\ProjectSepraphTest.csproj", "{95088401-36AF-47CF-A489-F31260D2B1BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{E90DC2A4-8E6C-4223-AC85-19EF51DCFF89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E90DC2A4-8E6C-4223-AC85-19EF51DCFF89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E90DC2A4-8E6C-4223-AC85-19EF51DCFF89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95088401-36AF-47CF-A489-F31260D2B1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95088401-36AF-47CF-A489-F31260D2B1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95088401-36AF-47CF-A489-F31260D2B1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95088401-36AF-47CF-A489-F31260D2B1BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
