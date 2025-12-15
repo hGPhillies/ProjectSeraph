@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BloodpressureService from "../../services/BloodpressureService";
 import type { BloodpressureMeasurement } from "../../domain/BloodpressureMeasurement";
+import { userContext } from "../../application/UserContext";
 
 function BloodpressureForm() {
     const [systolic, setSystolic] = useState<string>("");
@@ -11,6 +12,7 @@ function BloodpressureForm() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<boolean>(false);
+    const { user } = userContext();
 
     // På sigt skal laves en feedback/pop-up med "MÅLING SENDT + Værdierne" i stedet for navigate
     const navigate = useNavigate();
@@ -26,17 +28,22 @@ function BloodpressureForm() {
         event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (!isFormValid) return;
-
         setLoading(true);
         setError(null);
         setSuccess(false);
+        
+        if (!user.loggedIn || !user.id) {
+            setError("Du skal være logget ind for at indsende en måling.");
+            setLoading(false);
+            return;
+        }
 
         const measurement: BloodpressureMeasurement = {
             systolic: Number(systolic),
             diastolic: Number(diastolic),
             pulse: Number(pulse),
             timestamp: new Date().toISOString(),
-            citizenId: "123" // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
+            citizenId: user.id, // REFACTOR hardcoded citizenId - skal hentes fra logged in user/session
         };
 
         try {
