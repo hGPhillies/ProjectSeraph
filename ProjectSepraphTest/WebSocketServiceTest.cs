@@ -12,7 +12,7 @@ namespace ProjectSepraphTest
 {
     public class WebSocketServiceTest
     {
-        // A simple test WebSocket implementation for testing purposes
+        // A test WebSocket implementation for testing purposes
         private class TestWebSocket : WebSocket
         {
             // Allows setting the current state for testing
@@ -32,18 +32,20 @@ namespace ProjectSepraphTest
 
             public override void Abort() { CurrentState = WebSocketState.Closed; }
 
+            // CloseAsync method
             public override Task CloseAsync(WebSocketCloseStatus closeStatus, string? statusDescription, CancellationToken cancellationToken)
             {
                 CurrentState = WebSocketState.Closed;
                 return Task.CompletedTask;
             }
 
+            // CloseOutputAsync method
             public override Task CloseOutputAsync(WebSocketCloseStatus closeStatus, string? statusDescription, CancellationToken cancellationToken)
             {
                 CurrentState = WebSocketState.Closed;
                 return Task.CompletedTask;
             }
-
+            // Dispose method
             public override void Dispose() { CurrentState = WebSocketState.Closed; }
 
             public override Task<WebSocketReceiveResult> ReceiveAsync(ArraySegment<byte> buffer, CancellationToken cancellationToken)
@@ -51,6 +53,7 @@ namespace ProjectSepraphTest
                 throw new NotSupportedException();
             }
 
+            // Simulates sending a message
             public override Task SendAsync(ArraySegment<byte> buffer, WebSocketMessageType messageType, bool endOfMessage, CancellationToken cancellationToken)
             {
                 if (ThrowOnSend)
@@ -60,7 +63,7 @@ namespace ProjectSepraphTest
                 return Task.CompletedTask;
             }
         }
-
+        // Helper method to set the private _webSocket field via reflection
         private static void SetPrivateSocket(WebSocketService service, WebSocket? socket)
         {
             var field = typeof(WebSocketService).GetField("_webSocket", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -69,6 +72,7 @@ namespace ProjectSepraphTest
         }
 
         [Fact]
+        // Test sending a message when there is no WebSocket connection
         public async Task SendToClient_ReturnsFalse_WhenNoConnection()
         {
             var logger = NullLogger<WebSocketService>.Instance;
@@ -82,7 +86,9 @@ namespace ProjectSepraphTest
             Assert.False(result);
         }
 
+        
         [Fact]
+        // Test sending a message when the WebSocket is connected
         public async Task SendToClient_SendsMessage_WhenConnected()
         {
             var logger = NullLogger<WebSocketService>.Instance;
@@ -102,6 +108,7 @@ namespace ProjectSepraphTest
         }
 
         [Fact]
+        // Test sending a message when the WebSocket send operation throws an exception
         public async Task SendToClient_ReturnsFalse_WhenSendThrowsWebSocketException()
         {
             var logger = NullLogger<WebSocketService>.Instance;
