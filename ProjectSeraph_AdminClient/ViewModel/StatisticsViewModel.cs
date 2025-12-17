@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using LiveCharts.Wpf;
+using ProjectSeraph_AdminClient.Services;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {

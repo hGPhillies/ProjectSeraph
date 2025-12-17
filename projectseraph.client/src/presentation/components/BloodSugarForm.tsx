@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import BloodsugarService from "../../services/BloodsugarService";
 import type { BloodsugarMeasurement } from "../../domain/BloodsugarMeasurement";
+import { userContext } from "../../application/UserContext";
 
 // Lige nu kan spinneren ikke gå over 100 eller under 0, men man kan skrive mere ind - det skal på sigt fikses!
 
@@ -10,6 +11,7 @@ function BloodsugarForm() {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<boolean>(false);
+    const { user } = userContext();
 
     // På sigt skal laves en feedback/pop-up med "MÅLING SENDT + Værdierne" i stedet for navigate
     const navigate = useNavigate();
@@ -26,10 +28,16 @@ function BloodsugarForm() {
         setError(null);
         setSuccess(false);
 
+        if (!user.loggedIn || !user.id) {
+            setError("Du skal være logget ind for at indsende en måling.");
+            setLoading(false);
+            return;
+        }
+
         const measurement: BloodsugarMeasurement = {
             bloodSugar: Number(bloodSugar),
-            timestamp: new Date().toISOString(),
-            citizenId: "123", // REFACTOR: skal hentes fra logged-in user/session
+            time: new Date().toISOString(),
+            citizenId: user.id, 
         };
 
         try {

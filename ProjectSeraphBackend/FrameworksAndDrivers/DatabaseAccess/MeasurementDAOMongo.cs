@@ -35,7 +35,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
             });
             BsonClassMap.RegisterClassMap<Bloodsugar>(cm =>
             {
-                cm.MapMember(m => m.millimolePerLiter);
+                cm.MapMember(m => m.MillimolePerLiter);
             });
             BsonClassMap.RegisterClassMap<Pulse>(cm =>
             {
@@ -57,6 +57,7 @@ namespace ProjectSeraphBackend.FrameworksAndDrivers.DatabaseAccess
         {
             return await _measurements.Find(measurement => true).ToListAsync();
         }
+
         public async Task<IEnumerable<Measurement>> ReadAllByCitIDAsync(string citizenId)
         {  
             return await _measurements.Find(m => m.CitizenID == citizenId).ToListAsync(); 

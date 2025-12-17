@@ -5,12 +5,12 @@
     /// </summary>
     public class Bloodsugar : Measurement
     {  
-        public double millimolePerLiter { get; set; }
+        public double MillimolePerLiter { get; set; }
 
         public Bloodsugar() { }
         public Bloodsugar(string? measurementID, string citizenID, DateTime time, double mmPL) : base(measurementID, citizenID, time)
         {
-            this.millimolePerLiter = mmPL;
+            this.MillimolePerLiter = mmPL;
         }
 
         public override bool CompareMeasurements() //Is this needed?

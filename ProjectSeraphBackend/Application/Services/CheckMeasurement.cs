@@ -110,12 +110,12 @@ namespace ProjectSeraphBackend.Application.Services
         private AlarmType ClassifyBloodsugar(Bloodsugar bs) 
         {
             //Red alarm
-            if (bs.millimolePerLiter < BloodsugarRedLow || bs.millimolePerLiter > BloodsugarRedHigh)
+            if (bs.MillimolePerLiter < BloodsugarRedLow || bs.MillimolePerLiter > BloodsugarRedHigh)
             {
                 return AlarmType.Red;
             }
             //Yellow alarm
-            else if (bs.millimolePerLiter < BloodSugarLow || bs.millimolePerLiter > BloodSugarHigh)
+            else if (bs.MillimolePerLiter < BloodSugarLow || bs.MillimolePerLiter > BloodSugarHigh)
             {
                 return AlarmType.Yellow;
             }

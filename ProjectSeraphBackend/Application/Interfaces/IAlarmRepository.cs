@@ -6,9 +6,6 @@
     /// </summary>
     public interface IAlarmRepository
     {
-        public void getCitizen()
-        {
-
-        }
+        
     }
 }

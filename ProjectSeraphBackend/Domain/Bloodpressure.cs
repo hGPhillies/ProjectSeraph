@@ -35,17 +35,5 @@ namespace ProjectSeraphBackend.Domain
         {
             throw new NotSupportedException("Use CheckMeasurement to compare");
         }
-
-
-
-        //List<Bloodpressure> normalValues = new List<Bloodpressure>();
-
-        //DELETE THIS LATER
-        public override string ToString()
-        {
-            return "" + this.MeasurementID.ToString() + this.CitizenID.ToString() + this.Time.ToString() + this.Diastolic + this.Systolic;
-        }
     }
-
-
 }

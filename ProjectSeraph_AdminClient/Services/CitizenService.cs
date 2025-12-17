@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using ProjectSeraph_AdminClient.Model;
 
-namespace ProjectSeraph_AdminClient.ViewModel
+namespace ProjectSeraph_AdminClient.Services
 {
     public class CitizenService
     {

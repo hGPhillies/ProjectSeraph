@@ -17,7 +17,7 @@ namespace ProjectSeraphBackend
             //Register services first
             var connectionString = builder.Configuration.GetConnectionString("MongoDb")
                                     ?? "mongodb://localhost:27017";
-            var databaseName = "mongodb";
+            var databaseName = "mongo";
 
             // Register MongoClient
             builder.Services.AddSingleton<IMongoClient>(sp =>
@@ -27,9 +27,7 @@ namespace ProjectSeraphBackend
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
-
             
-
             // Register IMongoDatabase
             builder.Services.AddScoped<IMongoDatabase>(sp =>
             {
@@ -37,13 +35,13 @@ namespace ProjectSeraphBackend
                 return client.GetDatabase(databaseName);
             });
 
+            //Websocket
             builder.Services.AddSingleton<IWebSocketService, WebSocketService>();
-            //Maybe we can do the database mapping here?
+
+            //Repositories
             MeasurementDAOMongo.MapMeasurementMembers();
             builder.Services.AddScoped<IMeasurementRepository, MeasurementRepository>();
-            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();
-            
-            //Repositories
+            builder.Services.AddScoped<IMeasurementDAO, MeasurementDAOMongo>();            
             builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
             builder.Services.AddScoped<INurseRepository, NurseRepository>();
 

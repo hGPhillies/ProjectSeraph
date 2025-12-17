@@ -5,8 +5,6 @@
     /// </summary>
     public class AlarmEndpoints
     {
-        public void MapAlarmEndpoints()
-        {
-        }
+        
     }
 }

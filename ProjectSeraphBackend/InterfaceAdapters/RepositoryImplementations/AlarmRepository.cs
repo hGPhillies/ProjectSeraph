@@ -5,9 +5,6 @@
     /// </summary>
     public class AlarmRepository
     {
-        public void getCitizen()
-        {
-
-        }
+        
     }
 }

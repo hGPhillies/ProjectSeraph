@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
+using ProjectSeraph_AdminClient.Services;
 
 namespace ProjectSeraph_AdminClient.ViewModel
 {

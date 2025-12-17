@@ -1,5 +1,6 @@
 ﻿using ProjectSeraph_AdminClient.Model;
 using ProjectSeraph_AdminClient.View;
+using ProjectSeraph_AdminClient.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ProjectSeraph_AdminClient.ViewModel
+namespace ProjectSeraph_AdminClient.Services
 {
     public class AlarmService : IDisposable
     {

@@ -133,25 +133,17 @@
                             </Style>
                         </Ellipse.Style>
                     </Ellipse>
-                    <TextBlock VerticalAlignment="Center">
-                <Run Text="Alerts:"/>
-                <Run Text="{Binding AlarmService.IsConnected, Mode=OneWay, StringFormat=' {0}'}" FontWeight="Bold"/>
-                    </TextBlock>
+                    <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">
+                        <Run Text="Alerts"/>
+                        <Run Text="{Binding AlarmService.IsConnected, Mode=OneWay, StringFormat=' {0}'}" FontWeight="Bold"/>
+                    </TextBlock>                    
                 </StackPanel>
-
             </StatusBarItem>
             <Separator/>
             <StatusBarItem>
-                <TextBlock Text="{Binding CurrentTime, StringFormat='HH:mm:ss'}" VerticalAlignment="Center"/>
-            </StatusBarItem>
-        </StatusBar>
-
-        <StatusBar Grid.Row="2" Background="LightGray">
-            <Separator/>
-            <StatusBarItem>
-                <TextBlock VerticalAlignment="Center" Margin="10,0,0,0">
-                <Run Text="Logged In User: " FontWeight="SemiBold"/>
-                <Run Text="{Binding LoggedInUserID, Mode=OneWay}"/>
+                <TextBlock VerticalAlignment="Center" Margin="5,0,0,0">
+                    <Run Text="Bruger logget ind: " FontWeight="SemiBold"/>
+                    <Run Text="{Binding LoggedInUserID, Mode=OneWay}"/>
                 </TextBlock>
             </StatusBarItem>
         </StatusBar>
