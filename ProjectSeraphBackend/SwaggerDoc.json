@@ -1,0 +1,535 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ProjectSeraphBackend | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:5001/"
+    }
+  ],
+  "paths": {
+    "/ws/alarms": {
+      "get": {
+        "tags": [
+          "ProjectSeraphBackend"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/test/alarm": {
+      "post": {
+        "tags": [
+          "ProjectSeraphBackend"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/ws/status": {
+      "get": {
+        "tags": [
+          "ProjectSeraphBackend"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/nurse/getAll": {
+      "get": {
+        "tags": [
+          "NurseEndpoints"
+        ],
+        "operationId": "GetAllNurses",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/nurse/{nurseID}": {
+      "get": {
+        "tags": [
+          "NurseEndpoints"
+        ],
+        "operationId": "GetNurseById",
+        "parameters": [
+          {
+            "name": "nurseID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "NurseEndpoints"
+        ],
+        "operationId": "UpdateNurse",
+        "parameters": [
+          {
+            "name": "nurseID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Nurse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "NurseEndpoints"
+        ],
+        "operationId": "DeleteNurse",
+        "parameters": [
+          {
+            "name": "nurseID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/nurse": {
+      "post": {
+        "tags": [
+          "NurseEndpoints"
+        ],
+        "operationId": "CreateNurse",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Nurse"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/citizen/getAll": {
+      "get": {
+        "tags": [
+          "CitizenEndpoints"
+        ],
+        "operationId": "GetAllCitizens",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/citizen/{citizenID}": {
+      "get": {
+        "tags": [
+          "CitizenEndpoints"
+        ],
+        "operationId": "GetCitizenById",
+        "parameters": [
+          {
+            "name": "citizenID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CitizenEndpoints"
+        ],
+        "operationId": "UpdateCitizen",
+        "parameters": [
+          {
+            "name": "citizenID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Citizen"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CitizenEndpoints"
+        ],
+        "operationId": "DeleteCitizen",
+        "parameters": [
+          {
+            "name": "citizenID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/citizen": {
+      "post": {
+        "tags": [
+          "CitizenEndpoints"
+        ],
+        "operationId": "CreateCitizen",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Citizen"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/measurement/send/bloodpressure": {
+      "post": {
+        "tags": [
+          "MeasurementEndpoints"
+        ],
+        "operationId": "SendBloodpressure",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Bloodpressure"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/measurement/send/bloodsugar": {
+      "post": {
+        "tags": [
+          "MeasurementEndpoints"
+        ],
+        "operationId": "SendBloodsugar",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Bloodsugar"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/measurement/getall": {
+      "get": {
+        "tags": [
+          "MeasurementEndpoints"
+        ],
+        "operationId": "ReadAllMeasurements",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/measurement/getall/{citizenID}": {
+      "get": {
+        "tags": [
+          "MeasurementEndpoints"
+        ],
+        "operationId": "ReadAllMeasurementsForCitizen",
+        "parameters": [
+          {
+            "name": "citizenID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/user": {
+      "post": {
+        "tags": [
+          "AuthenticationEndpoints"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnonymousTypeOfstringAndboolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnonymousTypeOfstringAndboolean": {
+        "required": [
+          "id",
+          "isNurse"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "isNurse": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Bloodpressure": {
+        "type": "object",
+        "properties": {
+          "systolic": {
+            "type": "number",
+            "format": "double"
+          },
+          "diastolic": {
+            "type": "number",
+            "format": "double"
+          },
+          "pulse": {
+            "type": "number",
+            "format": "double"
+          },
+          "measurementID": {
+            "type": "string",
+            "nullable": true
+          },
+          "citizenID": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Bloodsugar": {
+        "type": "object",
+        "properties": {
+          "millimolePerLiter": {
+            "type": "number",
+            "format": "double"
+          },
+          "measurementID": {
+            "type": "string",
+            "nullable": true
+          },
+          "citizenID": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Citizen": {
+        "type": "object",
+        "properties": {
+          "lastName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "citizenID": {
+            "type": "string"
+          },
+          "home": {
+            "$ref": "#/components/schemas/Home"
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "canMeasureBloodPressure": {
+            "type": "boolean"
+          },
+          "canMeasureBloodSugar": {
+            "type": "boolean"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Home": {
+        "type": "object",
+        "properties": {
+          "streetName": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "postalCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "floorNumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "door": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Nurse": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "nurseID": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ProjectSeraphBackend"
+    },
+    {
+      "name": "NurseEndpoints"
+    },
+    {
+      "name": "CitizenEndpoints"
+    },
+    {
+      "name": "MeasurementEndpoints"
+    },
+    {
+      "name": "AuthenticationEndpoints"
+    }
+  ]
+}
