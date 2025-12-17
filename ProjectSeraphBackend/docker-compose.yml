@@ -1,4 +1,4 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   # MongoDB Database Service
@@ -17,12 +17,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080" # Exposes the API on the host machine
+      - "5001:5001" # Exposes the API on the host machine
     environment:
       # This connection string points to the 'mongo' service name
       - ConnectionStrings__MongoDb=mongodb://mongo:27017
       # Sets the URL for the .NET app to listen on inside the container
-      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_URLS=http://+:5001
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - mongo # Ensures Mongo starts before the API

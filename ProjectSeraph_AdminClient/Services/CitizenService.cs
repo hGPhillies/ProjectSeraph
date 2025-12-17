@@ -18,7 +18,7 @@ namespace ProjectSeraph_AdminClient.Services
         {
             _http = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:5001")
+                BaseAddress = new Uri("http://localhost:5001")
             };
         }
 
