@@ -49,7 +49,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _http = new HttpClient
             {
                 //Should match backend
-                BaseAddress = new Uri("https://localhost:5001")
+                BaseAddress = new Uri("http://localhost:8080")
             };
 
             // Commands

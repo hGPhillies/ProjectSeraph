@@ -58,7 +58,7 @@ namespace ProjectSeraph_AdminClient.ViewModel
             _navigation = navigationService;
             _http = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:5001")
+                BaseAddress = new Uri("https://localhost:8080")
             };
 
             RefreshCitizensCommand = new DelegateCommand<object>(async _ => await LoadCitizensAsync());

@@ -76,27 +76,35 @@ namespace ProjectSeraph_AdminClient.ViewModel
 
         private async Task OnSaveAsync()
         {
-            //KAN SLETTES NÅR ALT FUNGERER
-            System.Windows.MessageBox.Show("SaveCommand blev kørt");
-
-            var nurse = new Nurse
+            try
             {
-                fullName = FullName,
-                userName = Username,
-                password = Password
+                //KAN SLETTES NÅR ALT FUNGERER
+                System.Windows.MessageBox.Show("SaveCommand blev kørt");
 
-                //SET NURSE PERMISSIONS HERE WHEN THEY ARE ADDED TO THE MODEL
-            };
-            var created = await _nurseService.CreateAsync(nurse);
-           
-            if(created == null)
-            {
-                //Handle error (not implemented)
-                return;
+                var nurse = new Nurse
+                {
+                    fullName = FullName,
+                    userName = Username,
+                    password = Password
+
+                    //SET NURSE PERMISSIONS HERE WHEN THEY ARE ADDED TO THE MODEL
+                };
+                var created = await _nurseService.CreateAsync(nurse);
+                Console.WriteLine("Nurse created: " + nurse);
+
+                if (created == null)
+                {
+                    //Handle error (not implemented)
+                    throw new Exception("Failed to create nurse.");
+                }
+
+                //Navigate back to the ManageNursesViewModel after saving
+                _navigation.NavigateTo<ManageNursesViewModel>(_navigation);
             }
-
-            //Navigate back to the ManageNursesViewModel after saving
-            _navigation.NavigateTo<ManageNursesViewModel>(_navigation);
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Crash prevented: {ex.Message}");
+            }
         }
 
         private void OnCancel() 
