@@ -7,12 +7,13 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ProjectSeraphBackend.Tests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("ProjectSeraphTest")]
 
 namespace ProjectSeraphBackend.Application.Services
 {
     public class WebSocketService : IWebSocketService
     {
+
         private WebSocket? _webSocket;
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
         private readonly ILogger<WebSocketService> _logger;
