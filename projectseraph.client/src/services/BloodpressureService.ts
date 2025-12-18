@@ -3,7 +3,7 @@ import type { BloodpressureMeasurement } from "../domain/BloodpressureMeasuremen
 
 // REFACTORq
 //Ret URL, så vi er sikre på at den matcher backend-endpoint
-const BASE_URL = "https://localhost:5001/measurement/send/bloodpressure";
+const BASE_URL = "http://localhost:8080/measurement/send/bloodpressure";
 
 class BloodpressureService {
     static async sendMeasurement(measurement: BloodpressureMeasurement): Promise<void> {
