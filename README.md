@@ -68,5 +68,5 @@ Brug admin-flowet i applikationen (inkl. knappen til admin-funktionalitet)
 
 Admin-klienten er en WPF desktop-applikation bygget med MVVM og kommunikerer direkte med backend.
 
-### API / Dokumentation
+## API / Dokumentation
 Backend stiller Swagger-dokumentation til rådighed for alle API-endpoints, når backend kører
