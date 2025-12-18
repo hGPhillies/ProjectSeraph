@@ -32,14 +32,19 @@ Gå til backend-/docker-mappen: ProjectSeraphBackend
 Kør derefter:
 
 docker compose up --build
+
 Backend og MongoDB starter nu op og kan kommunikere via Docker Compose-netværket.
 
 
 ### 2) Start webklienten (React)
 Gå til webklient-mappen: projectseraph.client
+
 Kør følgende kommandoer:
+
 npm install
+
 npm run dev
+
 Åbn derefter den URL, som Vite/React dev-serveren viser i terminalen.
 
 Du kan nu:
@@ -50,6 +55,7 @@ sende målingen til sygeplejersken via systemet
 
 ### 3) Start admin-klienten (WPF)
 Åbn admin-projektet i Visual Studio: ProjectSeraph_AdminClient
+
 Kør projektet (Start / F5)
 
 Log ind med følgende testbruger:
