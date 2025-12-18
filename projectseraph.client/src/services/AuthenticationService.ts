@@ -2,7 +2,7 @@
 import type { LoginCredentials } from '../application/DTOs/LoginCredentialsDTO';
 import type { AuthorizedUser } from '../application/UserContext.tsx';
 // if more endpointcalls added, needs to be changed, moving last part to specific call
-const BASE_URL = "https://localhost:5001/auth/user";
+const BASE_URL = "http://localhost:8080/auth/user";
 
 class AuthenticationService {
     static async authenticateUser(userCredentials: LoginCredentials): Promise<AuthorizedUser> {

@@ -6,7 +6,7 @@ interface MeasurementButtonProps {
     link: string;
 }
 
-function MeasurementButton({ text, link }) {
+function MeasurementButton({ text, link } : MeasurementButtonProps) {
     return (
         <div>
             <Link to={link }>

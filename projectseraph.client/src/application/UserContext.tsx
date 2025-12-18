@@ -1,5 +1,6 @@
-﻿import { createContext, useContext, useState, ReactNode } from 'react';
+﻿import { createContext, useContext, useState, type ReactNode } from 'react';
 import type User from '../domain/User.ts';
+import ScopeError from '../domain/Errors/ScopeError.ts';
 
 //An authorized user is a domain user without the password, to prevent the password being 'visible' in the app.
 //skal paa sigt ogsaa have omitted username - ikke relevant naar vi har userid
