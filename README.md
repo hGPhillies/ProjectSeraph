@@ -34,7 +34,8 @@ Kør derefter:
 docker compose up --build
 Backend og MongoDB starter nu op og kan kommunikere via Docker Compose-netværket.
 
-2) Start webklienten (React)
+
+### 2) Start webklienten (React)
 Gå til webklient-mappen: projectseraph.client
 Kør følgende kommandoer:
 npm install
@@ -47,7 +48,7 @@ registrere en måling
 
 sende målingen til sygeplejersken via systemet
 
-3) Start admin-klienten (WPF)
+### 3) Start admin-klienten (WPF)
 Åbn admin-projektet i Visual Studio: ProjectSeraph_AdminClient
 Kør projektet (Start / F5)
 
@@ -61,5 +62,5 @@ Brug admin-flowet i applikationen (inkl. knappen til admin-funktionalitet)
 
 Admin-klienten er en WPF desktop-applikation bygget med MVVM og kommunikerer direkte med backend.
 
-API / Dokumentation
+### API / Dokumentation
 Backend stiller Swagger-dokumentation til rådighed for alle API-endpoints, når backend kører
